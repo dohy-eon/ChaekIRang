@@ -112,7 +112,7 @@
                   <div class="ellipse-2"></div>
                 </div>
               </div>
-              <img class="img-2" src="img/FIGMALOGO.svg" />
+              <a href="https://www.figma.com/design/bC8VYGTCKIHv2kokT9hLey/Backend?node-id=0-1&t=xjMW7POYoRXMje70-1"><img class="img-2" src="img/FIGMALOGO.svg" /></a>
             </div>
             
             <div class="div-2">
