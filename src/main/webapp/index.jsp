@@ -122,7 +122,7 @@
                   <div class="ellipse-2"></div>
                 </div>
               </div>
-              <img class="GITHUBLOGO" src="img/GITHUBLOGO.svg" />
+              <a href="https://github.com/titeotty/ChaekIRang.git"><img class="GITHUBLOGO" src="img/GITHUBLOGO.svg"/></a>
             </div>
           </div>
         </footer>
