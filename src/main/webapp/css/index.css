@@ -1,0 +1,670 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'HS봄바람체 2.1-Regular';
+  src: url('../fonts/HSBombaram2.1.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('../fonts/GmarketSansTTFMedium.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'GmarketSansBold';
+  src: url('../fonts/GmarketSansTTFBold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'GmarketSansLight';
+  src: url('../fonts/GmarketSansTTFLight.ttf') format('truetype');
+  font-weight: light;
+}
+
+.div-wrapper {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.div-wrapper .div {
+  background-color: #ffffff;
+  width: 1440px;
+  height: 2600px;
+  position: relative;
+}
+
+.div-wrapper .view {
+  position: absolute;
+  width: 40px;
+  height: 118px;
+  top: 53px;
+  left: 1351px;
+}
+
+.div-wrapper .overlap-group {
+  position: relative;
+  width: 34px;
+  height: 118px;
+}
+
+.div-wrapper .text-wrapper {
+  top: 76px;
+  left: 1px;
+  font-family: "HS봄바람체 2.1-Regular", Arial, sans-serif;
+  font-weight: 400;
+  color: var(--gray-800);
+  font-size: 32px;
+  position: absolute;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.div-wrapper .text-wrapper-2 {
+  top: 37px;
+  left: 2px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--gray-800);
+  font-size: 32px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-3 {
+  top: 0;
+  left: 0;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--gray-800);
+  font-size: 32px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-4 {
+  top: 88px;
+  left: 476px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--gray-800);
+  font-size: 32px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-5 {
+  top: 88px;
+  left: 667px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--gray-800);
+  font-size: 32px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-6 {
+  top: 88px;
+  left: 852px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: var(--gray-800);
+  font-size: 32px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .line {
+  width: 1119px;
+  top: 54px;
+  left: 137px;
+  position: absolute;
+  height: 1px;
+  object-fit: cover;
+}
+
+.div-wrapper .img {
+  width: 1176px;
+  top: 152px;
+  left: 80px;
+  position: absolute;
+  height: 1px;
+  object-fit: cover;
+}
+
+.div-wrapper .footer {
+  position: absolute;
+  width: 1302px;
+  height: 97px;
+  top: 2451px;
+  left: 70px;
+  background-color: transparent;
+}
+
+.div-wrapper .dash-line {
+  position: absolute;
+  width: 1300px;
+  height: 2px;
+  top: -2px;
+  left: 0;
+}
+
+.div-wrapper .text-wrapper-7 {
+  top: 57px;
+  left: 0;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: var(--gray-600);
+  font-size: 20px;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .social-medias {
+  position: absolute;
+  width: 128px;
+  height: 56px;
+  top: 41px;
+  left: 586px;
+}
+
+.div-wrapper .overlap {
+  position: absolute;
+  width: 53px;
+  height: 56px;
+  top: 0;
+  left: 75px;
+}
+
+.div-wrapper .img-2 {
+  position: absolute;
+  width: 18px;
+  height: 27px;
+  top: 11px;
+  left: 15px;
+}
+
+.div-wrapper .div-2 {
+  position: absolute;
+  width: 53px;
+  height: 56px;
+  top: 0;
+  left: 0;
+}
+
+.div-wrapper .overlap-group-2 {
+  position: relative;
+  height: 56px;
+}
+
+.div-wrapper .ellipse {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 6px;
+  left: 3px;
+  background-color: var(--blue-500);
+  border-radius: 25px;
+}
+
+.div-wrapper .ellipse-2 {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 0;
+  left: 0;
+  background-color: var(--white);
+  border-radius: 25px;
+  border: 2px solid;
+  border-color: var(--gray-600);
+}
+
+.div-wrapper .github-logo {
+  position: absolute;
+  width: 24px;
+  height: 26px;
+  top: 11px;
+  left: 13px;
+}
+
+.div-wrapper .GITHUBLOGO {
+  position: absolute;
+  width: 24px;
+  height: 26px;
+  top: 12px;
+  left: 13px;
+}
+
+.div-wrapper .text-wrapper-8 {
+  top: 869px;
+  left: 193px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 44px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-9 {
+  top: 930px;
+  left: 244px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 28px;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .overlap-2 {
+  position: absolute;
+  width: 527px;
+  height: 677px;
+  top: 826px;
+  left: 761px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.div-wrapper .text-wrapper-10 {
+  position: absolute;
+  top: 100px;
+  left: 182px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.div-wrapper .p {
+  position: absolute;
+  top: 150px;
+  left: 182px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.div-wrapper .text-wrapper-11 {
+  top: 323px;
+  left: 27px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 24px;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-12 {
+  width: 471px;
+  top: 393px;
+  left: 27px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 16px;
+  line-height: 24px;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .image {
+  position: absolute;
+  width: 114px;
+  height: 169px;
+  top: 51px;
+  left: 25px;
+  object-fit: cover;
+}
+
+.div-wrapper .line-2 {
+  width: 498px;
+  top: 271px;
+  left: 12px;
+  position: absolute;
+  height: 1px;
+  object-fit: cover;
+}
+
+.div-wrapper .overlap-3 {
+  position: absolute;
+  width: 595px;
+  height: 148px;
+  top: 1030px;
+  left: 119px;
+}
+
+.div-wrapper .view-2 {
+  position: absolute;
+  width: 595px;
+  height: 148px;
+  top: 0;
+  left: 0;
+}
+
+.div-wrapper .text-wrapper-13 {
+  width: 509px;
+  top: 60px;
+  left: 78px;
+  font-family: "GmarketSansLight", Helvetica;
+  font-weight: 300;
+  color: #000000;
+  font-size: 16px;
+  line-height: 28px;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .ellipse-3 {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  background-color: #d9d9d9;
+  border-radius: 30px;
+}
+
+.div-wrapper .text-wrapper-14 {
+  position: absolute;
+  top: 16px;
+  left: 78px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.div-wrapper .text-wrapper-15 {
+  top: 23px;
+  left: 151px;
+  font-family: "GmarketSansLight", Helvetica;
+  font-weight: 300;
+  color: #000000;
+  font-size: 12px;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.div-wrapper .text-wrapper-16 {
+  top: 120px;
+  position: absolute;
+  left: 550px;
+  font-family: "GmarketSansLight", Helvetica;
+  font-weight: 300;
+  color: #000000;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.div-wrapper .image-2 {
+  position: absolute;
+  width: 16px;
+  height: 14px;
+  top: 128px;
+  left: 523px;
+}
+
+.div-wrapper .overlap-4 {
+  position: absolute;
+  width: 595px;
+  height: 176px;
+  top: 1283px;
+  left: 119px;
+}
+
+.div-wrapper .view-3 {
+  position: absolute;
+  width: 595px;
+  height: 176px;
+  top: 0;
+  left: 0;
+}
+
+.div-wrapper .text-wrapper-17 {
+  top: 148px;
+  position: absolute;
+  left: 550px;
+  font-family: "GmarketSansLight", Helvetica;
+  font-weight: 300;
+  color: #000000;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.div-wrapper .image-3 {
+  position: absolute;
+  width: 16px;
+  height: 14px;
+  top: 156px;
+  left: 523px;
+}
+
+.div-wrapper .line-3 {
+  width: 586px;
+  top: 1203px;
+  left: 120px;
+  position: absolute;
+  height: 1px;
+  object-fit: cover;
+}
+
+.div-wrapper .text-wrapper-18 {
+  top: 1221px;
+  left: 120px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 20px;
+  line-height: 28px;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .text-wrapper-19 {
+  top: 1729px;
+  left: 235px;
+  position: absolute;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: var(--gray-800);
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.div-wrapper .text-wrapper-20 {
+  top: 2016px;
+  left: 268px;
+  position: absolute;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: var(--gray-800);
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.div-wrapper .btn-upload {
+  top: 1819px;
+  left: 170px;
+  position: absolute;
+  width: 502px;
+  height: 90px;
+}
+
+.div-wrapper .next-wrapper {
+  position: relative;
+  height: 92px;
+  top: -1px;
+  left: -1px;
+  border-radius: 15px;
+  border: 1px solid;
+  border-color: #000000;
+}
+
+.div-wrapper .next {
+  position: absolute;
+  top: 27px;
+  left: 186px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: var(--gray-800);
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.div-wrapper .overlap-wrapper {
+  top: 2094px;
+  left: 168px;
+  position: absolute;
+  width: 502px;
+  height: 90px;
+}
+
+.div-wrapper .view-4 {
+  position: absolute;
+  width: 346px;
+  height: 144px;
+  top: 341px;
+  left: 527px;
+}
+
+.div-wrapper .overlap-5 {
+  position: absolute;
+  width: 126px;
+  height: 53px;
+  top: 44px;
+  left: 109px;
+}
+
+.div-wrapper .rectangle {
+  position: absolute;
+  width: 126px;
+  height: 52px;
+  top: 0;
+  left: 0;
+  background-color: #1a1a1a;
+}
+
+.div-wrapper .text-wrapper-21 {
+  top: 1px;
+  left: 4px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 40px;
+  line-height: normal;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .book-open {
+  position: absolute;
+  width: 28px;
+  height: 24px;
+  top: -1px;
+  left: 158px;
+}
+
+.div-wrapper .text-wrapper-22 {
+  top: 107px;
+  left: 0;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 32px;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
+
+.div-wrapper .book-open-2 {
+  position: absolute;
+  width: 28px;
+  height: 24px;
+  top: 43px;
+  left: 79px;
+}
+
+.div-wrapper .image-4 {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  top: 92px;
+  left: 1205px;
+}
+
+.div-wrapper .image-5 {
+  position: absolute;
+  width: 24px;
+  height: 27px;
+  top: 93px;
+  left: 1154px;
+}
+
+.div-wrapper .text-wrapper-23 {
+  position: absolute;
+  top: 1923px;
+  left: 873px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 44px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.div-wrapper .text-wrapper-24 {
+  top: 1980px;
+  left: 823px;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 28px;
+  line-height: normal;
+  white-space: nowrap;
+  position: absolute;
+  letter-spacing: 0;
+}
