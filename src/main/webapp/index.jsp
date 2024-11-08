@@ -7,49 +7,29 @@
     <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
-  
     <div class="div-wrapper">
       <div class="div">
+      
+      <header>
         <div class="view">
           <div class="overlap-group">
-            <div class="text-wrapper">랑</div>
+            <div class="text-wrapper-1">책</div>
             <div class="text-wrapper-2">이</div>
-            <div class="text-wrapper-3">책</div>
+            <div class="text-wrapper-3">랑</div>
           </div>
         </div>
+        
+        <img class="line" src="img/line-1.svg" />
         <div class="text-wrapper-4">메인</div>
         <div class="text-wrapper-5">토론</div>
         <div class="text-wrapper-6">검색</div>
-        <img class="line" src="img/line-1.svg" />
         <img class="img" src="img/line-1.svg" />
+        </header>
         
-        <footer class="footer">
-          <img class="dash-line" src="img/dash-line.svg" />
-          <div class="text-wrapper-7">백엔드 실습 5조</div>
-          <div class="social-medias">
-            <div class="overlap">
-              <div class="div-2">
-                <div class="overlap-group-2">
-                  <div class="ellipse"></div>
-                  <div class="ellipse-2"></div>
-                </div>
-              </div>
-              <img class="img-2" src="img/FIGMALOGO.svg" />
-            </div>
-            <div class="div-2">
-              <div class="div-2">
-                <div class="overlap-group-2">
-                  <div class="ellipse"></div>
-                  <div class="ellipse-2"></div>
-                </div>
-              </div>
-              <img class="GITHUBLOGO" src="img/GITHUBLOGO.svg" />
-            </div>
-          </div>
-        </footer>
         
         <div class="text-wrapper-8">의미있는 대화속으로 -</div>
         <div class="text-wrapper-9">책이랑에서 토론과 친해지기</div>
+        
         <div class="overlap-2">
           <div class="text-wrapper-10">네메시스(Nemesis)</div>
           <p class="p">저자 : 필립 로스(Philip Roth)</p>
@@ -64,6 +44,7 @@
           <img class="image" src="img/image-1.svg" />
           <img class="line-2" src="img/line-5.svg" />
         </div>
+        
         <div class="overlap-3">
           <div class="view-2">
             <p class="text-wrapper-13">
@@ -77,6 +58,7 @@
           </div>
           <img class="image-2" src="img/image-2.svg" />
         </div>
+        
         <div class="overlap-4">
           <div class="view-3">
             <p class="text-wrapper-13">
@@ -90,6 +72,7 @@
           </div>
           <img class="image-3" src="img/image-2.svg" />
         </div>
+        
         <img class="line-3" src="img/line-8.svg" />
         <div class="text-wrapper-18">답글</div>
         <div class="text-wrapper-19">업로드된 파일 이름.epub</div>
@@ -97,9 +80,11 @@
         <div class="btn-upload">
           <div class="next-wrapper"><div class="next">변환하기</div></div>
         </div>
+        
         <div class="overlap-wrapper">
           <div class="next-wrapper"><div class="next">다운로드</div></div>
         </div>
+        
         <div class="view-4">
           <div class="overlap-5">
             <div class="rectangle"></div>
@@ -108,11 +93,40 @@
           <img class="book-open" src="img/book-open.svg" />
           <div class="text-wrapper-22">읽고, 생각하고, 공유하고</div>
         </div>
+        
         <img class="book-open-2" src="img/book-open.svg" />
         <img class="image-4" src="img/headerProfile.svg" />
         <img class="image-5" src="img/headerAlarm.svg" />
         <div class="text-wrapper-23">eBook to PDF</div>
         <div class="text-wrapper-24">당신의 편안한 독서경험을 위하여</div>
+        
+        <footer class="footer">
+          <img class="dash-line" src="img/dash-line.svg" />
+          <div class="text-wrapper-7">백엔드 실습 5조</div>
+          <div class="social-medias">
+          
+            <div class="overlap">
+              <div class="div-2">
+                <div class="overlap-group-2">
+                  <div class="ellipse"></div>
+                  <div class="ellipse-2"></div>
+                </div>
+              </div>
+              <img class="img-2" src="img/FIGMALOGO.svg" />
+            </div>
+            
+            <div class="div-2">
+              <div class="div-2">
+                <div class="overlap-group-2">
+                  <div class="ellipse"></div>
+                  <div class="ellipse-2"></div>
+                </div>
+              </div>
+              <img class="GITHUBLOGO" src="img/GITHUBLOGO.svg" />
+            </div>
+          </div>
+        </footer>
+        
       </div>
     </div>
   </body>

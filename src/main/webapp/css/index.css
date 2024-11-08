@@ -50,16 +50,17 @@
   height: 118px;
 }
 
-.div-wrapper .text-wrapper {
-  top: 76px;
-  left: 1px;
-  font-family: "HS봄바람체 2.1-Regular", Arial, sans-serif;
+
+.div-wrapper .text-wrapper-1 {
+  top: 0;
+  left: 0;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
   font-weight: 400;
   color: var(--gray-800);
   font-size: 32px;
+  line-height: normal;
   position: absolute;
   letter-spacing: 0;
-  line-height: normal;
 }
 
 .div-wrapper .text-wrapper-2 {
@@ -75,15 +76,15 @@
 }
 
 .div-wrapper .text-wrapper-3 {
-  top: 0;
-  left: 0;
-  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  top: 76px;
+  left: 1px;
+  font-family: "HS봄바람체 2.1-Regular", Arial, sans-serif;
   font-weight: 400;
   color: var(--gray-800);
   font-size: 32px;
-  line-height: normal;
   position: absolute;
   letter-spacing: 0;
+  line-height: normal;
 }
 
 .div-wrapper .text-wrapper-4 {
