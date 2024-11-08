@@ -26,7 +26,6 @@
         <img class="img" src="img/line-1.svg" />
         </header>
         
-        
         <div class="text-wrapper-8">의미있는 대화속으로 -</div>
         <div class="text-wrapper-9">책이랑에서 토론과 친해지기</div>
         
@@ -124,6 +123,7 @@
               </div>
               <a href="https://github.com/titeotty/ChaekIRang.git"><img class="GITHUBLOGO" src="img/GITHUBLOGO.svg"/></a>
             </div>
+            
           </div>
         </footer>
         
