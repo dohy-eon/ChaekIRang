@@ -114,7 +114,7 @@
         <div class="footer-sns">
           <div class="footer-figma">
             <div class="footer-sns-outline"></div>
-            <a class="footer-sns-link" href="https://www.figma.com/design/bC8VYGTCKIHv2kokT9hLey/Backend?node-id=0-1&t=xjMW7POYoRXMje70-1">
+            <a class="footer-sns-link" target='_blank' href="https://www.figma.com/design/bC8VYGTCKIHv2kokT9hLey/Backend?node-id=0-1&t=xjMW7POYoRXMje70-1">
               <img class="footer-sns-figmaImg" src="img/FIGMALOGO.svg" />
             </a>
           </div>   
@@ -122,7 +122,7 @@
           
           <div class="footer-github">
             <div class="footer-sns-outline"></div>
-            <a class="footer-sns-link" href="https://github.com/titeotty/ChaekIRang.git">
+            <a class="footer-sns-link" target='_blank' href="https://github.com/titeotty/ChaekIRang.git">
               <img class="footer-sns-githubImg" src="img/GITHUBLOGO.svg"/>
             </a>
           </div>
