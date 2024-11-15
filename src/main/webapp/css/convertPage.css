@@ -1,0 +1,8 @@
+
+/* 추후 수정 */
+.convert-page {
+	display: flexbox;
+	position: absolute;
+	top: 300px;
+	left: 300px;
+}

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
@@ -22,10 +22,10 @@
         
         <img class="header-logo-img" src="img/book-open.svg" />
         <img class="header-line1" src="img/line-1.svg" />
-        <div class="header-text-main">메인</div>
-        <div class="header-text-discussion">토론</div>
-        <div class="header-text-search">검색</div>
-        <img class="header-profile-icon" src="img/headerProfile.svg" />
+        <div class="header-text-main"><a class="index-a-tag" href="/Chaek">메인</a></div>
+        <div class="header-text-discussion"><a class="index-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
+        <div class="header-text-search"><a class="index-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
+        <a class="index-a-tag" href="/Chaek/pages/profilePage.jsp"><img class="header-profile-icon" src="img/headerProfile.svg" /></a>
         <img class="header-alarm-icon" src="img/headerAlarm.svg" />
         <img class="header-line2" src="img/line-1.svg" />
       </header>
@@ -103,7 +103,7 @@
         <div class="part3-download-wrapper">
           <div class="part3-btn-outline"><div class="part3-btn-text">다운로드</div></div>
         </div>
-        <div class="part3-title">eBook to PDF</div>
+        <div class="part3-title"><a class="index-a-tag" href="/Chaek/pages/convertPage.jsp">eBook to PDF</a></div>
         <div class="part3-subtitle">당신의 편안한 독서경험을 위하여</div>
       </div>
         
