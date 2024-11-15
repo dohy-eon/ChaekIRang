@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class Convert extends HttpServlet {
     private static final String UPLOAD_DIR = "C:/upload/";
     private static final String DOWNLOAD_DIR = "C:/epubtemp/";
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -42,6 +42,9 @@ public class Convert extends HttpServlet {
         
         // 파일 저장 경로 설정
         File uploadFile = new File(UPLOAD_DIR + fileName);
+        if (!uploadFile.exists()) {
+        	uploadFile.mkdirs();
+        }
         
         // 파일 저장
         filePart.write(uploadFile.getAbsolutePath());
@@ -61,6 +64,9 @@ public class Convert extends HttpServlet {
             // 원본 이름으로 저장된 파일을 타임스탬프 추가된 이름으로 변경
             String uniqueFileName = addTimestampToFileName(fileName); 
             File pdfFile = new File(DOWNLOAD_DIR + uniqueFileName.replace(".epub", ".pdf"));
+            if (!pdfFile.exists()) {
+            	pdfFile.mkdirs();
+            }
 
             // 변환된 파일 저장
             conversionResult.saveFilesSync(Paths.get(DOWNLOAD_DIR));
