@@ -15,7 +15,7 @@
 	  <%@ include file="../modules/header.jsp" %>
 	  <div class="convert-page">
 	      <h2 class="convert-title">Convert EPUB to PDF</h2>
-	      <form action="convert" method="post" enctype="multipart/form-data">
+	      <form action="${pageContext.request.contextPath}/convert" method="post" enctype="multipart/form-data">
 	        <label for="file">Select EPUB file:</label>
 	        <input type="file" name="file" id="file" accept=".epub" required>
 	        <br><br>
