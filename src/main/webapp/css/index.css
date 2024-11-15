@@ -97,6 +97,7 @@
   line-height: normal;
   position: absolute;
   letter-spacing: 0;
+  width: 65px;
 }
 
 .div-wrapper .header-text-discussion {
@@ -109,6 +110,7 @@
   line-height: normal;
   position: absolute;
   letter-spacing: 0;
+  width: 65px;
 }
 
 .div-wrapper .header-text-search {
@@ -121,6 +123,7 @@
   line-height: normal;
   position: absolute;
   letter-spacing: 0;
+  width: 65px;
 }
 
 .div-wrapper .header-line1 {
@@ -163,6 +166,12 @@
   top: 93px;
   left: 1154px;
 }
+
+.div-wrapper .index-a-tag {
+  text-decoration: none;
+  color: black;
+}
+
 
 .div-wrapper .part1 {
   position: absolute;
@@ -232,6 +241,7 @@
   line-height: normal;
   position: absolute;
   letter-spacing: 0;
+  width: 439px;
 }
 
 .div-wrapper .part2-subtitle {
@@ -527,6 +537,7 @@
   font-size: 44px;
   letter-spacing: 0;
   line-height: normal;
+  width: 300px;
 }
 
 .div-wrapper .part3-subtitle {
