@@ -25,7 +25,7 @@
         <div class="header-text-main"><a class="index-a-tag" href="/Chaek">메인</a></div>
         <div class="header-text-discussion"><a class="index-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
         <div class="header-text-search"><a class="index-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
-        <a class="index-a-tag" href="/Chaek/pages/profilePage.jsp"><img class="header-profile-icon" src="img/headerProfile.svg" /></a>
+        <a class="index-a-tag" href="/Chaek/pages/loginSignupPage.jsp"><img class="header-profile-icon" src="img/headerProfile.svg" /></a>
         <img class="header-alarm-icon" src="img/headerAlarm.svg" />
         <img class="header-line2" src="img/line-1.svg" />
       </header>

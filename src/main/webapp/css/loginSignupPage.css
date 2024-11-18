@@ -1,0 +1,172 @@
+.login-page {
+    display: flex;
+    width: 1440px;
+    height: 800px;
+    position: relative;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    flex-direction: row-reverse;
+}
+
+.logo {
+    flex: 0.8;
+    margin: auto;
+    transition: all 0.6s ease;
+    margin-left: 70px;
+}
+
+.form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: all 0.6s ease;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    font-family: "GmarketSansLight", Helvetica;
+    margin-left: 50px;
+}
+
+form h2 {
+    margin-bottom: 20px;
+    font-family: "GmarketSansLight", Helvetica;
+    font-size: 28px;
+}
+
+.loginInput {
+	display: flex;
+	flex-direction: row;
+}
+
+.loginInput p {
+	flex: 1;
+	font-size: 20px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+.loginInput input {
+	flex: 5;
+	width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+}
+
+.signupInput p {
+	flex: 1;
+	font-size: 20px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.signupInput input {
+	flex: 1;
+	width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: solid 1px #D9D9D9;
+}
+
+
+.submitbtn {
+	background: #3AB8EB;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "GmarketSansLight", Helvetica;
+    font-size: 20px;
+    margin-bottom: 24px;
+    font-weight: bold;
+}
+
+form button:hover {
+    background: #0056b3;
+}
+
+.letsjoin {
+	font-size: 20px;
+	margin-top: 30px;
+	margin-bottom: 15px;
+}
+.returnbtn {
+	font-size: 20px;
+	cursor: pointer;
+}
+@keyframes colorChange {
+    0% {
+        color: #3AB8EB
+    }
+    50% {
+        color: #0056b3;
+    }
+    100% {
+        color: black;
+    }
+}
+
+.returnbtn:hover {
+    animation: colorChange 5s infinite; 
+}
+
+/* 애니메이션 */
+.login-page.signup .logo {
+    transform: translateX(-110%);
+}
+
+.login-page.signup .form-container {
+    transform: translateX(75%);
+}
+
+
+.part1-title {
+  width: 126px;
+  height: 53px;
+  margin-left: 109px;
+}
+
+.part1-title-background {
+  width: 126px;
+  height: 52px;
+  background-color: #1a1a1a;
+}
+
+.part1-title-text {
+  margin-top: 1px;
+  margin-left: 4px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 40px;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.part1-logo {
+  width: 28px;
+  height: 24px;
+  margin-left: 158px;
+  margin-bottom: 10px;
+}
+
+.part1-subtitle {
+  margin-top: 10px;
+  margin-left: 0;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 32px;
+  line-height: normal;
+  white-space: nowrap;
+  letter-spacing: 0;
+}
