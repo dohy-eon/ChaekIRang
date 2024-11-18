@@ -9,7 +9,7 @@
   position: absolute;
   width: 1302px;
   height: 97px;
-  top: 2451px;
+  bottom: 50px;
   left: 70px;
   background-color: transparent;
 }

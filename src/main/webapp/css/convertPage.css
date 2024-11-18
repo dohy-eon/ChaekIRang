@@ -1,8 +1,66 @@
-
-/* 추후 수정 */
 .convert-page {
-	display: flexbox;
-	position: absolute;
-	top: 300px;
-	left: 300px;
+	margin-top: 300px;
+	margin-bottom: 400px;
+	margin-left: 450px;
+}
+
+.convert-title {
+	font-family: "HS봄바람체 2.1-Regular", Helvetica;
+	font-size: 44px;
+	margin-bottom: 5px;
+	margin-left: 105px;
+}
+.convert-subtitle{
+	font-family: "GmarketSansMedium", Helvetica;
+	font-size: 28px;
+	margin-bottom: 50px;
+	margin-left: 50px;
+}
+.convert-page form {
+	width: fit-content;
+}
+.convert-uploadform {
+	width: 500px;
+	height: 250px;
+	border: solid 1px;
+	border-radius: 10px;
+	font-family: "GmarketSansMedium", Helvetica;
+	font-size: 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 20px;
+}
+
+.convert-uploadform label {
+	display: inline-block;
+    padding: 10px 20px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #3AB8EB;
+    border: 1px solid #3AB8EB;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+input[type="file"] {
+    display: none; /* input을 숨김 */
+}
+#file-name {
+    font-size: 16px;
+    color: #333;
+}
+
+.convert-btn {
+	border: solid 1px;
+	border-radius: 10px;
+	width: 500px;
+	height: 70px;
+	font-family: "GmarketSansMedium", Helvetica;
+	font-size: 24px;
+	cursor: pointer;
+}
+.convert-btn:hover {
+	background-color: #3AB8EB;
+	color: white;
 }

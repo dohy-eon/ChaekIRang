@@ -21,6 +21,12 @@
   font-weight: light;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .div-wrapper {
   background-color: #ffffff;
   display: flex;
@@ -32,6 +38,5 @@
 .div-wrapper .div {
   background-color: #ffffff;
   width: 1440px;
-  height: 2600px;
   position: relative;
 }
