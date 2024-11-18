@@ -1,3 +1,74 @@
 .loginmain-page {
-	
+	margin-top: 300px;
+	margin-bottom: 400px;
+}
+.part1 {
+  width: 346px;
+  height: 144px;
+  margin-left: 527px;
+}
+
+.part1-title {
+  width: 126px;
+  height: 53px;
+  margin-left: 109px;
+}
+
+.div-wrapper .part1-title-background {
+  width: 126px;
+  height: 52px;
+  background-color: #1a1a1a;
+}
+
+.div-wrapper .part1-title-text {
+  margin-top: 1px;
+  margin-left: 4px;
+  font-family: "HS봄바람체 2.1-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 40px;
+  line-height: normal;
+  letter-spacing: 0;
+}
+
+.div-wrapper .part1-logo {
+  width: 28px;
+  height: 24px;
+  margin-left: 158px;
+  margin-bottom: 10px;
+}
+
+.div-wrapper .part1-subtitle {
+  margin-top: 10px;
+  margin-left: 0;
+  font-family: "GmarketSansMedium", Helvetica;
+  font-weight: 500;
+  color: #000000;
+  font-size: 32px;
+  line-height: normal;
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
+.loginMain-btns {
+	margin-top: 130px;
+	margin-left: 525px;
+}
+
+.loginbtn {
+	text-decoration: none;
+	width: 350px;
+	height: 50px;
+	border: solid 1px black;
+	border-radius: 10px;
+	text-align: center;
+	padding-top: 12px;
+	margin-bottom: 30px;
+	font-family: "GmarketSansMedium", Helvetica;
+	font-size: 24px;
+}
+.loginbtn:hover {
+	color: white;
+	background-color: black;
+	cursor: pointer;
 }
