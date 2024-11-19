@@ -9,7 +9,7 @@
   position: absolute;
   width: 1302px;
   height: 97px;
-  top: 2451px;
+  bottom: 50px;
   left: 70px;
   background-color: transparent;
 }
@@ -45,8 +45,8 @@
 
 .footer-github {
   position: absolute;
-  width: 53px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   top: 0;
   left: 75px;
   display: flex;
@@ -62,8 +62,8 @@
 
 .footer-figma {
   position: absolute;
-  width: 53px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   top: 0;
   left: 0px;
   display: flex;

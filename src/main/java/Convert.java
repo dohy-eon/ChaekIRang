@@ -57,16 +57,10 @@ public class Convert extends HttpServlet {
 
             // 변환된 파일 저장 경로 설정
             File downloadDirectory = new File(DOWNLOAD_DIR);
-            if (!downloadDirectory.exists()) {
-                downloadDirectory.mkdirs(); // 디렉토리가 없으면 생성
-            }
 
             // 원본 이름으로 저장된 파일을 타임스탬프 추가된 이름으로 변경
             String uniqueFileName = addTimestampToFileName(fileName); 
             File pdfFile = new File(DOWNLOAD_DIR + uniqueFileName.replace(".epub", ".pdf"));
-            if (!pdfFile.exists()) {
-            	pdfFile.mkdirs();
-            }
 
             // 변환된 파일 저장
             conversionResult.saveFilesSync(Paths.get(DOWNLOAD_DIR));
@@ -90,7 +84,7 @@ public class Convert extends HttpServlet {
             response.getWriter().write("File conversion failed: " + e.getMessage());
         } finally {
             // 임시 파일 삭제
-            uploadFile.delete();
+            // uploadFile.delete();
         }
     }
 
