@@ -10,11 +10,23 @@
 <body>
   <div class="div-wrapper">
     <div class="div">
-	  <%@ include file="../modules/header.jsp" %>
+	  <%@ include file="../modules/headerSearch.jsp" %>
 	  
 	  <div class="search-page">
-	      
-	      
+	    <div class="search-leftpart">
+          <p class="search-title">무엇을 찾고 있나요?</p>
+          <p class="search-subtitle">책이랑에서 다음 읽을거리를 탐험해보는 건 어때요?</p>
+          <div class="search-inputbox">
+       	    <div class="search-input">
+       	  	  <input type="text"> <img src="../img/search/search-icon.svg">
+       	    </div>
+       	    <div class="search-input-shadow"></div>
+          </div>
+        </div>
+        <div class="search-banner">
+          <img class="search-banner-img" src="../img/search/banner.svg">
+          <img class="search-banner-shadowimg" src="../img/search/banner-shadow.svg">
+        </div>
       </div>
       
 	  <%@ include file="../modules/footer.jsp" %>

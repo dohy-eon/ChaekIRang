@@ -22,7 +22,7 @@
 				</div>
 			</div>
 			<div class="user-nickname">
-				<div class="nickname">탕탕후루후루</div>
+				<div class="nickname">채키핑</div>
 				<img class="nickname-pencil" alt="수정" src="../img/profile/pencil.svg">    	
 			</div>
 			<div class="user-joininfo">
