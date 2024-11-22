@@ -11,24 +11,7 @@
       <div class="div">
       
       
-      <header>
-        <div class="logo-text">
-          <div class="logo-text-wrapper">
-            <div class="logo-text-Chaek">책</div>
-            <div class="logo-text-I">이</div>
-            <div class="logo-text-Rang">랑</div>
-          </div>
-        </div>
-        
-        <img class="header-logo-img" src="img/book-open.svg" />
-        <img class="header-line1" src="img/line-1.svg" />
-        <div class="header-text-main"><a class="index-a-tag" href="/Chaek">메인</a></div>
-        <div class="header-text-discussion"><a class="index-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
-        <div class="header-text-search"><a class="index-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
-        <a class="index-a-tag" href="/Chaek/pages/loginSignupPage.jsp"><img class="header-profile-icon" src="img/headerProfile.svg" /></a>
-        <img class="header-alarm-icon" src="img/headerAlarm.svg" />
-        <img class="header-line2" src="img/line-1.svg" />
-      </header>
+      <%@ include file="modules/header.jsp" %>
       
       
       <div class="part1">

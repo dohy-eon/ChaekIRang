@@ -142,6 +142,16 @@
 
 </style>
 </head>
+
+<%
+	String idSession = (String)session.getAttribute("idSession");
+	String isGuest;
+	
+	if(idSession == null) isGuest = "/Chaek/pages/loginSignupPage.jsp";
+	else isGuest = "/Chaek/pages/profilePage.jsp";
+	
+	System.out.println(isGuest);
+%>
 <body>
 	<header>
       <div class="logo-text">
@@ -152,16 +162,16 @@
         </div>
       </div>
       
-      <img class="header-logo-img" src="../img/book-open.svg" />
-      <img class="header-line1" src="../img/line-1.svg" />
+      <img class="header-logo-img" src="/Chaek/img/book-open.svg" />
+      <img class="header-line1" src="/Chaek/img/line-1.svg" />
       <div class="header-text-main"><a class="header-a-tag" href="/Chaek">메인</a></div>
       <div class="header-text-discussion"><a class="header-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
       <div class="header-text-search"><a class="header-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
       
       <!-- 프로필 아이콘 클릭하면 로그인 여부 확인하고 처리해야함. -->
-      <a class="header-a-tag" href="/Chaek/pages/loginSignupPage.jsp"><img class="header-profile-icon" src="../img/headerProfile.svg" /></a>
-      <img class="header-alarm-icon" src="../img/headerAlarm.svg" />
-      <img class="header-line2" src="../img/line-1.svg" />
+      <a class="header-a-tag" href="<%=isGuest%>"><img class="header-profile-icon" src="/Chaek/img/headerProfile.svg" /></a>
+      <img class="header-alarm-icon" src="/Chaek/img/headerAlarm.svg" />
+      <img class="header-line2" src="/Chaek/img/line-1.svg" />
     </header>
 </body>
 </html>
