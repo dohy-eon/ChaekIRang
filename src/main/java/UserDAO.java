@@ -1,10 +1,16 @@
+import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 public class UserDAO {
@@ -29,6 +35,8 @@ public class UserDAO {
 
             if (count == 1) {
                 flag = true;
+                // 사용자 아이디로 폴더 생성
+                createUserFolder(mDTO.getUser_id());
             }
 
         } catch (Exception ex) {
@@ -38,6 +46,32 @@ public class UserDAO {
         }
         return flag;
     }	
+	// 사용자 아이디 폴더 생성 메서드
+	private void createUserFolder(String userId) {
+	    // 기본 폴더 경로: C 드라이브의 Book 폴더
+	    String baseFolderPath = "C:\\Book";
+	    File baseFolder = new File(baseFolderPath);
+
+	    // Book 폴더가 없으면 생성
+	    if (!baseFolder.exists()) {
+	        if (baseFolder.mkdir()) {
+	            System.out.println("Book 폴더 생성 성공: " + baseFolderPath);
+	        } else {
+	            System.out.println("Book 폴더 생성 실패");
+	            return;
+	        }
+	    }
+
+	    // 사용자 아이디 폴더 생성
+	    File userFolder = new File(baseFolderPath + "\\" + userId);
+	    if (!userFolder.exists()) {
+	        if (userFolder.mkdir()) {
+	            System.out.println("사용자 폴더 생성 성공: " + userFolder.getPath());
+	        } else {
+	            System.out.println("사용자 폴더 생성 실패");
+	        }
+	    }
+	}
 	public boolean checkId(String id) { // 아이디 중복검사
 		Connection conn = null;
         PreparedStatement pstmt = null;
@@ -67,6 +101,7 @@ public class UserDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         boolean loginCon = false;
+        
         try {
 			conn = JDBCUtil.getConnection();
             String strQuery = "select * from user where user_id = ? and user_pw = ?";
@@ -76,6 +111,16 @@ public class UserDAO {
             pstmt.setString(2, password);
             rs = pstmt.executeQuery();
             loginCon = rs.next();
+            if(loginCon) {
+            	String userId = rs.getString("user_id");
+                String nickname = rs.getString("nickname");
+                String email = rs.getString("email");
+                String profileImg = rs.getString("profile_img");
+                
+                boolean isAdmin = rs.getBoolean("is_admin");
+                
+                System.out.println(userId + nickname + email + profileImg + isAdmin);
+            }
         } catch (Exception ex) {
             System.out.println("Exception" + ex);
         } finally {
@@ -83,6 +128,40 @@ public class UserDAO {
         }
         return loginCon;
     }
+	public UserDTO getUserInfo(String id) {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    UserDTO user = null;
+
+	    try {
+	        // 데이터베이스 연결
+	        conn = JDBCUtil.getConnection();
+	        String strQuery = "SELECT * FROM user WHERE user_id = ?";
+
+	        pstmt = conn.prepareStatement(strQuery);
+	        pstmt.setString(1, id); // ID 설정
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            // ResultSet에서 데이터 읽기
+	            user = new UserDTO();
+	            user.setUser_id(rs.getString("user_id"));
+	            user.setUser_pw(rs.getString("user_pw")); 
+	            user.setNickname(rs.getString("nickname"));
+	            user.setEmail(rs.getString("email"));
+	            user.setProfile_img(rs.getString("profile_img"));
+	            user.setIs_admin(rs.getString("is_admin"));
+	        }
+	    } catch (Exception ex) {
+	        System.out.println("Exception: " + ex);
+	    } finally {
+	        // 리소스 정리
+	        JDBCUtil.close(rs, pstmt, conn);
+	    }
+
+	    return user;
+	}
 	
 	public static boolean isValidId(String id) {
         // 아이디는 영문 대소문자와 숫자만 포함하며, 길이는 8자 이상 20자 이하
@@ -126,5 +205,57 @@ public class UserDAO {
 	        e.printStackTrace();
 	    }
 	}
+	public List<Map<String, String>> getUsers(String search) {
+	    List<Map<String, String>> usersList = new ArrayList<>();
+	    
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(
+	             "SELECT * FROM user WHERE user_id LIKE ? OR nickname LIKE ?")) {
+	        
+	        pstmt.setString(1, "%" + search + "%");
+	        pstmt.setString(2, "%" + search + "%");
+	        
+	        ResultSet rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            Map<String, String> userMap = new HashMap<>();
+	            userMap.put("user_id", rs.getString("user_id"));
+	            userMap.put("nickname", rs.getString("nickname"));
+	            userMap.put("email", rs.getString("email"));
+	            userMap.put("profile_img", rs.getString("profile_img"));
+	            
+	            usersList.add(userMap);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return usersList;
+	}
+
+	public boolean updateUserInfo(UserDTO user) {
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(
+	             "UPDATE user SET nickname = ?, email = ? WHERE user_id = ?")) {
+	        pstmt.setString(1, user.getNickname());
+	        pstmt.setString(2, user.getEmail());
+	        pstmt.setString(3, user.getUser_id());
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	public boolean deleteUser(String userId) {
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM user WHERE user_id = ?")) {
+	        pstmt.setString(1, userId);
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 
 }
