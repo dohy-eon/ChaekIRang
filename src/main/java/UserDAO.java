@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -201,5 +205,57 @@ public class UserDAO {
 	        e.printStackTrace();
 	    }
 	}
+	public List<Map<String, String>> getUsers(String search) {
+	    List<Map<String, String>> usersList = new ArrayList<>();
+	    
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(
+	             "SELECT * FROM user WHERE user_id LIKE ? OR nickname LIKE ?")) {
+	        
+	        pstmt.setString(1, "%" + search + "%");
+	        pstmt.setString(2, "%" + search + "%");
+	        
+	        ResultSet rs = pstmt.executeQuery();
+	        
+	        while (rs.next()) {
+	            Map<String, String> userMap = new HashMap<>();
+	            userMap.put("user_id", rs.getString("user_id"));
+	            userMap.put("nickname", rs.getString("nickname"));
+	            userMap.put("email", rs.getString("email"));
+	            userMap.put("profile_img", rs.getString("profile_img"));
+	            
+	            usersList.add(userMap);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return usersList;
+	}
+
+	public boolean updateUserInfo(UserDTO user) {
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(
+	             "UPDATE user SET nickname = ?, email = ? WHERE user_id = ?")) {
+	        pstmt.setString(1, user.getNickname());
+	        pstmt.setString(2, user.getEmail());
+	        pstmt.setString(3, user.getUser_id());
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	public boolean deleteUser(String userId) {
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM user WHERE user_id = ?")) {
+	        pstmt.setString(1, userId);
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 
 }
