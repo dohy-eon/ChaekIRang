@@ -49,7 +49,7 @@
               내렸던 결정들이 모두 어떤 식으로든 후에 부메랑처럼 돌아오는 느낌이었어요.
             </p>
             <div class="part2-user-profilePic"></div>
-            <div class="part2-user-name">회원B</div>
+            <div class="part2-user-name"><a href="./pages/adminPage.jsp">회원B</a></div>
             <div class="part2-user-postTime">1시간 전</div>
             <div class="part2-user-commentNum">1</div>
           </div>
