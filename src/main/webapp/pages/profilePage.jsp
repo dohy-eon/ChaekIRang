@@ -33,11 +33,7 @@
 				</div>
 			</div>
 			<div class="user-nickname">
-<<<<<<< HEAD
-				<div class="nickname">채키핑</div>
-=======
 				<div class="nickname"><%=nickname%></div>
->>>>>>> 0892cc8a9265204f6f7a752d245e0edaf6c3fc49
 				<img class="nickname-pencil" alt="수정" src="../img/profile/pencil.svg">    	
 			</div>
 			<div class="user-joininfo">
