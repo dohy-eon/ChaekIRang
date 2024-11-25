@@ -150,7 +150,7 @@
 	if(idSession == null) isGuest = "/Chaek/pages/loginSignupPage.jsp";
 	else isGuest = "/Chaek/pages/profilePage.jsp";
 	
-	System.out.println(isGuest);
+	
 %>
 <body>
 	<header>

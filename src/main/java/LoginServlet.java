@@ -25,11 +25,21 @@ public class LoginServlet extends HttpServlet {
         
         UserDAO DAO = new UserDAO();
         boolean isSuccess = DAO.userLogin(user.getUser_id(), user.getUser_pw());
-        System.out.println(isSuccess);
+        
         if (isSuccess) {
+        	UserDTO userInfo = DAO.getUserInfo(id);
+        	
         	HttpSession session = request.getSession();
 			session.setAttribute("idSession", id);
-			System.out.println((String)session.getAttribute("idSession"));
+			session.setAttribute("userPw", userInfo.getUser_pw());
+			session.setAttribute("userNickname", userInfo.getNickname());
+			session.setAttribute("userEmail", userInfo.getEmail());
+			session.setAttribute("userProfile", userInfo.getProfile_img());
+			session.setAttribute("userAdmin", userInfo.getIs_admin());
+			
+			
+			
+			
             DAO.alertAndGo(response, "로그인 성공.", "index.jsp");
         } else {
         	DAO.alertAndBack(response, "아이디 또는 비밀번호가 올바르지 않습니다.");

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -21,14 +22,21 @@ import java.util.concurrent.ExecutionException;
                  maxFileSize = 1024 * 1024 * 50,     // 50MB
                  maxRequestSize = 1024 * 1024 * 50)  // 50MB
 public class Convert extends HttpServlet {
+	
     private static final String UPLOAD_DIR = "C:/upload/";
-    private static final String DOWNLOAD_DIR = "C:/epubtemp/";
+    private static final String DOWNLOAD_DIR = "C:/Book/";
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         response.setContentType("application/pdf;charset=UTF-8");
-
+        HttpSession session = request.getSession();
+        String userId = (String) session.getAttribute("idSession") + "/";
+        UserDAO DAO = new UserDAO();
+        if (userId == null || userId.isEmpty()) {
+            DAO.alertAndGo(response, "로그인 상태가 아닙니다.", "pages/loginSignupPage.jsp");
+        }
+        
         // ConvertAPI 설정
         Config.setDefaultApiCredentials("secret_pktgaRpZo2tCm7xe");
 
@@ -56,18 +64,18 @@ public class Convert extends HttpServlet {
             ).get();
 
             // 변환된 파일 저장 경로 설정
-            File downloadDirectory = new File(DOWNLOAD_DIR);
+            File downloadDirectory = new File(DOWNLOAD_DIR+userId);
 
             // 원본 이름으로 저장된 파일을 타임스탬프 추가된 이름으로 변경
             String uniqueFileName = addTimestampToFileName(fileName); 
-            File pdfFile = new File(DOWNLOAD_DIR + uniqueFileName.replace(".epub", ".pdf"));
+            File pdfFile = new File(DOWNLOAD_DIR+userId + uniqueFileName.replace(".epub", ".pdf"));
 
             // 변환된 파일 저장
-            conversionResult.saveFilesSync(Paths.get(DOWNLOAD_DIR));
+            conversionResult.saveFilesSync(Paths.get(DOWNLOAD_DIR+userId));
 
             // 파일 이름 변경
-            File convertedFile = new File(DOWNLOAD_DIR + uniqueFileName.replace(".epub", ".pdf"));
-            Files.move(Paths.get(DOWNLOAD_DIR + fileName.replace(".epub", ".pdf")), convertedFile.toPath());
+            File convertedFile = new File(DOWNLOAD_DIR+userId + uniqueFileName.replace(".epub", ".pdf"));
+            Files.move(Paths.get(DOWNLOAD_DIR+userId + fileName.replace(".epub", ".pdf")), convertedFile.toPath());
 
             // PDF 파일을 클라이언트에 다운로드로 제공
             response.setContentType("application/pdf");
