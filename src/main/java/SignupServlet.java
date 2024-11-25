@@ -53,7 +53,7 @@ public class SignupServlet extends HttpServlet {
         	DAO.alertAndBack(response, "ID는 특수문자와 공백이 불가능합니다.");
         }
         if (isSuccess) {
-            DAO.alertAndGo(response, "회원가입에 성공했습니다.", "pages/loginSignupPage.jsp");
+            DAO.alertAndGo(response, "회원가입에 성공했습니다.", "pages/signupSuccessPage.jsp");
         } else {
         	DAO.alertAndGo(response, "회원가입에 실패했습니다.", "pages/loginSignupPage.jsp");
         }

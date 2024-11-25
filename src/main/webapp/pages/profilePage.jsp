@@ -7,6 +7,17 @@
  	<link rel="stylesheet" href="../css/default.css"/>
     <title>책이랑-마이페이지</title>
 </head>
+<%
+	String nickname = (String)session.getAttribute("userNickname");
+	String email = (String)session.getAttribute("userEmail");
+	String profile = (String)session.getAttribute("userProfile");
+	String admin = (String)session.getAttribute("userAdmin");
+	
+	if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
+		profile = "../img/profile/profilepic.jpg";
+	}
+
+%>
 <body>
   <div class="div-wrapper">
     <div class="div">
@@ -16,23 +27,23 @@
 	      <div class="user-info">
 			<div class="user-pic">
 				<!-- 프사등록을 안했을 경우에 default로 쓸 사진 설정해야 됨 -->
-				<img alt="프로필사진" src="../img/profile/profilepic.jpg">
+				<img alt="프로필사진" src="<%=profile%>">
 				<div class="pic-uploadbtn">
 					<img src="../img/profile/pic-upload-icon.svg">
 				</div>
 			</div>
 			<div class="user-nickname">
-				<div class="nickname">탕탕후루후루</div>
+				<div class="nickname"><%=nickname%></div>
 				<img class="nickname-pencil" alt="수정" src="../img/profile/pencil.svg">    	
 			</div>
 			<div class="user-joininfo">
 				<div class="user-joininfo-detail">
 					<p>아이디</p>
-					<p>sample</p>
+					<p><%=idSession%></p>
 				</div>
 				<div class="user-joininfo-detail">
 					<p>이메일</p>
-					<p>sample@sample.com</p>
+					<p><%=email%></p>
 				</div>
 				<div class="user-passwordupdate"><a href="passwordUpdatePage.jsp">비밀번호 수정</a></div>
 			</div>
