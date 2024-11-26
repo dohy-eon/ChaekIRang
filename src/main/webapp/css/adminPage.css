@@ -1,49 +1,19 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Gmarket Sans TTF', sans-serif;
+.adminPage {
+    width: 500px;
+    height: 400px;
     position: relative;
+    margin-top: 300px;
+    margin-bottom: 200px;
+	display: flex;
+	flex-direction: column;
+    font-family: "GmarketSansMedium", Helvetica;
+    margin-left: 470px;
+    text-align: center;
+    font-size: 30px;
 }
-
-.black-box {
-    width: 24px;
-    height: 26.67px;
-    position: absolute;
-    left: 1154px;
-    top: 93px;
-    background: black;
-}
-
 .title {
-    position: absolute;
-    color: #3D3C3C;
-    font-size: 32px;
-    font-weight: 500;
-    word-wrap: break-word;
+	margin-bottom: 30px;
 }
-
 .admin-only {
-    left: 617px;
-    top: 220px;
-}
-
-.discussion-management {
-    left: 292px;
-    top: 327px;
-}
-
-.member-management {
-    left: 967px;
-    top: 336px;
-}
-
-.vertical-line {
-    width: 696px;
-    height: 0;
-    position: absolute;
-    left: 696px;
-    top: 299px;
-    border: 1px solid black;
-    transform: rotate(90deg);
-    transform-origin: 0 0;
+	margin-bottom: 70px;
 }
