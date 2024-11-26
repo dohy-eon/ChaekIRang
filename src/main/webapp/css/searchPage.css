@@ -1,3 +1,81 @@
 .search-page {
-	
+	display: flex;
+    width: 1440px;
+    height: 700px;
+    position: relative;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    flex-direction: row;
+    font-family: "GmarketSansMedium", Helvetica;
+}
+.search-leftpart {
+	margin-left: 70px;
+	margin-top: 170px;
+	width: 650px;
+}
+.search-title {
+	font-size: 64px;
+}
+.search-subtitle {
+	margin-top: 50px;
+	font-size: 20px;
+}
+.search-inputbox {
+	width: 570px;
+	margin-top: 30px;
+	position: relative;
+}
+.search-input {
+	width: 550px;
+	border: solid 1px black;
+	display: flex;
+	justify-content: space-between;
+	padding: 12px 20px;
+	border-radius: 30px;
+	z-index: 2;
+	position: absolute;
+	background-color: white;
+	align-items: center;
+}
+.search-input input {
+	width: 90%;
+	border: none;
+	font-size: 20px;
+}
+.search-input input:focus {
+	outline: none;
+}
+.search-input-shadow {
+	width: 550px;
+	height: 50px;
+	background-color: black;
+	position: absolute;
+	top: 10px;
+	left: 8px;
+	z-index: 1;
+	border-radius: 30px;
+}
+.search-input img {
+	cursor: pointer;
+}
+
+
+
+.search-banner {
+	width: 530px;
+	height: 538px;
+	position: relative;
+	margin-top: 50px;
+}
+.search-banner-img {
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	z-index: 2;
+}
+.search-banner-shadowimg {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	z-index: 1;
 }
