@@ -13,7 +13,7 @@
 	  	<%@ include file="../modules/header.jsp" %>
 		<div class="password-update">
 	    	<h2>비밀번호 변경</h2>
-			<form action="서블릿별명ㅇ~" method="post">
+			<form action="<%= request.getContextPath() %>/passUpdate" method="post">
 		        <label for="currentPassword">현재 비밀번호</label>
 		        <input type="password" id="currentPassword" name="currentPassword" placeholder="현재 비밀번호를 입력해주세요." required>
 		
