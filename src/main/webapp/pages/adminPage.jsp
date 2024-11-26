@@ -13,12 +13,9 @@
 	  <%@ include file="../modules/header.jsp" %>
 	  
 	  <div class="adminPage">
-	  <div class="black-box"></div>
     	<div class="title admin-only">관리자 전용</div>
     	<div class="title discussion-management">토론 관리</div>
     	<div class="title member-management"><a href="userManagement.jsp">회원 관리</a></div>
-    	<div class="vertical-line"></div>
-	      
       </div>
       
 	  <%@ include file="../modules/footer.jsp" %>
