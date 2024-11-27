@@ -73,7 +73,7 @@
         const newEmail = prompt('새 이메일을 입력하세요:');
         if (newNickname && newEmail) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/editMember', true);
+            xhr.open('POST', '/EditUserServlet', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {
@@ -89,7 +89,7 @@
     function deleteMember(userId) {
         if (confirm('정말로 삭제하시겠습니까?')) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/deleteMember', true);
+            xhr.open('POST', '/DeleteUserServlet', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {
