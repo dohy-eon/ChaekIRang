@@ -6,18 +6,17 @@ import javax.servlet.http.*;
 
 @WebServlet("/DeleteUserServlet")
 public class DeleteUserServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user_id");
 
-        // UserDAO를 통해 사용자 삭제
-        UserDAO userDAO = new UserDAO();
-        boolean isDeleted = userDAO.deleteUser(userId);
+        UserDAO dao = new UserDAO();
+        boolean result = dao.deleteUser(userId);
 
-        // 삭제 결과에 따른 처리
-        if (isDeleted) {
-            response.sendRedirect("UserListServlet");  // 삭제 후 사용자 목록으로 리다이렉트
+        if (result) {
+            response.getWriter().write("{\"message\": \"회원이 삭제되었습니다.\"}");
         } else {
-            response.sendRedirect("errorPage.jsp");  // 삭제 실패 시 에러 페이지로 리다이렉트
+            response.getWriter().write("{\"error\": \"삭제 실패\"}");
         }
     }
 }

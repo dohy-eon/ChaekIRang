@@ -12,7 +12,7 @@ public class UserListServlet extends HttpServlet {
         String search = request.getParameter("search") != null ? request.getParameter("search") : "";
         
         UserDAO userDAO = new UserDAO();
-        List<Map<String, String>> members = userDAO.getUsers(search); // 수정된 getUsers 호출
+        List<UserDTO> members = userDAO.getUsers(search); // 수정된 getUsers 호출
         
         request.setAttribute("members", members);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/userManagement.jsp");

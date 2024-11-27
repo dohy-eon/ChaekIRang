@@ -227,33 +227,33 @@ public class UserDAO {
 	        e.printStackTrace();
 	    }
 	}
-	public List<Map<String, String>> getUsers(String search) {
-	    List<Map<String, String>> usersList = new ArrayList<>();
-	    
+	public List<UserDTO> getUsers(String search) {
+	    List<UserDTO> usersList = new ArrayList<>();
+
 	    try (Connection conn = JDBCUtil.getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(
 	             "SELECT * FROM user WHERE user_id LIKE ? OR nickname LIKE ?")) {
-	        
+
 	        pstmt.setString(1, "%" + search + "%");
 	        pstmt.setString(2, "%" + search + "%");
-	        
+
 	        ResultSet rs = pstmt.executeQuery();
-	        
+
 	        while (rs.next()) {
-	            Map<String, String> userMap = new HashMap<>();
-	            userMap.put("user_id", rs.getString("user_id"));
-	            userMap.put("nickname", rs.getString("nickname"));
-	            userMap.put("email", rs.getString("email"));
-	            userMap.put("profile_img", rs.getString("profile_img"));
-	            
-	            usersList.add(userMap);
+	            UserDTO user = new UserDTO();
+	            user.setUser_id(rs.getString("user_id"));
+	            user.setNickname(rs.getString("nickname"));
+	            user.setEmail(rs.getString("email"));
+	            user.setProfile_img(rs.getString("profile_img"));
+	            usersList.add(user);
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-	    
+
 	    return usersList;
 	}
+
 
 	public boolean updateUserInfo(UserDTO user) {
 	    try (Connection conn = JDBCUtil.getConnection();
