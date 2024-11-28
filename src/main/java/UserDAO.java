@@ -227,43 +227,49 @@ public class UserDAO {
 	        e.printStackTrace();
 	    }
 	}
-	 public List<UserDTO> getUsers(String search) {
-	       List<UserDTO> usersList = new ArrayList<>();
+	public List<UserDTO> getUsers(String search) {
+	    List<UserDTO> usersList = new ArrayList<>();
 
-	       try (Connection conn = JDBCUtil.getConnection();
-	            PreparedStatement pstmt = conn.prepareStatement(
-	                "SELECT * FROM user WHERE user_id LIKE ? OR nickname LIKE ?")) {
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(
+	             "SELECT * FROM user WHERE user_id LIKE ? OR nickname LIKE ?")) {
 
-	           pstmt.setString(1, "%" + search + "%");
-	           pstmt.setString(2, "%" + search + "%");
+	        pstmt.setString(1, "%" + search + "%");
+	        pstmt.setString(2, "%" + search + "%");
 
-	           ResultSet rs = pstmt.executeQuery();
+	        ResultSet rs = pstmt.executeQuery();
 
-	           while (rs.next()) {
-	               UserDTO user = new UserDTO();
-	               user.setUser_id(rs.getString("user_id"));
-	               user.setNickname(rs.getString("nickname"));
-	               user.setEmail(rs.getString("email"));
-	               user.setProfile_img(rs.getString("profile_img"));
-	               usersList.add(user);
-	               
-	           }
-	       } catch (SQLException e) {
-	           e.printStackTrace();
-	       }
-	       
-	       return usersList;
-	   }
-
+	        while (rs.next()) {
+	            UserDTO user = new UserDTO();
+	            user.setUser_id(rs.getString("user_id"));
+	            user.setNickname(rs.getString("nickname"));
+	            user.setEmail(rs.getString("email"));
+	            user.setProfile_img(rs.getString("profile_img"));
+	            usersList.add(user);
+	            
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return usersList;
+	}
 
 	public boolean updateUserInfo(UserDTO user) {
 	    try (Connection conn = JDBCUtil.getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(
 	             "UPDATE user SET nickname = ?, email = ? WHERE user_id = ?")) {
+	        
+	        System.out.println("User Info: " + user.getNickname() + ", " + user.getEmail() + ", " + user.getUser_id());
+	        
 	        pstmt.setString(1, user.getNickname());
 	        pstmt.setString(2, user.getEmail());
 	        pstmt.setString(3, user.getUser_id());
-	        return pstmt.executeUpdate() > 0;
+	        
+	        int updatedRows = pstmt.executeUpdate();
+	        System.out.println("업데이트 완료: " + updatedRows);
+	        
+	        return updatedRows > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        return false;
@@ -272,7 +278,7 @@ public class UserDAO {
 	public boolean deleteUser(String userId) {
 	    try (Connection conn = JDBCUtil.getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement("DELETE FROM user WHERE user_id = ?")) {
-	        pstmt.setString(1, userId);
+	    	pstmt.setString(1, userId);
 	        return pstmt.executeUpdate() > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();

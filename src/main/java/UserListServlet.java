@@ -14,9 +14,7 @@ public class UserListServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         List<UserDTO> members = userDAO.getUsers(search); // 수정된 getUsers 호출
         
-        
-        
-        
+        System.out.println(members.get(0));
         
         request.setAttribute("members", members);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/userManagement.jsp");

@@ -48,64 +48,64 @@
             tbody.innerHTML = '';
 
             if (Array.isArray(data) && data.length > 0) {
-               data.forEach(member => {
-                   console.log(member); // 체크용
+            	data.forEach(member => {
+            	    console.log(member); // 체크용
 
-                   let profileImgSrc = '/img/profile/profilepic.jpg'; // 기본 이미지 URL
+            	    let profileImgSrc = '/img/profile/profilepic.jpg'; // 기본 이미지 URL
 
-                   if (member.profile_img !== "0") {
-                       profileImgSrc = '/images/' + member.profile_img;
-                   }
+            	    if (member.profile_img !== "0") {
+            	        profileImgSrc = '/images/' + member.profile_img;
+            	    }
 
-                   console.log("프사위치: ", profileImgSrc);
-                   console.log(member.user_id);
-                   const row = document.createElement('tr');
+            	    console.log("프사위치: ", profileImgSrc);
+            	    console.log(member.user_id);
+            	    const row = document.createElement('tr');
 
-                // 아이디 셀
-                const userIdCell = document.createElement('td');
-                userIdCell.textContent = member.user_id;
-                row.appendChild(userIdCell);
+            	 // 아이디 셀
+            	 const userIdCell = document.createElement('td');
+            	 userIdCell.textContent = member.user_id;
+            	 row.appendChild(userIdCell);
 
-                // 닉네임 셀
-                const nicknameCell = document.createElement('td');
-                nicknameCell.textContent = member.nickname;
-                row.appendChild(nicknameCell);
+            	 // 닉네임 셀
+            	 const nicknameCell = document.createElement('td');
+            	 nicknameCell.textContent = member.nickname;
+            	 row.appendChild(nicknameCell);
 
-                // 이메일 셀
-                const emailCell = document.createElement('td');
-                emailCell.textContent = member.email;
-                row.appendChild(emailCell);
+            	 // 이메일 셀
+            	 const emailCell = document.createElement('td');
+            	 emailCell.textContent = member.email;
+            	 row.appendChild(emailCell);
 
-                // 프로필 이미지 셀
-                const profileCell = document.createElement('td');
-                const profileImg = document.createElement('img');
-                profileImg.src = profileImgSrc;
-                profileImg.alt = "프로필";
-                profileImg.width = 50;
-                profileCell.appendChild(profileImg);
-                row.appendChild(profileCell);
+            	 // 프로필 이미지 셀
+            	 const profileCell = document.createElement('td');
+            	 const profileImg = document.createElement('img');
+            	 profileImg.src = profileImgSrc;
+            	 profileImg.alt = "프로필";
+            	 profileImg.width = 50;
+            	 profileCell.appendChild(profileImg);
+            	 row.appendChild(profileCell);
 
-                // 관리 버튼 셀
-                const actionCell = document.createElement('td');
+            	 // 관리 버튼 셀
+            	 const actionCell = document.createElement('td');
 
-                // 수정 버튼
-                const editButton = document.createElement('button');
-                editButton.textContent = "수정";
-                editButton.onclick = () => editMember(member.user_id);
-                actionCell.appendChild(editButton);
+            	 // 수정 버튼
+            	 const editButton = document.createElement('button');
+            	 editButton.textContent = "수정";
+            	 editButton.onclick = () => editMember(member.user_id);
+            	 actionCell.appendChild(editButton);
 
-                // 삭제 버튼
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = "삭제";
-                deleteButton.onclick = () => deleteMember(member.user_id);
-                actionCell.appendChild(deleteButton);
+            	 // 삭제 버튼
+            	 const deleteButton = document.createElement('button');
+            	 deleteButton.textContent = "삭제";
+            	 deleteButton.onclick = () => deleteMember(member.user_id);
+            	 actionCell.appendChild(deleteButton);
 
-                row.appendChild(actionCell);
+            	 row.appendChild(actionCell);
 
-                // 행을 테이블에 추가
-                tbody.appendChild(row);
+            	 // 행을 테이블에 추가
+            	 tbody.appendChild(row);
 
-               });
+            	});
             } else {
                 // 데이터가 없는 경우
                 tbody.innerHTML = '<tr><td colspan="5">회원 정보가 없습니다.</td></tr>';

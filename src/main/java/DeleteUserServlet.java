@@ -1,23 +1,40 @@
-import java.io.IOException;
-import java.util.List;
+import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 @WebServlet("/DeleteUserServlet")
 public class DeleteUserServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("user_id");
+        // JSON 데이터 읽기
+        BufferedReader reader = request.getReader();
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
 
-        // UserDAO를 통해 사용자 삭제
-        UserDAO userDAO = new UserDAO();
-        boolean isDeleted = userDAO.deleteUser(userId);
+        // JSON 문자열 출력 (디버깅용)
+        String jsonData = sb.toString();
+        System.out.println("Received JSON Data: " + jsonData);
 
-        // 삭제 결과에 따른 처리
-        if (isDeleted) {
-            response.sendRedirect("UserListServlet");  // 삭제 후 사용자 목록으로 리다이렉트
+        // JSON 파싱
+        JsonObject jsonObject = JsonParser.parseString(jsonData).getAsJsonObject();
+        String userId = jsonObject.get("user_id").getAsString();
+
+        // DB 처리
+        UserDAO dao = new UserDAO();
+        boolean result = dao.deleteUser(userId);
+
+        response.setContentType("application/json");
+        if (result) {
+            response.getWriter().write("{\"message\": \"회원이 삭제되었습니다.\"}");
         } else {
-            response.sendRedirect("errorPage.jsp");  // 삭제 실패 시 에러 페이지로 리다이렉트
+            response.getWriter().write("{\"error\": \"삭제 실패\"}");
         }
     }
 }

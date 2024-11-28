@@ -7,22 +7,23 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/EditUserServlet")
 public class EditUserServlet extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = request.getParameter("user_id");
-        String nickname = request.getParameter("nickname");
-        String email = request.getParameter("email");
+        String newNickname = request.getParameter("nickname");
+        String newEmail = request.getParameter("email");
 
-        UserDAO userDAO = new UserDAO();
+        UserDAO dao = new UserDAO();
         UserDTO user = new UserDTO();
         user.setUser_id(userId);
-        user.setNickname(nickname);
-        user.setEmail(email);
+        user.setNickname(newNickname);
+        user.setEmail(newEmail);
 
-        boolean result = userDAO.updateUserInfo(user);
+        boolean result = dao.updateUserInfo(user);
         if (result) {
-            response.sendRedirect("MemberListServlet"); // 수정 후 회원 목록으로 이동
+            response.getWriter().write("{\"message\": \"회원 정보가 수정되었습니다.\"}");
         } else {
-            response.getWriter().println("회원 정보 수정 실패");
+            response.getWriter().write("{\"error\": \"수정 실패\"}");
         }
     }
 }
