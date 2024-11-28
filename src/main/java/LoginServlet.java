@@ -18,13 +18,13 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("username");
         String password = request.getParameter("password");
         
-        UserDTO user = new UserDTO();
-        user.setUser_id(id);
-        user.setUser_pw(password);
+		/*
+		 * UserDTO user = new UserDTO(); user.setUser_id(id); user.setUser_pw(password);
+		 */
         
         
         UserDAO DAO = new UserDAO();
-        boolean isSuccess = DAO.userLogin(user.getUser_id(), user.getUser_pw());
+        boolean isSuccess = DAO.userLogin(id, password);
         
         if (isSuccess) {
         	UserDTO userInfo = DAO.getUserInfo(id);

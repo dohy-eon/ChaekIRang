@@ -117,9 +117,7 @@ public class UserDAO {
                 String email = rs.getString("email");
                 String profileImg = rs.getString("profile_img");
                 
-                boolean isAdmin = rs.getBoolean("is_admin");
-                
-                System.out.println(userId + nickname + email + profileImg + isAdmin);
+                boolean isAdmin = rs.getBoolean("is_admin");          
             }
         } catch (Exception ex) {
             System.out.println("Exception" + ex);
@@ -127,6 +125,30 @@ public class UserDAO {
         	JDBCUtil.close(rs, pstmt, conn);
         }
         return loginCon;
+    }
+	
+	public void passUpdate(String id, String newPassword) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        
+        try {
+			conn = JDBCUtil.getConnection();
+            String strQuery = "update user set user_pw = ? where user_id = ?";
+            
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, newPassword);
+            pstmt.setString(2, id);
+            pstmt.executeUpdate();
+            
+
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
     }
 	public UserDTO getUserInfo(String id) {
 	    Connection conn = null;
