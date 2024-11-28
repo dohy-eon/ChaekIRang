@@ -58,20 +58,53 @@
             	    }
 
             	    console.log("프사위치: ", profileImgSrc);
-
-            	    // HTML 출력
+            	    console.log(member.user_id);
             	    const row = document.createElement('tr');
-            	    row.innerHTML = `
-            	        <td>${member.user_id}</td>
-            	        <td>${member.nickname}</td>
-            	        <td>${member.email}</td>
-            	        <td><img src="${profileImgSrc}" alt="프로필" width="50"></td>
-            	        <td>
-            	            <button onclick="editMember('${member.user_id}')">수정</button>
-            	            <button onclick="deleteMember('${member.user_id}')">삭제</button>
-            	        </td>
-            	    `;
-            	    tbody.appendChild(row);
+
+            	 // 아이디 셀
+            	 const userIdCell = document.createElement('td');
+            	 userIdCell.textContent = member.user_id;
+            	 row.appendChild(userIdCell);
+
+            	 // 닉네임 셀
+            	 const nicknameCell = document.createElement('td');
+            	 nicknameCell.textContent = member.nickname;
+            	 row.appendChild(nicknameCell);
+
+            	 // 이메일 셀
+            	 const emailCell = document.createElement('td');
+            	 emailCell.textContent = member.email;
+            	 row.appendChild(emailCell);
+
+            	 // 프로필 이미지 셀
+            	 const profileCell = document.createElement('td');
+            	 const profileImg = document.createElement('img');
+            	 profileImg.src = profileImgSrc;
+            	 profileImg.alt = "프로필";
+            	 profileImg.width = 50;
+            	 profileCell.appendChild(profileImg);
+            	 row.appendChild(profileCell);
+
+            	 // 관리 버튼 셀
+            	 const actionCell = document.createElement('td');
+
+            	 // 수정 버튼
+            	 const editButton = document.createElement('button');
+            	 editButton.textContent = "수정";
+            	 editButton.onclick = () => editMember(member.user_id);
+            	 actionCell.appendChild(editButton);
+
+            	 // 삭제 버튼
+            	 const deleteButton = document.createElement('button');
+            	 deleteButton.textContent = "삭제";
+            	 deleteButton.onclick = () => deleteMember(member.user_id);
+            	 actionCell.appendChild(deleteButton);
+
+            	 row.appendChild(actionCell);
+
+            	 // 행을 테이블에 추가
+            	 tbody.appendChild(row);
+
             	});
             } else {
                 // 데이터가 없는 경우
@@ -83,7 +116,7 @@
     };
 
     xhr.onerror = function() {
-        console.error('Request failed');
+        console.error('요청실패');
     };
 
     xhr.send();
@@ -116,7 +149,7 @@
     function deleteMember(userId) {
         if (confirm('정말로 삭제하시겠습니까?')) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/DeleteUserServlet', true);
+            xhr.open('POST', '/Chaek/DeleteUserServlet', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {
