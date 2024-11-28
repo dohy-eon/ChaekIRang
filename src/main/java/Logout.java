@@ -17,7 +17,7 @@ public class Logout extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		session.invalidate();
-		DAO.alertAndGo(response, "로그아웃 되었습니다.", "pages/loginSignupPage.jsp");
+		DAO.alertAndGo(response, "로그아웃 되었습니다.", "index.jsp");
 			
 		
 		

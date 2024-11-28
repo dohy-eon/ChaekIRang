@@ -46,6 +46,9 @@
 					<p><%=email%></p>
 				</div>
 				<div class="user-passwordupdate"><a href="passwordUpdatePage.jsp">비밀번호 수정</a></div>
+				<form method="post" action="<%= request.getContextPath() %>/logout">
+					<button class="user-logout" type="submit">로그아웃</button>
+				</form>
 			</div>
 	      </div>
 	      <div class="user-bookchatdata">
