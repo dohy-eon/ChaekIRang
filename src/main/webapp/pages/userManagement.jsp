@@ -35,32 +35,92 @@
 <script>
     // 회원 데이터 로드
     function loadMembers(query = '') {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/getMembers?search=' + encodeURIComponent(query), true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                const tbody = document.querySelector('#member-table tbody');
-                tbody.innerHTML = ''; // 기존 데이터 초기화
-                data.forEach(member => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${member.user_id}</td>
-                        <td>${member.nickname}</td>
-                        <td>${member.email}</td>
-                        <td><img src="${member.profile_img}" alt="프로필" width="50"></td>
-                        <td>
-                            <button onclick="editMember('${member.user_id}')">수정</button>
-                            <button onclick="deleteMember('${member.user_id}')">삭제</button>
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                });
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/Chaek/getMembers?search=' + encodeURIComponent(query), true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            const data = JSON.parse(xhr.responseText);
+            console.log(data); // 데이터 확인용
+
+            const tbody = document.querySelector('#member-table tbody');
+            tbody.innerHTML = '';
+
+            if (Array.isArray(data) && data.length > 0) {
+               data.forEach(member => {
+                   console.log(member); // 체크용
+
+                   let profileImgSrc = '/img/profile/profilepic.jpg'; // 기본 이미지 URL
+
+                   if (member.profile_img !== "0") {
+                       profileImgSrc = '/images/' + member.profile_img;
+                   }
+
+                   console.log("프사위치: ", profileImgSrc);
+                   console.log(member.user_id);
+                   const row = document.createElement('tr');
+
+                // 아이디 셀
+                const userIdCell = document.createElement('td');
+                userIdCell.textContent = member.user_id;
+                row.appendChild(userIdCell);
+
+                // 닉네임 셀
+                const nicknameCell = document.createElement('td');
+                nicknameCell.textContent = member.nickname;
+                row.appendChild(nicknameCell);
+
+                // 이메일 셀
+                const emailCell = document.createElement('td');
+                emailCell.textContent = member.email;
+                row.appendChild(emailCell);
+
+                // 프로필 이미지 셀
+                const profileCell = document.createElement('td');
+                const profileImg = document.createElement('img');
+                profileImg.src = profileImgSrc;
+                profileImg.alt = "프로필";
+                profileImg.width = 50;
+                profileCell.appendChild(profileImg);
+                row.appendChild(profileCell);
+
+                // 관리 버튼 셀
+                const actionCell = document.createElement('td');
+
+                // 수정 버튼
+                const editButton = document.createElement('button');
+                editButton.textContent = "수정";
+                editButton.onclick = () => editMember(member.user_id);
+                actionCell.appendChild(editButton);
+
+                // 삭제 버튼
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = "삭제";
+                deleteButton.onclick = () => deleteMember(member.user_id);
+                actionCell.appendChild(deleteButton);
+
+                row.appendChild(actionCell);
+
+                // 행을 테이블에 추가
+                tbody.appendChild(row);
+
+               });
+            } else {
+                // 데이터가 없는 경우
+                tbody.innerHTML = '<tr><td colspan="5">회원 정보가 없습니다.</td></tr>';
             }
-        };
-        xhr.send();
-    }
+        } else {
+            console.error('Error: ' + xhr.status); // 실패 시 에러 로그
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('요청실패');
+    };
+
+    xhr.send();
+}
 
     document.getElementById('search-btn').addEventListener('click', function() {
         const query = document.getElementById('search-input').value;
@@ -78,7 +138,7 @@
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     alert('회원 정보가 수정되었습니다.');
-                    loadMembers(); // 목록갱신
+                    loadMembers(); 
                 }
             };
             xhr.send(JSON.stringify({ user_id: userId, nickname: newNickname, email: newEmail }));
@@ -89,12 +149,12 @@
     function deleteMember(userId) {
         if (confirm('정말로 삭제하시겠습니까?')) {
             const xhr = new XMLHttpRequest();
-            xhr.open('POST', '/DeleteUserServlet', true);
+            xhr.open('POST', '/Chaek/DeleteUserServlet', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     alert('회원이 삭제되었습니다.');
-                    loadMembers(); // 삭제 후 멤버 목록 갱신
+                    loadMembers(); // 리로드
                 }
             };
             xhr.send(JSON.stringify({ user_id: userId }));
@@ -105,6 +165,7 @@
     window.addEventListener('DOMContentLoaded', function() {
         loadMembers();
     });
+    
 </script>
 </body>
 </html>
