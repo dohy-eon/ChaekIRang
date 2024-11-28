@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/logout")
 public class Logout extends HttpServlet {
+
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       UserDAO DAO = new UserDAO();
       
@@ -16,4 +17,5 @@ public class Logout extends HttpServlet {
       HttpSession session = request.getSession();
       session.invalidate();
       DAO.alertAndGo(response, "로그아웃 되었습니다.", "pages/loginSignupPage.jsp");
+   }
 }

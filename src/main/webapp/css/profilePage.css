@@ -109,7 +109,14 @@
 	cursor: pointer;
 	animation: colorChange 5s infinite; 
 }
-
+.user-logout {
+	all: unset;
+	margin-top: 20px;
+}
+.user-logout:hover {
+	cursor: pointer;
+	animation: colorChange 5s infinite; 
+}
 
 
 .user-datalistbox > p {
