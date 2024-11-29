@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import userinfo.UserDAO;
+import userinfo.UserDTO;
+
 @WebServlet("/EditUserServlet")
 public class EditUserServlet extends HttpServlet {
     @Override

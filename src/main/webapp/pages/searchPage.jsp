@@ -18,7 +18,9 @@
           <p class="search-subtitle">책이랑에서 다음 읽을거리를 탐험해보는 건 어때요?</p>
           <div class="search-inputbox">
        	    <div class="search-input">
-       	  	  <input type="text"> <img src="../img/search/search-icon.svg">
+       	    <form action="<%= request.getContextPath() %>/bookSearch" method="get" >
+       	  	  <input type="text" name="search"> <button type="submit"> <img src="../img/search/search-icon.svg"></button>
+       	  	  </form>
        	    </div>
        	    <div class="search-input-shadow"></div>
           </div>
