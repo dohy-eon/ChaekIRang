@@ -6,6 +6,8 @@ import javax.servlet.http.*;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import userinfo.UserDAO;
+
 @WebServlet("/DeleteUserServlet")
 public class DeleteUserServlet extends HttpServlet {
     @Override

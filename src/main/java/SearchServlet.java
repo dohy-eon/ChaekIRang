@@ -15,14 +15,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import bookInfo.BookInfo;
+import book.BookInfo;
+import userinfo.UserDAO;
 
 @WebServlet("/bookSearch")
 public class SearchServlet extends HttpServlet {
     private static final String API_KEY = "AIzaSyAq4XgMsdLzOoAdR4x4HlRxq-PNqfJfjKw"; // Google Books API 키
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDAO DAO = new UserDAO();
         
         request.setCharacterEncoding("UTF-8");
@@ -51,29 +52,38 @@ public class SearchServlet extends HttpServlet {
                     JsonObject volumeInfo = book.getAsJsonObject("volumeInfo");
                     JsonObject saleInfo = book.getAsJsonObject("saleInfo");
 
-                    // 책 제목과 저자 추출
-                    String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "제목 없음";
-                    String authors = volumeInfo.has("authors")
-                            ? volumeInfo.getAsJsonArray("authors").toString()
-                            : "저자 정보 없음";
+                    // saleability가 FOR_SALE인 경우만 처리
+                    if (saleInfo != null && saleInfo.has("saleability") && "FOR_SALE".equals(saleInfo.get("saleability").getAsString())) {
+                        // 책 제목과 저자 추출
+                        String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "제목 없음";
+                        String authors = volumeInfo.has("authors")
+                                ? volumeInfo.getAsJsonArray("authors").toString()
+                                : "저자 정보 없음";
 
-                    // 이미지 링크 추출 (썸네일 이미지)
-                    String img = null;
-                    if (volumeInfo.has("imageLinks") && volumeInfo.getAsJsonObject("imageLinks").has("thumbnail")) {
-                        img = volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString();
+                        // 이미지 링크 추출 (썸네일 이미지)
+                        String img = null;
+                        if (volumeInfo.has("imageLinks") && volumeInfo.getAsJsonObject("imageLinks").has("thumbnail")) {
+                            img = volumeInfo.getAsJsonObject("imageLinks").get("thumbnail").getAsString();
+                        }
+
+                        // eBook 여부 추출
+                        boolean isEbook = saleInfo != null && saleInfo.has("isEbook") && saleInfo.get("isEbook").getAsBoolean();
+
+                        // 가격 정보 추출
+                        int price = 0;
+                        if (saleInfo != null && saleInfo.has("retailPrice") && saleInfo.getAsJsonObject("retailPrice").has("amount")) {
+                            price = saleInfo.getAsJsonObject("retailPrice").get("amount").getAsInt();
+                        }
+
+                        // 책 설명 추출
+                        String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "설명 없음";
+
+                        // 구매 링크 추출
+                        String buyLink = saleInfo != null && saleInfo.has("buyLink") ? saleInfo.get("buyLink").getAsString() : "#";
+
+                        // BookInfo 객체 생성
+                        bookList.add(new BookInfo(title, authors, img, isEbook, price, description, buyLink));
                     }
-
-                    // eBook 여부 추출
-                    boolean isEbook = saleInfo != null && saleInfo.has("isEbook") && saleInfo.get("isEbook").getAsBoolean();
-
-                    // 가격 정보 추출
-                    int price = 0;
-                    if (saleInfo != null && saleInfo.has("retailPrice") && saleInfo.getAsJsonObject("retailPrice").has("amount")) {
-                        price = saleInfo.getAsJsonObject("retailPrice").get("amount").getAsInt();
-                    }
-
-                    // BookInfo 객체 생성
-                    bookList.add(new BookInfo(title, authors, img, isEbook, price));
                 }
             }
 

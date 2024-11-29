@@ -1,5 +1,5 @@
 <!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
-<%@ page import="java.util.ArrayList, bookInfo.BookInfo" %>
+<%@ page import="java.util.ArrayList,book.BookInfo,userinfo.UserDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,8 @@
 	String[] img = new String[size];
 	boolean[] isEbook = new boolean[size];
 	int[] price = new int[size];
+	String[] description = new String[size];
+	String[] buyLink = new String[size];
 	// bookList가 null이 아니고, 비어있지 않다면
 	if (bookList != null && !bookList.isEmpty()) {
 	    // bookList를 순회하면서 배열에 데이터 저장
@@ -28,7 +30,12 @@
 	        img[i] = book.getImg();
 	        isEbook[i] = book.getIsEbook();
 	        price[i] = book.getPrice();
+	        description[i] = book.getDescription();
+	        buyLink[i] = book.getBuyLink();
 	    }
+	}
+	else { 
+		UserDAO.alertAndBack(response, "검색 결과가 없습니다.");
 	}
 %>
 <body>
@@ -44,7 +51,9 @@
                     <b>Authors:</b> <%= authors[count] %> <br>
                     <b>image:</b> <img src=<%= img[count] %> > </img><br>
                     <b>isEbook:</b> <%= isEbook[count] %> <br>
-                    <b>price:</b> <%=price[count] %>
+                    <b>price:</b> <%=price[count] %> <br>
+                    <b>description:</b> <%=description[count] %><br>
+                    <a href=<%=buyLink[count] %> target="_blank"><b>Buylink </b> </a>
                 </p>
                 <hr>
 

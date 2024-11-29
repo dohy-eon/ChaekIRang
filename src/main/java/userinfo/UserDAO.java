@@ -1,3 +1,4 @@
+package userinfo;
 import java.io.File;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -14,6 +15,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import db.JDBCUtil;
 
 
 public class UserDAO {
