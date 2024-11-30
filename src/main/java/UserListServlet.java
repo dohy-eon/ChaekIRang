@@ -6,6 +6,9 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import userinfo.UserDAO;
+import userinfo.UserDTO;
+
 @WebServlet("/UserListServlet")
 public class UserListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
