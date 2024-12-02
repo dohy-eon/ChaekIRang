@@ -1,3 +1,79 @@
 .searchresult-page {
-	
+	display: flex;
+	flex-direction: row;
+    width: 1440px;
+    height: 1000px;
+    position: relative;
+    margin-top: 250px;
+    margin-bottom: 250px;
+    font-family: "GmarketSansMedium", Helvetica;
+}
+.sidebar {
+	display: flex;
+	width: 400px;
+	margin-left: 100px;
+}
+.discuss-recommend {
+	width: 398px;
+}
+.discuss-recommend > p {
+	font-size: 24px;
+}
+.discuss-recommend .recommend-first {
+	width: 350px;
+	height: 270px;
+	margin-top: 20px;
+	border: solid 1px black;
+}
+.discuss-recommend .recommends {
+	width: 350px;
+	height: 70px;
+	margin-top: 20px;
+	border: solid 1px black;
+}
+.middle-line {
+	width: 1px;
+	height: 998px;
+	border: solid 1px lightslategray;
+}
+.search-result {
+	margin-left: 50px;
+}
+.search-result-header {
+	border: solid 1px black;
+	margin-top: 5px;
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+}
+.search-result-header > p{
+	padding: 5px;
+	border-bottom: solid 1px lightslategray;
+}
+.search-result .sort {
+	display: flex;
+	flex-direction: row;
+}
+.search-result .sort > button {
+	all: unset;
+	padding: 5px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.search-result .sort > button:active {
+	color: #3AB8EB;
+	font-weight: bold;
+}
+
+.result-bookinfo {
+	display: flex;
+	flex-direction: row;
+}
+.result-bookinfo > div {
+	display: flex;
+	flex-direction: column;
+}
+.result-bookinfo > img {
+	width: 100px;
+	height: 150px;
 }
