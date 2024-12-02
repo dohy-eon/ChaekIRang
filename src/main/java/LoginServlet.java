@@ -38,6 +38,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userProfile", userInfo.getProfile_img());
 			session.setAttribute("userAdmin", userInfo.getIs_admin());
 			
+			System.out.println(userInfo.getNickname());
 			
 			
 			
