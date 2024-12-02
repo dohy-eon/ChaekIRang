@@ -115,25 +115,25 @@
 </head>
 <body>
 	<footer class="footer">
-      <img class="footer-dash-line" src="../img/dash-line.svg" />
+      <img class="footer-dash-line" src="<%=request.getContextPath()%>/img/dash-line.svg" />
       <div class="footer-teamName">백엔드 실습 5조</div>
       
       <div class="footer-sns">
         <div class="footer-figma">
           <div class="footer-sns-outline"></div>
           <a class="footer-sns-link" target='_blank' href="https://www.figma.com/design/bC8VYGTCKIHv2kokT9hLey/Backend?node-id=0-1&t=xjMW7POYoRXMje70-1">
-            <img class="footer-sns-figmaImg" src="../img/FIGMALOGO.svg" />
+            <img class="footer-sns-figmaImg" src="<%=request.getContextPath()%>/img/FIGMALOGO.svg" />
           </a>
         </div>   
-        <img class="footer-img-shadow1" src="../img/icon-shadow.svg" />
+        <img class="footer-img-shadow1" src="<%=request.getContextPath()%>/img/icon-shadow.svg" />
         
         <div class="footer-github">
           <div class="footer-sns-outline"></div>
           <a class="footer-sns-link" target='_blank' href="https://github.com/titeotty/ChaekIRang.git">
-            <img class="footer-sns-githubImg" src="../img/GITHUBLOGO.svg"/>
+            <img class="footer-sns-githubImg" src="<%=request.getContextPath()%>/img/GITHUBLOGO.svg"/>
           </a>
         </div>
-        <img class="footer-img-shadow2" src="../img/icon-shadow.svg" />
+        <img class="footer-img-shadow2" src="<%=request.getContextPath()%>/img/icon-shadow.svg" />
       </div>
     </footer>
 </body>
