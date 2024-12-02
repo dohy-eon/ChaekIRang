@@ -104,7 +104,7 @@
 
         const comments = document.createElement("div");
         comments.className = "engagement-count";
-        comments.textContent = `💬 ${discussion.comments}`;
+        comments.textContent = discussion.comments ? "💬 " + discussion.comments : "💬 댓글 없음";
 
         details.append(title, description, comments);
         card.append(thumbnail, details);
