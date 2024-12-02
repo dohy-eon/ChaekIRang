@@ -125,6 +125,10 @@
   text-decoration: none;
   color: black;
 }
+button {
+  all: unset;
+  cursor: pointer;
+}
 
 </style>
 </head>
@@ -138,13 +142,13 @@
         </div>
       </div>
       
-      <img class="header-logo-img" src="../img/book-open.svg" />
-      <img class="header-line1" src="../img/line-1.svg" />
+      <img class="header-logo-img" src="/Chaek/img/book-open.svg" />
+      <img class="header-line1" src="/Chaek/img/line-1.svg" />
       <div class="header-text-main"><a class="header-a-tag" href="/Chaek">메인</a></div>
       <form class="header-search-input" method="get" action="<%= request.getContextPath() %>/bookSearch"> 
-      	<input type="text" name="search"> <button type="submit"> <img src="../img/search/search-icon.svg" > </button>
+      	<input type="text" name="search"> <button type="submit"> <img src="/Chaek/img/search/search-icon.svg" > </button>
       </form>
-      <img class="header-line2" src="../img/line-1.svg" />
+      <img class="header-line2" src="/Chaek/img/line-1.svg" />
     </header>
 </body>
 </html>

@@ -27,6 +27,7 @@
 }
 .search-input {
 	width: 550px;
+	height: 50px;
 	border: solid 1px black;
 	display: flex;
 	justify-content: space-between;
@@ -38,12 +39,15 @@
 	align-items: center;
 }
 .search-input input {
-	width: 90%;
+	width: 95%;
 	border: none;
 	font-size: 20px;
 }
 .search-input input:focus {
 	outline: none;
+}
+.search-input form {
+	width: 100%;
 }
 .search-input-shadow {
 	width: 550px;
@@ -55,10 +59,13 @@
 	z-index: 1;
 	border-radius: 30px;
 }
-.search-input img {
+button {
+	all: unset;
 	cursor: pointer;
 }
-
+img {
+	margin-top: 3px;
+}
 
 
 .search-banner {

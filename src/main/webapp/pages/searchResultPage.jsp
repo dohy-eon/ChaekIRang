@@ -4,14 +4,13 @@
 <html>
 <head>
  	<meta charset="UTF-8" />
- 	<link rel="stylesheet" href="../css/searchResultPage.css" />
- 	<link rel="stylesheet" href="../css/default.css"/>
+ 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/searchResultPage.css" />
+ 	<link rel="stylesheet" href="<%=request.getContextPath()%>/css/default.css"/>
     <title>책이랑-책검색결과</title>
 </head>
 <%
 	ArrayList<BookInfo> bookList = (ArrayList<BookInfo>) request.getAttribute("bookList");
 	int size = bookList.size(); // 검색결과 갯수
-	int count = 0;
 	// 제목과 저자를 저장할 배열 선언
 	String[] titles = new String[size];
 	String[] authors = new String[size];
@@ -37,33 +36,88 @@
 	else { 
 		UserDAO.alertAndBack(response, "검색 결과가 없습니다.");
 	}
+	
+	int currentPage = 1;
+	if (request.getParameter("page") != null) {
+		currentPage = Integer.parseInt(request.getParameter("page"));
+	}
+	
+	int booksPerPage = 5; // 한 페이지에 표시할 책의 수
+	int totalPages = (int) Math.ceil(size / (double) booksPerPage); // 전체 페이지 수
+	
+	String searchWord = request.getParameter("search");
+	if (searchWord == null) {
+		searchWord = ""; // 기본값으로 빈 문자열
+	}
+	// 반복문 시작인덱스 끝인덱스
+	int startIndex = (currentPage - 1) * booksPerPage;
+    int endIndex = Math.min(startIndex + booksPerPage, size);
+	
 %>
+
+
 <body>
   <div class="div-wrapper">
     <div class="div">
-	  <%@ include file="../modules/header.jsp" %>
+	  <%@ include file="../modules/headerSearch.jsp" %>
 	  
 	  <div class="searchresult-page">
-	       <h1>Search Results</h1>
-
-                <p>
-                    <b>Title:</b> <%= titles[count] %> <br>
-                    <b>Authors:</b> <%= authors[count] %> <br>
-                    <b>image:</b> <img src=<%= img[count] %> > </img><br>
-                    <b>isEbook:</b> <%= isEbook[count] %> <br>
-                    <b>price:</b> <%=price[count] %> <br>
-                    <b>description:</b> <%=description[count] %><br>
-                    <a href=<%=buyLink[count] %> target="_blank"><b>Buylink </b> </a>
-                </p>
-                <hr>
-
-        <p>No books found!</p>
-    </div>
+	      <div class="sidebar">
+	      	<div class="discuss-recommend">
+	      		<p>이런 토론 주제는 어떠세요?</p>
+	      		<div class="recommend-first"></div>
+	      		<div class="recommends"></div>
+	      		<div class="recommends"></div>
+	      	</div>
+	      	<div class="middle-line"></div>
+	      </div>
 	      
+	      <div class="search-result">
+	      	<div class="search-result-header">
+	      		<p class="result-count"><%= size %>개의 검색 결과가 있습니다.</p>
+	      		<div class="sort">
+	      			<button>낮은 가격순</button>
+	      			<button>높은 가격순</button>
+	      			<button>이름순</button>
+	      			<button>신간순</button>
+	      		</div>
+	      	</div>
+	      	<div class="result-contents">
+	      		<% for(int count = startIndex; count < endIndex; count++){ %>
+	      		<div class="result-bookinfo">
+	      			<a href=<%=buyLink[count] %> target="_blank">
+	      			<img src=<%= img[count] %> alt=<%= titles[count] %> />
+	      			</a>
+	      			<div>
+	      				<p class="title"><%= titles[count] %></p>
+	      				<p class="author">저자 : 
+	      				<%= (authors[count] != null && authors[count].length() > 0) 
+					        ? String.join(", ", authors[count]).replaceAll("\"", "").replaceAll("[\\[\\]\"]", "")
+					        : "정보 없음" 
+					    %></p>
+	      				<p class="price">판매가 : <%=price[count] %>원</p>
+	      				<p class="description">
+	      				<%= description[count] != null && description[count].length() > 0
+					        ? (description[count].length() > 150 
+					            ? description[count].substring(0, 150) + "..." 
+					            : description[count])
+					        : "정보 없음"
+					    %></p>
+	      			</div>
+	      		</div>
+	      		<% } %>
+	      	</div>
+	      	<!-- 페이지 네비게이션 -->
+	      	<div class="pagination">
+			   <% for (int i = 1; i <= totalPages; i++) { %>
+	      			<a href="?page=<%= i %>&search=<%= searchWord %>" <%= (i == currentPage ? "class='active'" : "") %>><%= i %></a>
+	      		<% } %>
+			</div>
+	      </div>
       </div>
       
 	  <%@ include file="../modules/footer.jsp" %>
 	</div>
-  
+  </div>
 </body>
 </html>
