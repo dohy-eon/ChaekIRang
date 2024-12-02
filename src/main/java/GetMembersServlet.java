@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
+import userinfo.UserDAO;
+import userinfo.UserDTO;
+
 @WebServlet("/getMembers")
 public class GetMembersServlet extends HttpServlet {
     @Override

@@ -1,3 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
+encoding//src/main/webapp/pages/discussMainPage.jsp=UTF-8
+=======
+encoding//src/main/webapp/pages/testResult.jsp=UTF-8
+>>>>>>> 1b603bfb920c0788a0e6ca712de47539d8896774
 encoding//src/main/webapp/pages/userManagement.jsp=UTF-8
 encoding/<project>=UTF-8

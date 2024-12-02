@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import userinfo.UserDAO;
+import userinfo.UserDTO;
+
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -18,9 +21,7 @@ public class LoginServlet extends HttpServlet {
         String id = request.getParameter("username");
         String password = request.getParameter("password");
         
-		/*
-		 * UserDTO user = new UserDTO(); user.setUser_id(id); user.setUser_pw(password);
-		 */
+
         
         
         UserDAO DAO = new UserDAO();
