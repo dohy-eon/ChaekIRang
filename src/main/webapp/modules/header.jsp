@@ -140,7 +140,127 @@
   color: black;
 }
 
+.alarm-modal {
+  font-family: "GmarketSansLight", Helvetica;
+  position: fixed;
+  top: 110px;
+  right: 530px;
+  width: 350px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+.alarm-modal-header {
+  background-color: #f4f4f4;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  border-bottom: 1px solid #D9D9D9;
+}
+.alarm-modal-header p {
+  margin: 0;
+}
+.alarm-modal-content {
+  max-height: 200px;
+  overflow-y: auto; /* 스크롤 */
+  padding: 10px 16px;
+}
+.alarm-modal-detail {
+  margin: 10px 0;
+  padding: 5px 15px;
+  border: solid 1px #D9D9D9;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px #D9D9D9;
+  cursor: pointer;
+}
+.alarm-modal-content p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+.alarm-modal-detail-title {
+  font-weight: bold;
+}
+.alarm-modal.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+/* 알림창 스크롤바 */
+		.alarm-modal-content::-webkit-scrollbar {
+		    width: 8px;
+		    height: 8px;
+		}
+		 /* 스크롤바 색상 */
+		.alarm-modal-content::-webkit-scrollbar-thumb {
+		    background: #888;
+		    border-radius: 10px;
+		}
+		.alarm-modal-content::-webkit-scrollbar-thumb:hover {
+		    background: #555;
+		}
+		 /* 스크롤 트랙 배경 */
+		.alarm-modal-content::-webkit-scrollbar-track {
+		    background: #f0f0f0;
+		    border-radius: 10px;
+		}
+		.alarm-modal-content::-webkit-scrollbar-track:hover {
+		    background: #e0e0e0;
+		}
+
 </style>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	    const alarmIcon = document.querySelector(".header-alarm-icon");
+	    const alarmModal = document.getElementById("alarm-modal");
+	
+	    alarmIcon.addEventListener("click", () => {
+	      alarmModal.classList.toggle("show");
+	    });
+	
+	    // 알림아이콘 다시 클릭하거나 모달 바깥 영역 클릭 시 모달 닫기
+	    window.addEventListener("click", (event) => {
+	      if (!alarmModal.contains(event.target) && !alarmIcon.contains(event.target)) {
+	        alarmModal.classList.remove("show");
+	      }
+	    });
+	});
+	
+	//더미데이타
+	const notifications = [
+	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
+	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
+	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
+	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
+	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
+	];
+	
+	document.addEventListener("DOMContentLoaded", () => {
+	  const alarmModalContent = document.querySelector(".alarm-modal-content");
+
+	  notifications.forEach((notification) => {
+	    const detailDiv = document.createElement("div");
+	      detailDiv.className = "alarm-modal-detail";
+	      
+	      const titleP = document.createElement("p");
+	      titleP.textContent = notification.title;
+	      titleP.className = "alarm-modal-detail-title"
+
+  	      const descriptionP = document.createElement("p");
+	      descriptionP.textContent = notification.description;
+
+	      detailDiv.appendChild(titleP);
+	      detailDiv.appendChild(descriptionP);
+	      alarmModalContent.appendChild(detailDiv);
+	  });
+	});
+</script>
 </head>
 
 <%
@@ -149,7 +269,6 @@
 	
 	if(idSession == null) isGuest = "/Chaek/pages/loginSignupPage.jsp";
 	else isGuest = "/Chaek/pages/profilePage.jsp";
-	
 	
 %>
 <body>
@@ -168,10 +287,19 @@
       <div class="header-text-discussion"><a class="header-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
       <div class="header-text-search"><a class="header-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
       
-      <!-- 프로필 아이콘 클릭하면 로그인 여부 확인하고 처리해야함. -->
       <a class="header-a-tag" href="<%=isGuest%>"><img class="header-profile-icon" src="/Chaek/img/headerProfile.svg" /></a>
       <img class="header-alarm-icon" src="/Chaek/img/headerAlarm.svg" />
       <img class="header-line2" src="/Chaek/img/line-1.svg" />
+      
+      <!-- 알림 모달 -->
+	  <div id="alarm-modal" class="alarm-modal">
+	    <div class="alarm-modal-header">
+	      <p>알림</p>
+	    </div>
+	    <div class="alarm-modal-content">
+	    <!-- 여기에 추가됨 -->
+	    </div>
+	  </div>
     </header>
 </body>
 </html>
