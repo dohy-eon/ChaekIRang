@@ -95,7 +95,7 @@
 	      
 	      <div class="search-result">
 	      	<div class="search-result-header">
-	      		<p class="result-count"><%= size %>개의 검색 결과가 있습니다.</p>
+	      		<p class="result-count">'<%= searchWord %>'에 대한 <%= size %>개의 검색 결과가 있습니다.</p>
 	      		<div class="sort">
 				    <a href="?page=<%= currentPage %>&search=<%= searchWord %>&sort=priceLow" 
 				       class="<%= "priceLow".equals(sortType) ? "active" : "" %>">낮은 가격순</a>

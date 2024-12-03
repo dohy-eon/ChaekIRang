@@ -4,6 +4,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +30,10 @@ public class SearchServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         String query = request.getParameter("search"); // 사용자 입력값
-        String url = String.format("%s?q=%s&key=%s", BASE_URL, query, API_KEY);
+        
+        // 검색어 인코딩(검색어에 띄어쓰기 가능)
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8.toString());
+        String url = String.format("%s?q=%s&key=%s", BASE_URL, encodedQuery, API_KEY);
         
         // HTTP 요청 보내기
         HttpClient client = HttpClient.newHttpClient();
