@@ -37,6 +37,29 @@
 		UserDAO.alertAndBack(response, "검색 결과가 없습니다.");
 	}
 	
+	// 그 버튼으로 검색결과 소트정렬
+    String sortType = request.getParameter("sort");
+    if (bookList != null && !bookList.isEmpty()) {
+        if ("priceLow".equals(sortType)) {
+            bookList.sort((b1, b2) -> Integer.compare(b1.getPrice(), b2.getPrice()));
+        } else if ("priceHigh".equals(sortType)) {
+            bookList.sort((b1, b2) -> Integer.compare(b2.getPrice(), b1.getPrice()));
+        } else if ("name".equals(sortType)) {
+            bookList.sort((b1, b2) -> b1.getTitle().compareToIgnoreCase(b2.getTitle()));
+        }
+     	// 소트를 거친 배열로 초기화
+        for (int i = 0; i < size; i++) {
+            BookInfo book = bookList.get(i);
+            titles[i] = book.getTitle();
+            authors[i] = book.getAuthors();
+            img[i] = book.getImg();
+            isEbook[i] = book.getIsEbook();
+            price[i] = book.getPrice();
+            description[i] = book.getDescription();
+            buyLink[i] = book.getBuyLink();
+        }
+    }
+	
 	int currentPage = 1;
 	if (request.getParameter("page") != null) {
 		currentPage = Integer.parseInt(request.getParameter("page"));
@@ -52,7 +75,6 @@
 	// 반복문 시작인덱스 끝인덱스
 	int startIndex = (currentPage - 1) * booksPerPage;
     int endIndex = Math.min(startIndex + booksPerPage, size);
-	
 %>
 
 
@@ -69,18 +91,19 @@
 	      		<div class="recommends"></div>
 	      		<div class="recommends"></div>
 	      	</div>
-	      	<div class="middle-line"></div>
 	      </div>
 	      
 	      <div class="search-result">
 	      	<div class="search-result-header">
-	      		<p class="result-count"><%= size %>개의 검색 결과가 있습니다.</p>
+	      		<p class="result-count">'<%= searchWord %>'에 대한 <%= size %>개의 검색 결과가 있습니다.</p>
 	      		<div class="sort">
-	      			<button>낮은 가격순</button>
-	      			<button>높은 가격순</button>
-	      			<button>이름순</button>
-	      			<button>신간순</button>
-	      		</div>
+				    <a href="?page=<%= currentPage %>&search=<%= searchWord %>&sort=priceLow" 
+				       class="<%= "priceLow".equals(sortType) ? "active" : "" %>">낮은 가격순</a>
+				    <a href="?page=<%= currentPage %>&search=<%= searchWord %>&sort=priceHigh" 
+				       class="<%= "priceHigh".equals(sortType) ? "active" : "" %>">높은 가격순</a>
+				    <a href="?page=<%= currentPage %>&search=<%= searchWord %>&sort=name" 
+				       class="<%= "name".equals(sortType) ? "active" : "" %>">이름순</a>
+				</div>
 	      	</div>
 	      	<div class="result-contents">
 	      		<% for(int count = startIndex; count < endIndex; count++){ %>
@@ -95,11 +118,11 @@
 					        ? String.join(", ", authors[count]).replaceAll("\"", "").replaceAll("[\\[\\]\"]", "")
 					        : "정보 없음" 
 					    %></p>
-	      				<p class="price">판매가 : <%=price[count] %>원</p>
+	      				<p class="price">가격 : <%=price[count] %>원</p>
 	      				<p class="description">
 	      				<%= description[count] != null && description[count].length() > 0
-					        ? (description[count].length() > 150 
-					            ? description[count].substring(0, 150) + "..." 
+					        ? (description[count].length() > 120 
+					            ? description[count].substring(0, 120) + "..." 
 					            : description[count])
 					        : "정보 없음"
 					    %></p>
@@ -110,7 +133,7 @@
 	      	<!-- 페이지 네비게이션 -->
 	      	<div class="pagination">
 			   <% for (int i = 1; i <= totalPages; i++) { %>
-	      			<a href="?page=<%= i %>&search=<%= searchWord %>" <%= (i == currentPage ? "class='active'" : "") %>><%= i %></a>
+	      			<a href="?page=<%= i %>&search=<%= searchWord %>&sort=<%= sortType %>" <%= (i == currentPage ? "class='active'" : "") %>><%= i %></a>
 	      		<% } %>
 			</div>
 	      </div>
