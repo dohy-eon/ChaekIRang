@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.div-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+}
+
+header {
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    z-index: 10;
+}
+
+footer {
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    line-height: 40px;
+    z-index: 10;
+}
+
+.div {
+    flex: 1;
+    padding: 80px 20px 60px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.discussForm {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-top: 120px;
+    margin-bottom: 120px;
+    position: fixed;
+    margin-left: -120;
+}
+
+.discussForm h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #222;
+}
+
+.discussForm label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.discussForm input[type="text"],
+.discussForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: "GmarketSansLight", Helvetica, sans-serif;
+}
+
+.discussForm textarea {
+    resize: none;
+    height: 100px;    
+    font-size: 16px;
+    font-family: "GmarketSansLight", Helvetica, sans-serif;
+}
+
+.discussForm button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.discussForm button:hover {
+    background-color: #0056b3;
+}
+
+/* 장르 */
+select#genre {
+    width: 200px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border-radius: 8px; 
+    border: 2px solid #0056b3; 
+    transition: all 0.3s ease-in-out;
+    font-family: "GmarketSansLight", Helvetica, sans-serif;
+    margin-bottom: 16px;
+}
+
+select#genre:focus {
+    outline: none; 
+}
+
+option {
+    padding: 8px;
+    color: #333;
+}
+
+option[value=""]:disabled {
+    color: #ccc;
+}

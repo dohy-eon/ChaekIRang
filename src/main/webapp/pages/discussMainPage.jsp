@@ -11,7 +11,6 @@
   <div class="div-wrapper">
     <div class="div">
 	  <%@ include file="../modules/header.jsp" %>
-	  
 	  <div class="discussion-page">
         <!-- 검색 바 -->
         <div class="search-bar">
@@ -30,7 +29,12 @@
             <div id="popular-discussions" class="popular-discussions">
                 <div class="discussion-container">
                     <div class="no-discussion-text">원하는 토론을 찾지 못하셨나요?</div>
-                    <button class="create-discussion-btn" tabindex="0" aria-label="새로운 토론 주제 만들기 버튼">새로운 토론 주제 만들기</button>
+                    <button 
+                    class="create-discussion-btn" 
+                    tabindex="0" 
+                    aria-label="새로운 토론 주제 만들기 버튼" 
+                    onclick="window.location.href='discussForm.jsp'">새로운 토론 주제 만들기
+                    </button>
                 </div>
                 <div class="popular-section">
                     <h2>인기 토론</h2>
