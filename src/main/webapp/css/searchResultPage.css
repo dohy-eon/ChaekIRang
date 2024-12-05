@@ -21,6 +21,9 @@
 	line-height: 1.5;
 	font-size: 20px;
 }
+.discuss-recommend > div {
+	cursor: pointer;
+}
 .discuss-recommend > p {
 	margin-top: 10px;
 	font-size: 20px;
@@ -64,8 +67,7 @@
 	border-radius: 15px;
 	box-shadow: 1px 1px 5px #D9D9D9;
 	padding: 20px;
-	display: flex;
-	
+	display: flex;	
 }
 .search-result {
 	margin-left: 50px;
