@@ -1,4 +1,5 @@
 <!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+<%@ page import="java.io.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +13,14 @@
 	String email = (String)session.getAttribute("userEmail");
 	String profile = (String)session.getAttribute("userProfile");
 	String admin = (String)session.getAttribute("userAdmin");
-	
+	String id = (String)session.getAttribute("idSession");
+
 	if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
 		profile = "../img/profile/profilepic.jpg";
 	}
 
+	
+	
 %>
 <body>
   <div class="div-wrapper">
@@ -55,27 +59,8 @@
 	      	<div class="user-datalistbox">
 	      		<p>나의 eBook 목록</p>
 	      		<div class="user-datalist">
-	      			<!-- db에서 받아온 거 map함수 써서 돌리기-->
-	      			<div class="user-ebooktitle">
-	      				<p>책이름이름</p>
-	      				<img alt="다운" src="../img/profile/ebook-download-icon.svg">
-	    			</div>
-	    			<div class="user-ebooktitle">
-	      				<p>책이름이름</p>
-	      				<img alt="다운" src="../img/profile/ebook-download-icon.svg">
-	    			</div>
-	    			<div class="user-ebooktitle">
-	      				<p>책이름이름이름이름이</p>
-	      				<img alt="다운" src="../img/profile/ebook-download-icon.svg">
-	    			</div>
-	    			<div class="user-ebooktitle">
-	      				<p>책이름이름이름</p>
-	      				<img alt="다운" src="../img/profile/ebook-download-icon.svg">
-	    			</div>
-	    			<div class="user-ebooktitle">
-	      				<p>책이름이름</p>
-	      				<img alt="다운" src="../img/profile/ebook-download-icon.svg">
-	    			</div>
+	      			
+	      			
 	      		</div>
 	      	</div>
 	      	<div class="user-datalistbox">
@@ -134,6 +119,50 @@
 	        img.src = '../img/profile/heart-icon.svg'; // 다시 기본 하트로 변경
 	    }
 	}
+	
+	
+	document.addEventListener("DOMContentLoaded", function () {
+	    fetch("/Chaek/fileList")
+	        .then(response => response.json())
+	        .then(data => {
+	            var dataList = document.querySelector(".user-datalist");
+	            dataList.innerHTML = ""; // 기존 내용 초기화
+
+	            data.forEach(function (file) {
+	                console.log(file.downloadUrl);
+
+	                // <div class="user-ebooktitle"> 생성
+	                var item = document.createElement("div");
+	                item.className = "user-ebooktitle";
+
+	                // <p>파일 이름</p> 생성
+	                var fileNameElement = document.createElement("p");
+	                fileNameElement.textContent = file.fileName;
+
+	                // <a> 다운로드 링크 생성
+	                var linkElement = document.createElement("a");
+	                linkElement.href = "/Chaek/" + file.downloadUrl;
+
+	                // <img> 다운로드 아이콘 생성
+	                var imgElement = document.createElement("img");
+	                imgElement.alt = "다운";
+	                imgElement.src = "../img/profile/ebook-download-icon.svg";
+
+	                // <a>에 <img> 추가
+	                linkElement.appendChild(imgElement);
+
+	                // <div>에 <p>와 <a> 추가
+	                item.appendChild(fileNameElement);
+	                item.appendChild(linkElement);
+
+	                // 리스트에 <div> 추가
+	                dataList.appendChild(item);
+	            });
+	        })
+	        .catch(error => console.error("Error loading files:", error));
+	});
+
+
   </script>
   
 </body>
