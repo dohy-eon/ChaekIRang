@@ -38,9 +38,11 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userProfile", userInfo.getProfile_img());
 			session.setAttribute("userAdmin", userInfo.getIs_admin());
 			
-			System.out.println(userInfo.getNickname());
 			
 			
+			if(userInfo.getIs_admin().equals("1")) {
+				DAO.alertAndGo(response, "Admin 로그인 성공.", "/Chaek/pages/adminPage.jsp");
+			} else if (userInfo.getIs_admin().equals("0")){
 			
             DAO.alertAndGo(response, "로그인 성공.", "index.jsp");
         } else {
@@ -48,4 +50,5 @@ public class LoginServlet extends HttpServlet {
         }
 	}
 
+	}
 }

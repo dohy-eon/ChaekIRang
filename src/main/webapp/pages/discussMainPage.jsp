@@ -51,86 +51,99 @@
   </div>
 
   <script>
-    // 더미데이터(json)
-    const data = {
-        "latestDiscussions": [
-            {
-                "title": "운명과 인간의 선택: 네메시스",
-                "description": "\"네메시스\"는 인간의 운명과 선택에 대한 깊은 질문을 던지는 소설입니다. 이번 독서 토론에서는 이야기 속에서...",
-                "thumbnail": "https://via.placeholder.com/100x150",
-                "comments": 56
-            },
-            {
-                "title": "미래 기술과 윤리: AI의 도전",
-                "description": "AI의 발달이 우리의 삶과 도덕적 선택에 미치는 영향을 논의합니다.",
-                "thumbnail": "https://via.placeholder.com/100x150",
-                "comments": 42
-            }
-        ],
-        "popularDiscussions": [
-            {
-                "title": "운명과 인간의 선택: 네메시스",
-                "thumbnail": "https://via.placeholder.com/50x75"
-            },
-            {
-                "title": "미래 기술과 윤리: AI의 도전",
-                "thumbnail": "https://via.placeholder.com/50x75"
-            },
-            {
-                "title": "기후 변화와 우리의 역할",
-                "thumbnail": "https://via.placeholder.com/50x75"
-            },
-            
-        ]
-    };
 
-    // 최신 토론 주제 렌더링
-    const latestContainer = document.getElementById("latest-discussions");
-    data.latestDiscussions.forEach(discussion => {
-        const card = document.createElement("div");
-        card.className = "discussion-card";
+  document.addEventListener("DOMContentLoaded", function () {
+	    // 서버에서 최신 토론 데이터를 가져오기
+	    fetch("/Chaek/dMainList")  // 서버에서 최신 토론 데이터를 가져오는 URL (예시)
+	        .then(response => response.json())  // JSON 형태로 응답받기
+	        .then(data => {
+	            // 최신 토론 주제 렌더링
+	            const latestContainer = document.getElementById("latest-discussions");
 
-        const thumbnail = document.createElement("img");
-        thumbnail.src = discussion.thumbnail;
-        thumbnail.alt = "토론 이미지";
-        thumbnail.className = "discussion-thumbnail";
+	            // 데이터가 존재하고, 배열일 경우 처리
+	            if (Array.isArray(data) && data.length > 0) {
+	                // 첫 3개 항목만 처리
+	                data.slice(0, 3).forEach(discussion => {
+	                    const card = document.createElement("div");
+	                    card.className = "discussion-card";
 
-        const details = document.createElement("div");
-        details.className = "discussion-details";
+	                    const thumbnail = document.createElement("img");
+	                    thumbnail.src = discussion.book_image || "https://via.placeholder.com/100x150"; // 기본 이미지
+	                    thumbnail.alt = "토론 이미지";
+	                    thumbnail.className = "discussion-thumbnail";
 
-        const title = document.createElement("h3");
-        title.className = "discussion-title";
-        title.textContent = discussion.title;
+	                    const details = document.createElement("div");
+	                    details.className = "discussion-details";
 
-        const description = document.createElement("p");
-        description.className = "discussion-description";
-        description.textContent = discussion.description;
+	                    const title = document.createElement("h3");
+	                    title.className = "discussion-title";
+	                    title.textContent = discussion.title;
 
-        const comments = document.createElement("div");
-        comments.className = "engagement-count";
-        comments.textContent = discussion.comments ? "💬 " + discussion.comments : "💬 댓글 없음";
+	                    const description = document.createElement("p");
+	                    description.className = "discussion-description";
+	                    description.textContent = discussion.description;
 
-        details.append(title, description, comments);
-        card.append(thumbnail, details);
-        latestContainer.appendChild(card);
-    });
+	                    const comments = document.createElement("div");
+	                    comments.className = "engagement-count";
+	                    comments.textContent = discussion.comment ? "💬"+discussion.comment : "💬 댓글 없음"; // 댓글 수가 없는 경우 기본 텍스트
 
-    // 인기 토론 렌더링
-    const popularContainer = document.querySelector("#popular-discussions .discussion-list");
-    data.popularDiscussions.forEach(discussion => {
-        const listItem = document.createElement("li");
+	                    details.append(title, description, comments);
+	                    card.append(thumbnail, details);
+	                    latestContainer.appendChild(card);
+	                });
+	            } else {
+	                // 데이터가 없을 경우 처리
+	                latestContainer.innerHTML = "<p>최신 토론 주제가 없습니다.</p>";
+	            }
+	        })
+	        .catch(error => {
+	            console.error('데이터를 가져오는 중 오류 발생:', error);
+	        });
+	});
 
-        const thumbnail = document.createElement("img");
-        thumbnail.src = discussion.thumbnail;
-        thumbnail.alt = `${discussion.title} 이미지`;
-        thumbnail.className = "discussion-thumbnail";
 
-        const title = document.createElement("span");
-        title.textContent = discussion.title;
+  document.addEventListener("DOMContentLoaded", function () {
+	    // 서버에서 인기 토론 데이터를 가져오기
+	    fetch("/Chaek/dMainListPop")  // 서버에서 인기 토론 데이터를 가져오는 URL
+	        .then(response => response.json())  // JSON 형태로 응답받기
+	        .then(data => {
+	            // 인기 토론 주제 렌더링
+	            const popularContainer = document.querySelector(".popular-section .discussion-list");
 
-        listItem.append(thumbnail, title);
-        popularContainer.appendChild(listItem);
-    });
+	            // 데이터가 존재하고, 배열일 경우 처리
+	            if (Array.isArray(data) && data.length > 0) {
+	                // 첫 3개 항목만 처리 (최대 3개)
+	                data.slice(0, 3).forEach(discussion => {
+	                    const listItem = document.createElement("li");
+
+	                    const thumbnail = document.createElement("img");
+	                    thumbnail.src = discussion.book_image || "https://via.placeholder.com/100x150"; // 기본 이미지
+	                    thumbnail.alt = `${discussion.title} 이미지`;
+	                    thumbnail.className = "discussion-thumbnail";
+
+	                    const title = document.createElement("span");
+	                    title.textContent = discussion.title;
+	                    title.className = "discussion-title"; // 스타일링을 위한 클래스 추가
+
+	                    const description = document.createElement("p");
+	                    description.textContent = discussion.description;
+	                    description.className = "discussion-description"; // 스타일링을 위한 클래스 추가
+
+	                    // title과 description을 listItem에 추가
+	                    listItem.append(thumbnail, title, description);
+	                    popularContainer.appendChild(listItem);
+	                });
+	            } else {
+	                // 데이터가 없을 경우 처리
+	                popularContainer.innerHTML = "<p>인기 토론 주제가 없습니다.</p>";
+	            }
+	        })
+	        .catch(error => {
+	            console.error('데이터를 가져오는 중 오류 발생:', error);
+	        });
+	});
+
+
   </script>
 </body>
 </html>

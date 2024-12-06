@@ -1,5 +1,11 @@
 <!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
 <%@ page import="java.io.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="discusstion.DiscussInfo" %>
+<%@ page import="com.google.gson.Gson" %>
+
+    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +24,9 @@
 	if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
 		profile = "../img/profile/profilepic.jpg";
 	}
-
+	
+	// 서블릿에서 전달된 JSON 데이터
+ // String json = (String) request.getAttribute("json");
 	
 	
 %>
@@ -65,42 +73,9 @@
 	      	</div>
 	      	<div class="user-datalistbox">
 	      		<p>나의 관심 토론</p>
-	      		<div class="user-datalist">
+	      		<div class="user-datalist2">
 	      			<!-- 여기도 map -->
-	      			<div class="user-chatroom">
-	      				<div class="user-bookcover">
-	      					<img alt="책커버" src="">
-	      				</div>
-	      				<div class="user-chatroom-text">
-		      				<div class="user-chatroom-title">토론방 이름이름이름이름이름이름이름이름이름</div>
-		      				<div class="user-chatroom-detail">
-		      					토론방 주제설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명</div>
-	    				</div>
-	    				<div class="heart-button" onclick="toggleHeart(this)">
-				            <img alt="하트" src="../img/profile/heart-colored-icon.svg">
-				        </div>
-	    			</div>
-	    			<div class="user-chatroom">
-	      				<div class="user-bookcover">
-	      					<img alt="책커버" src="">
-	      				</div>
-	      				<div class="user-chatroom-text">
-		      				<div class="user-chatroom-title">토론방 이름이름이름이름이름이름이름이름이름</div>
-		      				<div class="user-chatroom-detail">
-		      					토론방 주제설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-		      					설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명</div>
-	    				</div>
-	    				<div class="heart-button" onclick="toggleHeart(this)">
-				            <img alt="하트" src="../img/profile/heart-colored-icon.svg">
-				        </div>
-	    			</div>
+	    			
 	      		</div>
 	      	</div>
 	      </div>
@@ -129,7 +104,7 @@
 	            dataList.innerHTML = ""; // 기존 내용 초기화
 
 	            data.forEach(function (file) {
-	                console.log(file.downloadUrl);
+	               
 
 	                // <div class="user-ebooktitle"> 생성
 	                var item = document.createElement("div");
@@ -161,6 +136,63 @@
 	        })
 	        .catch(error => console.error("Error loading files:", error));
 	});
+	document.addEventListener("DOMContentLoaded", function () {
+	    // 서블릿을 호출하여 데이터 가져오기
+	    fetch("/Chaek/dList")  // 서블릿 URL
+	        .then(response => response.json())  // JSON 형식으로 응답 받기
+	        .then(data => {  // 'discussionDetails' 대신 'data' 사용
+	            if (Array.isArray(data)) {  // 'discussionDetails' 대신 'data'
+	                var container = document.querySelector('.user-datalist2');
+	                data.forEach(function(discussInfo) {  // 'discussionDetails' 대신 'data'
+	                    var chatroomDiv = document.createElement('div');
+	                    chatroomDiv.classList.add('user-chatroom');
+
+	                    // 책 커버 이미지
+	                    var bookcoverDiv = document.createElement('div');
+	                    bookcoverDiv.classList.add('user-bookcover');
+	                    var img = document.createElement('img');
+	                    img.alt = '책커버';
+	                    img.src = discussInfo.book_image;
+	                    bookcoverDiv.appendChild(img);
+
+	                    // 텍스트 내용
+	                    var chatroomTextDiv = document.createElement('div');
+	                    chatroomTextDiv.classList.add('user-chatroom-text');
+
+	                    var titleDiv = document.createElement('div');
+	                    titleDiv.classList.add('user-chatroom-title');
+	                    titleDiv.textContent = discussInfo.title;
+
+	                    var detailDiv = document.createElement('div');
+	                    detailDiv.classList.add('user-chatroom-detail');
+	                    detailDiv.textContent = discussInfo.description;
+
+	                    chatroomTextDiv.appendChild(titleDiv);
+	                    chatroomTextDiv.appendChild(detailDiv);
+
+	                    // 하트 버튼
+	                    var heartButtonDiv = document.createElement('div');
+	                    heartButtonDiv.classList.add('heart-button');
+	                    var heartImg = document.createElement('img');
+	                    heartImg.alt = '하트';
+	                    heartImg.src = "../img/profile/heart-colored-icon.svg";
+	                    heartButtonDiv.appendChild(heartImg);
+
+	                    // 최종적으로 .user-datalist에 추가
+	                    chatroomDiv.appendChild(bookcoverDiv);
+	                    chatroomDiv.appendChild(chatroomTextDiv);
+	                    chatroomDiv.appendChild(heartButtonDiv);
+	                    container.appendChild(chatroomDiv);
+	                });
+	            } else {
+	                console.error("데이터 형식이 잘못되었습니다.");
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error fetching data:', error);
+	        });
+	});
+
 
 
   </script>
