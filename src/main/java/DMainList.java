@@ -1,5 +1,7 @@
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;  // ArrayList 임포트
+import java.util.HashMap;   // HashMap 임포트
+import java.util.List;    
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -7,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import discusstion.DiscussInfo;
 import userinfo.UserDAO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import discussion.DiscussInfo;
 
 @WebServlet("/dMainList")
 public class DMainList extends HttpServlet {

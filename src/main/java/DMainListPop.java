@@ -7,11 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import discusstion.DiscussInfo;
 import userinfo.UserDAO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import discussion.DiscussInfo;
+
+import java.util.ArrayList;  // ArrayList 임포트
+import java.util.HashMap;   // HashMap 임포트
+import java.util.List;      // List 임포트
 @WebServlet("/dMainListPop")
 public class DMainListPop extends HttpServlet {
 

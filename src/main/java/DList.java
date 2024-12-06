@@ -7,10 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import discusstion.DiscussInfo;
 import userinfo.UserDAO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import discussion.DiscussInfo;
 
 @WebServlet("/dList")
 public class DList extends HttpServlet {

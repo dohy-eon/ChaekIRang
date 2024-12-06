@@ -1,4 +1,4 @@
-package discusstion;
+package discussion;
 
 public class DiscussInfo {
     private String disc_id;
