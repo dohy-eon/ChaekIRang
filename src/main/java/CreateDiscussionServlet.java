@@ -21,19 +21,21 @@ public class CreateDiscussionServlet extends HttpServlet {
         String bookName = request.getParameter("bookName");
         String description = request.getParameter("description");
         String genre = request.getParameter("genre");
+        String bookImage = request.getParameter("bookImage");
 
         Connection conn = null;
         PreparedStatement pstmt = null;
 
         try {
             conn = JDBCUtil.getConnection();
-            String sql = "INSERT INTO discussions (title, book_name, description, genre) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO discussions (title, book_name, book_image, description, genre) VALUES (?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, title);
             pstmt.setString(2, bookName);
-            pstmt.setString(3, description);
-            pstmt.setString(4, genre);
+            pstmt.setString(3, bookImage);
+            pstmt.setString(4, description);
+            pstmt.setString(5, genre);
 
             int rows = pstmt.executeUpdate();
 
