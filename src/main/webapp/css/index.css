@@ -256,87 +256,90 @@
   letter-spacing: 0;
 }
 
-.div-wrapper .part2-book-overlap {
+.div-wrapper .part2-discuss-recommend {
   position: absolute;
   width: 527px;
-  height: 677px;
+  height: 700px;
   top: 826px;
   left: 761px;
-  background-color: #ffffff;
-  border-radius: 15px;
-  border: 1px solid;
-  border-color: #000000;
+  font-family: "GmarketSansMedium", Helvetica;
+  color: #000000;
+  margin-top: 50px;
 }
 
-.div-wrapper .part2-book-title {
-  position: absolute;
-  top: 100px;
-  left: 182px;
-  font-family: "GmarketSansMedium", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 24px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.div-wrapper .part2-book-author {
-  position: absolute;
-  top: 150px;
-  left: 182px;
-  font-family: "GmarketSansMedium", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.div-wrapper .part2-book-postTitle {
-  top: 323px;
-  left: 27px;
-  font-family: "GmarketSansMedium", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 24px;
-  line-height: normal;
-  white-space: nowrap;
-  position: absolute;
+.div-wrapper .part2-popular-discussions {
+  font-size: 28px;
   letter-spacing: 0;
 }
-
-.div-wrapper .part2-book-postDetail {
-  width: 471px;
-  top: 393px;
-  left: 27px;
-  font-family: "GmarketSansMedium", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 16px;
-  line-height: 24px;
-  position: absolute;
-  letter-spacing: 0;
+.part2-popular-list {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.discussion-card {
+	width: 450px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.div-wrapper .part2-book-image {
-  position: absolute;
-  width: 114px;
-  height: 169px;
-  top: 51px;
-  left: 25px;
-  object-fit: cover;
+.discussion-thumbnail {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.div-wrapper .part2-book-line {
-  width: 498px;
-  top: 271px;
-  left: 12px;
-  position: absolute;
-  height: 1px;
+.discussion-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
 }
 
+.discussion-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.discussion-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+}
+.part2-discuss-head {
+	display: flex;
+    margin: 0 25px 0 20px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.part2-morebtn {
+	border-radius: 15px;
+	background-color: black;
+	color: white;
+	padding: 10px 0px;
+	width: 150px;
+	text-align: center;
+	font-family: "GmarketSansLight", Helvetica;
+	cursor: pointer;
+}
+.part2-morebtn > a {
+	text-decoration: none;
+	color: white;
+}
 .div-wrapper .part2-userA {
   position: absolute;
   width: 595px;
@@ -355,7 +358,7 @@
 
 .div-wrapper .part2-user-text {
   width: 509px;
-  top: 60px;
+  top: 40px;
   left: 78px;
   font-family: "GmarketSansLight", Helvetica;
   font-weight: 300;
@@ -406,7 +409,7 @@
   position: absolute;
   width: 595px;
   height: 176px;
-  top: 1283px;
+  top: 1165px;
   left: 119px;
 }
 
@@ -418,49 +421,61 @@
   left: 0;
 }
 
-.div-wrapper .part2-user-commentNum {
-  bottom: 0px;
+.part2-chaekuser {
   position: absolute;
-  left: 550px;
+  width: 595px;
+  height: 176px;
+  top: 1328px;
+  left: 119px;
   font-family: "GmarketSansLight", Helvetica;
-  font-weight: 300;
-  color: #000000;
-  font-size: 12px;
-  letter-spacing: 0;
-  line-height: 28px;
-  white-space: nowrap;
 }
-
-.div-wrapper .part2-user-commentIcon {
+.part2-chaekuser-textbox {
   position: absolute;
-  width: 16px;
-  height: 14px;
-  bottom: 6px;
-  left: 523px;
+  width: 474px;
+  height: 68px;
+  top: 40px;
+  left: 78px;
+  border: 1.5px solid black;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
 }
-
-.div-wrapper .part2-user-line {
-  width: 586px;
-  top: 1203px;
-  left: 120px;
+.part2-chaekuser-textbox:hover {
+  animation: colorChange 5s infinite;
+}
+.part2-chaekuser-post a {
+  text-decoration: none;
+}
+@keyframes colorChange {
+    0% {
+        color: #3AB8EB
+    }
+    50% {
+        color: #0056b3;
+    }
+    100% {
+        color: black;
+    }
+}
+.part2-chaekuser-submitbtn {
   position: absolute;
-  height: 1px;
-  object-fit: cover;
+  right: 21px;
+  top: 153px;
+  width: 63px;
+  height: 22px;
+  border: 1px solid black;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 14px;
+  background-color: #d9d9d9;
+  text-decoration: none;
+  color: black;
 }
 
-.div-wrapper .part2-user-reply {
-  top: 1221px;
-  left: 120px;
-  font-family: "GmarketSansMedium", Helvetica;
-  font-weight: 500;
-  color: #000000;
-  font-size: 20px;
-  line-height: 28px;
-  white-space: nowrap;
-  position: absolute;
-  letter-spacing: 0;
+.part3 > a {
+	text-decoration: none;
+	color: black;
 }
-
 .div-wrapper .part3-epub-title {
   top: 1729px;
   left: 235px;
@@ -555,7 +570,7 @@
 .div-wrapper .footer {
   position: absolute;
   width: 1302px;
-  height: 97px;
+  height: 150px;
   top: 2451px;
   left: 70px;
   background-color: transparent;

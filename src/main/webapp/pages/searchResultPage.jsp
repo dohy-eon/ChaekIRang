@@ -87,9 +87,23 @@
 	      <div class="sidebar">
 	      	<div class="discuss-recommend">
 	      		<p>이런 토론 주제는 어떠세요?</p>
-	      		<div class="recommend-first"></div>
-	      		<div class="recommends"></div>
-	      		<div class="recommends"></div>
+	      		<!-- 1위에만 북커버랑 책제목 들어가고 2위 3위에는 토론 제목만 들어가면 됩니다. -->
+	      		<div class="recommend-first">
+	      			<div>
+		      			<img class="rank-image" src="/Chaek/img/goldCrown.svg" alt="3." />
+		      			<p>운명과 인간의 선택: 네메시스의 메타포</p>
+	      			</div>
+	      			<img src="" alt="책커버">
+	      			<p>네메시스</p>
+	      		</div>
+	      		<div class="recommends">
+	      			<img class="rank-image" src="/Chaek/img/silverCrown.svg" alt="3." />
+	      			<p>운명과 인간의 선택: 네메시스의 메타포</p>
+	      		</div>
+	      		<div class="recommends">
+	      			<img class="rank-image" src="/Chaek/img/bronzeCrown.svg" alt="3." />
+	      			<p>운명과 인간의 선택: 네메시스의 메타포</p>
+	      		</div>
 	      	</div>
 	      </div>
 	      
