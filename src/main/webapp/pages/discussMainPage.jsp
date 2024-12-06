@@ -104,43 +104,48 @@
 
   document.addEventListener("DOMContentLoaded", function () {
 	    // 서버에서 인기 토론 데이터를 가져오기
-	    fetch("/Chaek/dMainListPop")  // 서버에서 인기 토론 데이터를 가져오는 URL
-	        .then(response => response.json())  // JSON 형태로 응답받기
-	        .then(data => {
-	            // 인기 토론 주제 렌더링
-	            const popularContainer = document.querySelector(".popular-section .discussion-list");
+	  fetch("/Chaek/dMainListPop")  // 서버에서 인기 토론 데이터를 가져오는 URL
+	    .then(response => response.json())  // JSON 형태로 응답받기
+	    .then(data => {
+	        const popularContainer = document.querySelector(".popular-section .discussion-list");
 
-	            // 데이터가 존재하고, 배열일 경우 처리
-	            if (Array.isArray(data) && data.length > 0) {
-	                // 첫 3개 항목만 처리 (최대 3개)
-	                data.slice(0, 3).forEach(discussion => {
-	                    const listItem = document.createElement("li");
+	        if (Array.isArray(data) && data.length > 0) {
+	            data.slice(0, 3).forEach(discussion => {
+	                const listItem = document.createElement("li");
 
-	                    const thumbnail = document.createElement("img");
-	                    thumbnail.src = discussion.book_image || "https://via.placeholder.com/100x150"; // 기본 이미지
-	                    thumbnail.alt = `${discussion.title} 이미지`;
-	                    thumbnail.className = "discussion-thumbnail";
+	                const thumbnail = document.createElement("img");
+	                thumbnail.src = discussion.book_image || "https://via.placeholder.com/100x150";
+	                thumbnail.alt = `${discussion.title} 이미지`;
+	                thumbnail.className = "discussion-thumbnail";
 
-	                    const title = document.createElement("span");
-	                    title.textContent = discussion.title;
-	                    title.className = "discussion-title"; // 스타일링을 위한 클래스 추가
+	                const textContainer = document.createElement("div");
+	                textContainer.className = "text-container";
 
-	                    const description = document.createElement("p");
-	                    description.textContent = discussion.description;
-	                    description.className = "discussion-description"; // 스타일링을 위한 클래스 추가
+	                const title = document.createElement("span");
+	                title.textContent = discussion.title;
+	                title.className = "discussion-title";
 
-	                    // title과 description을 listItem에 추가
-	                    listItem.append(thumbnail, title, description);
-	                    popularContainer.appendChild(listItem);
-	                });
-	            } else {
-	                // 데이터가 없을 경우 처리
-	                popularContainer.innerHTML = "<p>인기 토론 주제가 없습니다.</p>";
-	            }
-	        })
-	        .catch(error => {
-	            console.error('데이터를 가져오는 중 오류 발생:', error);
-	        });
+	                const description = document.createElement("p");
+	                description.textContent = discussion.description;
+	                description.className = "discussion-description";
+
+	                // 텍스트 구성 요소를 컨테이너에 추가
+	                textContainer.append(title, description);
+
+	                // 리스트 아이템에 이미지와 텍스트 컨테이너 추가
+	                listItem.append(thumbnail, textContainer);
+
+	                // 리스트 컨테이너에 추가
+	                popularContainer.appendChild(listItem);
+	            });
+	        } else {
+	            popularContainer.innerHTML = "<p>인기 토론 주제가 없습니다.</p>";
+	        }
+	    })
+	    .catch(error => {
+	        console.error('데이터를 가져오는 중 오류 발생:', error);
+	    });
+
 	});
 
 
