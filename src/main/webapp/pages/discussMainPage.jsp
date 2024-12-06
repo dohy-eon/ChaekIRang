@@ -15,7 +15,11 @@
         <!-- 검색 바 -->
         <div class="search-bar">
             <label for="search-input" class="search-label">이런 토론 주제는 어떠세요?</label>
-            <input id="search-input" type="text" placeholder="토론 주제를 검색하거나 이름을 입력하세요." />
+            <!-- 수정: 검색어 전송 버튼 -->
+            <form id="search-form" method="GET" action="/Chaek/SearchDiscussions">
+                <input id="search-input" type="text" name="keyword" placeholder="검색어" value="<%= request.getParameter("keyword") %>" />
+                <button type="submit">검색</button>
+                </form>
         </div>
 
         <!-- 최신 토론 주제 -->

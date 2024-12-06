@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import db.JDBCUtil;
-import discusstion.DiscussInfo;
+import discussion.DiscussInfo;
 
 
 public class UserDAO {
