@@ -268,6 +268,7 @@
 	String isGuest;
 	
 	if(idSession == null) isGuest = "/Chaek/pages/loginSignupPage.jsp";
+	else if(idSession.equals("admin")) isGuest = "/Chaek/pages/adminPage.jsp";
 	else isGuest = "/Chaek/pages/profilePage.jsp";
 	
 %>
