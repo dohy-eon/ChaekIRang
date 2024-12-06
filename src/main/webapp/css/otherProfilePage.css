@@ -1,0 +1,144 @@
+.otherProfile-page {
+    display: flex;
+    width: 1440px;
+    height: 700px;
+    position: relative;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    flex-direction: row;
+    font-family: "GmarketSansMedium", Helvetica;	
+}
+
+		/* 스크롤바 크기 */
+		.user-datalist::-webkit-scrollbar {
+		    width: 8px;
+		    height: 8px;
+		}
+		 /* 스크롤바 색상 */
+		.user-datalist::-webkit-scrollbar-thumb {
+		    background: #888;
+		    border-radius: 10px;
+		}
+		.user-datalist::-webkit-scrollbar-thumb:hover {
+		    background: #555;
+		}
+		 /* 스크롤 트랙 배경 */
+		.user-datalist::-webkit-scrollbar-track {
+		    background: #f0f0f0;
+		    border-radius: 10px;
+		}
+		.user-datalist::-webkit-scrollbar-track:hover {
+		    background: #e0e0e0;
+		}
+
+.user-info {
+	width: 600px;
+	margin-left: 75px;
+}
+
+.user-pic {
+	margin-left: 175px;
+	margin-top: 160px;
+	height: 250px;
+	width: 250px;
+	background-color: lightgray;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+.user-pic > img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 250px;
+	width: 250px;
+	object-fit: cover;
+	border-radius: 50%;
+	z-index: 1;
+}
+.user-nickname {
+	margin-left: 125px;
+	margin-top: 50px;
+	width: 350px;
+	height: 30px;
+	border-bottom: solid 1px black;
+	display: flex;
+	flex-direction: row;
+}
+.nickname {
+	width: 275px;
+	margin-left: 35px;
+	margin-bottom: 5px;
+	text-align: center;
+  	font-size: 24px;
+}
+
+.user-datalistbox {
+	height: 520px;
+	border: solid 1px #D9D9D9;
+	border-radius: 15px;
+	margin-top: 50px;
+	padding: 40px;
+}
+.user-datalistbox > p {
+	font-size: 24px;
+	margin-bottom: 40px;
+}
+.user-datalist {
+    max-height: 380px;
+    overflow-y: auto; /* 세로 스크롤 추가 */
+    padding: 0 10px;
+}
+.user-chatroom {
+	display: flex;
+	flex-direction: row;
+	width: 500px;
+	height: 160px;
+	border: solid 1px #D9D9D9;
+	border-radius: 15px;
+	padding: 10px;
+	margin-bottom: 25px;
+	position: relative;
+	cursor: pointer;
+}
+.user-bookcover {
+    width: 90px;
+    height: 135px;
+    border-radius: 15px;
+    background-color: gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+}
+
+.user-bookcover img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* 이미지 비율을 유지하며 부모에 맞춤 */
+}
+.user-chatroom-text {
+	width: 360px;
+	padding: 10px 0;
+	padding-right: 10px;
+}
+.user-chatroom-title {
+	margin-top: 10px;
+	font-size: 20px;
+	white-space: nowrap; /* 한 줄을 넘어가면 말줄임표 */
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.user-chatroom-detail {
+	margin-top: 10px;
+	font-family: "GmarketSansLight", Helvetica;
+	font-size: 16px;
+	line-height: 1.5;
+	display: -webkit-box; /* box의 크기를 텍스트가 넘어갈 경우 말줄임표 */
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
