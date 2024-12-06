@@ -12,8 +12,8 @@ import userinfo.UserDAO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-@WebServlet("/dList")
-public class DList extends HttpServlet {
+@WebServlet("/dMainListPop")
+public class DMainListPop extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // DAO 인스턴스 생성
@@ -21,18 +21,12 @@ public class DList extends HttpServlet {
 
         // 요청 인코딩 설정
         request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
 
-        // 세션에서 user_id 가져오기
-        String userId = (String) session.getAttribute("idSession");
-        if (userId == null) {
-            // 로그인 정보가 없으면 로그인 페이지로 리다이렉트
-            response.sendRedirect("/Chaek/pages/loginSignupPage.jsp");
-            return;
-        }
 
         // DAO를 통해 토론 데이터 가져오기
-        List<DiscussInfo> discussionDetails = DAO.getFavoDetails(userId);
+        List<DiscussInfo> discussionDetails = DAO.getPopDisc();
+        
+        
 
         // JSON 배열 생성
         JsonArray jsonArray = new JsonArray();
@@ -53,7 +47,7 @@ public class DList extends HttpServlet {
 
         // JSON 배열을 String으로 변환하여 JSP로 전달
         String json = jsonArray.toString();
-         
+       
         
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(json);

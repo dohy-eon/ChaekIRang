@@ -8,8 +8,10 @@ public class DiscussInfo {
     private String description;
     private String genre;
     private String time_created;
+    private int comment;
+    
     public DiscussInfo(String disc_id, String title, String book_name, String book_image, 
-            String description, String genre, String time_created) {
+            String description, String genre, String time_created, int comment) {
 		this.disc_id = disc_id;
 		this.title = title;
 		this.book_name = book_name;
@@ -17,6 +19,7 @@ public class DiscussInfo {
 		this.description = description;
 		this.genre = genre;
 		this.time_created = time_created;
+		this.comment = comment;
 	}
     // Getters and setters
     public String getDisc_id() {
@@ -73,5 +76,11 @@ public class DiscussInfo {
 
     public void setTime_created(String time_created) {
         this.time_created = time_created;
+    }
+    public int getComment() {
+    	return comment;
+    }
+    public void setComment(int comment) {
+    	this.comment = comment;
     }
 }

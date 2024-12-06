@@ -305,15 +305,10 @@ public class UserDAO {
 
 	        // favoD와 discussions를 조인하여 데이터 조회
 	        String strQuery = 
-	            "SELECT d.disc_id, d.title, d.book_name, d.book_image, d.description, d.genre, d.time_created " +
+	            "SELECT d.disc_id, d.title, d.book_name, d.book_image, d.description, d.genre, d.time_created, d.comment " +
 	            "FROM favoD f " +
 	            "JOIN discussions d ON f.disc_id = d.disc_id " +
-	            "WHERE f.user_id = ?";
-	        
-
-	        
-	        // user_id 설정	
-	        
+	            "WHERE f.user_id = ?"; 
 	        pstmt = conn.prepareStatement(strQuery);
 	        pstmt.setString(1, userId);
 	        rs = pstmt.executeQuery();
@@ -328,7 +323,8 @@ public class UserDAO {
 	                rs.getString("book_image"),
 	                rs.getString("description"),
 	                rs.getString("genre"),
-	                rs.getString("time_created")
+	                rs.getString("time_created"),
+	                rs.getInt("comment")
 	            );
 
 	            discussionDetails.add(discussInfo); // 리스트에 DiscussInfo 객체 추가
@@ -345,6 +341,74 @@ public class UserDAO {
 
 	    return discussionDetails; // DiscussInfo 리스트 반환
 	}
+	
+	public List<DiscussInfo> getDisc() {
+	    List<DiscussInfo> discussionDetails = new ArrayList<>(); // 결과를 저장할 리스트
+
+	    String query = "SELECT disc_id, title, book_name, book_image, description, genre, time_created, comment FROM discussions ORDER BY time_created ASC"; // time_created로 오름차순 정렬
+
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query);
+	         ResultSet rs = pstmt.executeQuery()) {
+
+	        // 결과 처리
+	        while (rs.next()) {
+	            // DiscussInfo 객체 생성
+	            DiscussInfo discussInfo = new DiscussInfo(
+	                rs.getString("disc_id"),  
+	                rs.getString("title"),
+	                rs.getString("book_name"),
+	                rs.getString("book_image"),
+	                rs.getString("description"),
+	                rs.getString("genre"),
+	                rs.getString("time_created"),
+	                rs.getInt("comment")
+	            );
+
+	            discussionDetails.add(discussInfo); // 리스트에 DiscussInfo 객체 추가
+	        }
+
+	    } catch (Exception ex) {
+	        System.out.println("예외 발생: " + ex.getMessage());
+	        ex.printStackTrace();
+	    }
+
+	    return discussionDetails; // DiscussInfo 리스트 반환
+	}
+	public List<DiscussInfo> getPopDisc() {
+	    List<DiscussInfo> discussionDetails = new ArrayList<>(); // 결과를 저장할 리스트
+
+	    String query = "SELECT disc_id, title, book_name, book_image, description, genre, time_created, comment FROM discussions ORDER BY comment DESC"; // comment로 오름차순 정렬
+
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query);
+	         ResultSet rs = pstmt.executeQuery()) {
+
+	        // 결과 처리
+	        while (rs.next()) {
+	            // DiscussInfo 객체 생성
+	            DiscussInfo discussInfo = new DiscussInfo(
+	                rs.getString("disc_id"),  
+	                rs.getString("title"),
+	                rs.getString("book_name"),
+	                rs.getString("book_image"),
+	                rs.getString("description"),
+	                rs.getString("genre"),
+	                rs.getString("time_created"),
+	                rs.getInt("comment")
+	            );
+
+	            discussionDetails.add(discussInfo); // 리스트에 DiscussInfo 객체 추가
+	        }
+
+	    } catch (Exception ex) {
+	        System.out.println("예외 발생: " + ex.getMessage());
+	        ex.printStackTrace();
+	    }
+
+	    return discussionDetails; // DiscussInfo 리스트 반환
+	}
+
 
 
 		
