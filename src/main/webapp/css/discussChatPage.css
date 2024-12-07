@@ -1,3 +1,94 @@
 .discusschat-page{
-	
+	display: flex;
+    width: 1440px;
+    height: 1000px;
+    margin-top: 200px;
+    margin-bottom: 200px;
+    flex-direction: row;
+    justify-content: center;
+    font-family: "GmarketSansMedium", Helvetica;	
 }
+
+.info {
+	border: 1px solid #d9d9d9;
+	border-radius: 15px;
+	width: 600px;
+	height: 800px;
+	margin-right: 50px;
+}
+
+.chat-room {
+	width: 600px;
+	height: 800px;
+}
+	#chatWindow {
+        height: 700px;
+        overflow-y: scroll;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    	/* 스크롤바 크기 */
+		#chatWindow::-webkit-scrollbar {
+		    width: 8px;
+		    height: 8px;
+		}
+		 /* 스크롤바 색상 */
+		#chatWindow::-webkit-scrollbar-thumb {
+		    background: #888;
+		    border-radius: 10px;
+		}
+		#chatWindow::-webkit-scrollbar-thumb:hover {
+		    background: #555;
+		}
+		 /* 스크롤 트랙 배경 */
+		#chatWindow::-webkit-scrollbar-track {
+		    background: #f0f0f0;
+		    border-radius: 10px;
+		}
+		#chatWindow::-webkit-scrollbar-track:hover {
+		    background: #e0e0e0;
+		}
+    #message {
+        width: 90%;
+    }
+    .chat-message {
+		margin-bottom: 30px;
+	}
+    .chat-userInfo {
+		width: 300px;
+		height: 50px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: 5px;
+	}
+	.profile-img {
+	    width: 50px;
+	    height: 50px;
+	    object-fit: cover; /* 비율 유지하면서 자르기 */
+	    border-radius: 50%;
+	    border: 1px solid black;
+    }
+	.chat-user {
+		margin-left: 10px;
+	}
+	.chat-time {
+		font-size: 14px;
+		font-family: "GmarketSansLight", Helvetica;
+		margin-left: 20px;
+	}
+	.chat-text {
+		margin-top: -10px;
+		margin-left: 60px;
+		line-height: 1.2;
+		/*자동 줄바꿈*/
+		word-wrap: break-word;
+	    word-break: break-word;
+	    overflow-wrap: break-word;
+	    white-space: normal;
+	}
+	
+	
+	
+	
+	
