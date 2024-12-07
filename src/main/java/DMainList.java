@@ -1,13 +1,16 @@
 import java.io.IOException;
 import java.util.ArrayList;  // ArrayList 임포트
 import java.util.HashMap;   // HashMap 임포트
-import java.util.List;    
+import java.util.List; 
+import java.util.Collections;
+import java.util.Comparator;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 import userinfo.UserDAO;
 import com.google.gson.JsonArray;
@@ -29,6 +32,13 @@ public class DMainList extends HttpServlet {
         // DAO를 통해 토론 데이터 가져오기
         List<DiscussInfo> discussionDetails = DAO.getDisc();
         
+        // 최신 순 정렬
+        Collections.sort(discussionDetails, new Comparator<DiscussInfo>() {
+            @Override
+            public int compare(DiscussInfo d1, DiscussInfo d2) {
+                return d2.getTime_created().compareTo(d1.getTime_created());
+            }
+        });
         
 
         // JSON 배열 생성

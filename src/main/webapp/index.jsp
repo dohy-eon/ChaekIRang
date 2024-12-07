@@ -91,7 +91,7 @@
         	        .then(data => {
         	            if (Array.isArray(data)) {
         	                var container = document.getElementById('part2-popular-list');
-        	                data.forEach(function(discussInfo) {
+        	                data.slice(0, 3).forEach(function (discussInfo) {
         	                    var card = document.createElement('div');
         	                    card.classList.add('discussion-card'); // 수정된 클래스 이름
 
