@@ -14,7 +14,7 @@
 	  
 	  <div class="adminPage">
     	<div class="title admin-only">관리자 전용</div>
-    	<div class="title discussion-management">토론 관리</div>
+    	<div class="title discussion-management"><a href="discussionManagement.jsp">토론 관리</a></div>
     	<div class="title member-management"><a href="userManagement.jsp">회원 관리</a></div>
       </div>
       

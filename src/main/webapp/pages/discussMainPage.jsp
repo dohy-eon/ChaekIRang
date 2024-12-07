@@ -18,7 +18,7 @@
             <!-- 수정: 검색어 전송 버튼 -->
             <form id="search-form" method="GET" action="/Chaek/SearchDiscussions">
                 <input id="search-input" type="text" name="keyword" placeholder="검색어" value="<%= request.getParameter("keyword") %>" />
-                <button type="submit">검색</button>
+                <button id="search-btn" type="submit">검색</button>
                 </form>
         </div>
 
