@@ -17,9 +17,13 @@
             <label for="search-input" class="search-label">이런 토론 주제는 어떠세요?</label>
             <!-- 수정: 검색어 전송 버튼 -->
             <form id="search-form" method="GET" action="/Chaek/SearchDiscussions">
-                <input id="search-input" type="text" name="keyword" placeholder="검색어" value="<%= request.getParameter("keyword") %>" />
+                <input id="search-input"
+                 	   type="text"
+                  	   name="keyword" 
+                  	   placeholder="검색어" 
+                 	   value="<%= (request.getParameter("keyword") != null) ? request.getParameter("keyword") : "" %>" />
                 <button id="search-btn" type="submit">검색</button>
-                </form>
+            </form>
         </div>
 
         <!-- 최신 토론 주제 -->
@@ -31,7 +35,7 @@
 
             <!-- 인기 토론 -->
             <div id="popular-discussions" class="popular-discussions">
-                <div class="discussion-container">
+                <div class="popular-discussion-container">
                     <div class="no-discussion-text">원하는 토론을 찾지 못하셨나요?</div>
                     <button 
                     class="create-discussion-btn" 
@@ -89,7 +93,7 @@
 
 	                    const comments = document.createElement("div");
 	                    comments.className = "engagement-count";
-	                    comments.textContent = discussion.comment ? "💬"+discussion.comment : "💬 댓글 없음"; // 댓글 수가 없는 경우 기본 텍스트
+	                    comments.textContent = discussion.comment ? "💬 "+discussion.comment : "💬 댓글 없음"; // 댓글 수가 없는 경우 기본 텍스트
 
 	                    details.append(title, description, comments);
 	                    card.append(thumbnail, details);

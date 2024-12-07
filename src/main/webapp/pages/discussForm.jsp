@@ -23,7 +23,8 @@
     <div class="div-wrapper">
         <div class="div">
             <%@ include file="../modules/header.jsp" %>
-
+			
+			<div class="discussForm-page">
             <!-- 검색 및 결과 영역 -->
             <div class="form-and-results">
                 <!-- 검색 입력 -->
@@ -39,8 +40,8 @@
                 <!-- 검색 결과 -->
                 <div class="search-results">
                     <div id="searchResults">
-                        <h2>검색 결과</h2>
-                        <ul>
+                        <p>검색 결과</p>
+                        <ul class="searchResult-detail">
                             <% 
                                 JsonArray bookList = (JsonArray) request.getAttribute("bookList");
                                 if (bookList != null && bookList.size() > 0) {
@@ -100,60 +101,59 @@
                     <button type="submit">제출</button>
                 </form>
             </div>
-        </div>
-                    <div class="ffooter">
-                <%@ include file="../modules/footer.jsp" %>
             </div>
+            <%@ include file="../modules/footer.jsp" %>
+        </div>
     </div>
 
-    <!-- AJAX 처리 스크립트 -->
-    <script>
-        document.getElementById("searchForm").addEventListener("submit", function (e) {
-            e.preventDefault(); // 폼 제출 기본 동작 방지
+<!-- AJAX 처리 스크립트 -->
+<script>
+    document.getElementById("searchForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // 폼 제출 기본 동작 방지
 
-            const query = document.getElementById("searchInput").value;
-            if (!query) {
-                alert("검색어를 입력하세요.");
-                return;
-            }
+        const query = document.getElementById("searchInput").value;
+        if (!query) {
+            alert("검색어를 입력하세요.");
+            return;
+        }
 
-            // AJAX 요청 (서버에 검색어 보내기)
-            fetch("<%= request.getContextPath() %>/SearchBookServlet?search=" + encodeURIComponent(query))
-                .then(response => response.json())
-                .then(data => {
-                    const resultsContainer = document.getElementById("searchResults").querySelector("ul");
-                    resultsContainer.innerHTML = ""; // 기존 결과 삭제
+        // AJAX 요청 (서버에 검색어 보내기)
+        fetch("<%= request.getContextPath() %>/SearchBookServlet?search=" + encodeURIComponent(query))
+            .then(response => response.json())
+            .then(data => {
+                const resultsContainer = document.getElementById("searchResults").querySelector("ul");
+                resultsContainer.innerHTML = ""; // 기존 결과 삭제
 
-                    if (data.length > 0) {
-                        data.forEach(book => {
-                            const li = document.createElement("li");
-                            li.onclick = () => selectBook(book.title, book.img || ""); // 제목과 이미지를 설정
+                if (data.length > 0) {
+                    data.forEach(book => {
+                        const li = document.createElement("li");
+                        li.onclick = () => selectBook(book.title, book.img || ""); // 제목과 이미지를 설정
 
-                            if (book.img) {
-                                const img = document.createElement("img");
-                                img.src = book.img;
-                                img.alt = "Book Cover";
-                                li.appendChild(img);
-                            }
+                        if (book.img) {
+                            const img = document.createElement("img");
+                            img.src = book.img;
+                            img.alt = "Book Cover";
+                            li.appendChild(img);
+                        }
 
-                            const div = document.createElement("div");
-                            const title = document.createElement("strong");
-                            title.textContent = book.title;
-                            div.appendChild(title);
+                        const div = document.createElement("div");
+                        const title = document.createElement("strong");
+                        title.textContent = book.title;
+                        div.appendChild(title);
 
-                            const authors = document.createElement("p");
-                            authors.textContent = book.authors ? book.authors.replace(/[\[\]"]/g, '') : "저자 정보 없음";
-                            div.appendChild(authors);
+                        const authors = document.createElement("p");
+                        authors.textContent = book.authors ? book.authors.replace(/[\[\]"]/g, '') : "저자 정보 없음";
+                        div.appendChild(authors);
 
-                            li.appendChild(div);
-                            resultsContainer.appendChild(li);
-                        });
-                    } else {
-                        resultsContainer.innerHTML = "<li>검색 결과가 없습니다.</li>";
-                    }
-                })
-                .catch(error => console.error("Error fetching books:", error));
-        });
-    </script>
+                        li.appendChild(div);
+                        resultsContainer.appendChild(li);
+                    });
+                } else {
+                    resultsContainer.innerHTML = "<p>검색 결과가 없습니다.</p>";
+                }
+            })
+            .catch(error => console.error("Error fetching books:", error));
+    });
+</script>
 </body>
 </html>
