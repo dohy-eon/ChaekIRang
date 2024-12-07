@@ -36,7 +36,7 @@ public class SearchDiscussions extends HttpServlet {
             conn = JDBCUtil.getConnection();
             
             // 제목과 설명에서 키워드를 검색
-            String sql = "SELECT disc_id, title, description, book_image, book_name, genre, time_created FROM discussions WHERE title LIKE ? OR description LIKE ?";
+            String sql = "SELECT disc_id, title, description, book_image, book_name, genre, time_created, comment FROM discussions WHERE title LIKE ? OR description LIKE ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, "%" + keyword + "%");
             stmt.setString(2, "%" + keyword + "%");
