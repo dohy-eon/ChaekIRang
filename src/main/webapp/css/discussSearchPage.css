@@ -54,6 +54,7 @@ html, body {
     flex-direction: column;
     gap: 20px;
     margin-left: 60px;
+    margin-top: 200px;
 }
 
 .popular-discussions {

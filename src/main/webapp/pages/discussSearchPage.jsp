@@ -4,8 +4,8 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="../css/discussMainPage.css" />
-    <link rel="stylesheet" href="../css/default.css"/>
+    <link rel="stylesheet" href="./css/discussSearchPage.css" />
+    <link rel="stylesheet" href="./css/default.css"/>
     <title>검색 결과 - 토론 주제</title>
 </head>
 <body>
@@ -61,7 +61,7 @@
                 // 각 항목에 클릭 이벤트 리스너 추가
                 item.addEventListener("click", function() {
                     const discId = item.getAttribute('data-disc-id');
-                    alert("Discussion ID: " + discId);
+                    alert("테스트용: " + discId);
                     // 예를 들어, 특정 토론에 대한 세부 정보를 다른 페이지에서 로드하거나, 
                     // 해당 토론의 세부 정보를 화면에 표시하는 추가적인 작업을 할 수 있습니다.
                 });
