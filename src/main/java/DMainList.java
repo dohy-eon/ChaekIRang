@@ -37,6 +37,7 @@ public class DMainList extends HttpServlet {
         // 각 DiscussInfo 객체를 JsonObject로 변환하여 JSON 배열에 추가
         for (DiscussInfo discussInfo : discussionDetails) {
             JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("disc_id", discussInfo.getDisc_id());
             jsonObject.addProperty("title", discussInfo.getTitle());
             jsonObject.addProperty("book_name", discussInfo.getBook_name());
             jsonObject.addProperty("book_image", discussInfo.getBook_image());
