@@ -28,7 +28,7 @@ public class CreateDiscussionServlet extends HttpServlet {
 
         try {
             conn = JDBCUtil.getConnection();
-            String sql = "INSERT INTO discussions (title, book_name, book_image, description, genre) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO discussions (title, book_name, book_image, description, genre, comment) VALUES (?, ?, ?, ?, ?, ?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, title);
@@ -36,6 +36,8 @@ public class CreateDiscussionServlet extends HttpServlet {
             pstmt.setString(3, bookImage);
             pstmt.setString(4, description);
             pstmt.setString(5, genre);
+            pstmt.setInt(6, 0);
+            
 
             int rows = pstmt.executeUpdate();
 

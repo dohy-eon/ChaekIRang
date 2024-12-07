@@ -5,6 +5,10 @@
 <%
 //String nickname = (String)session.getAttribute("userNickname");
 String idSession = (String)session.getAttribute("idSession");
+String profile = (String)session.getAttribute("userProfile");
+if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
+	profile = "../img/profile/profilepic.jpg";
+}
 %>
     <meta charset="UTF-8">
     <title>채팅</title>
@@ -19,6 +23,12 @@ String idSession = (String)session.getAttribute("idSession");
         #message {
             width: 80%;
         }
+        .profile-img {
+        width: 50px; /* 원하는 너비 */
+        height: 50px; /* 원하는 높이 */
+        object-fit: cover; /* 비율 유지하면서 자르기 */
+        border-radius: 50%; /* 원형으로 만들기 */
+    }
     </style>
 </head>
 <body>
@@ -32,13 +42,36 @@ String idSession = (String)session.getAttribute("idSession");
         // WebSocket 연결 설정
         const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
 		const idKey = "<%=idSession%>";
+		const profileImg = "<%=profile%>";
 
 		
         // 메시지 수신 시 처리
-        ws.onmessage = (event) => {
+        /* ws.onmessage = (event) => {
             const chatWindow = document.getElementById("chatWindow");
             chatWindow.innerHTML += "<div>"+event.data+"</div>";
             chatWindow.scrollTop = chatWindow.scrollHeight; // 스크롤 자동으로 내려가기
+        }; */
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const profileImg = data.profileImg;
+            const sender = data.sender;
+            const message = data.message;
+			console.log("img :"+profileImg+"\n"+"sender :"+sender+"\n"+"message :"+message+"\n")
+            const chatMessage = document.createElement("div");
+            chatMessage.className = "chat-message";
+
+            const img = document.createElement("img");
+            img.src = profileImg;
+            img.alt = "프로필 이미지";
+            img.className = "profile-img";
+
+            const text = document.createElement("p");
+            text.className = "chat-text";
+            text.textContent = sender+":"+ message;
+
+            chatMessage.appendChild(img);
+            chatMessage.appendChild(text);
+            document.getElementById("chatWindow").appendChild(chatMessage);
         };
 
         // 메시지 전송
@@ -46,7 +79,7 @@ String idSession = (String)session.getAttribute("idSession");
 		    e.preventDefault();
 		    const messageInput = document.getElementById("message");
 		    const idKey = "<%= idSession %>";  // JSP에서 idSession 값을 가져옴
-		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value })); // id와 메시지를 JSON 형식으로 전송
+		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, profileImg: profileImg })); // id와 메시지, 프사를 JSON 형식으로 전송
 		    messageInput.value = ""; // 입력창 초기화
 		};
         ws.onerror = (error) => {

@@ -157,6 +157,30 @@ public class UserDAO {
         	JDBCUtil.close(rs, pstmt, conn);
         }
     }
+	public void nickUpdate(String id, String newNickname) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        
+        try {
+			conn = JDBCUtil.getConnection();
+            String strQuery = "update user set nickname = ? where user_id = ?";
+            
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, newNickname);
+            pstmt.setString(2, id);
+            pstmt.executeUpdate();
+            
+
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+    }
+	
 	public UserDTO getUserInfo(String id) {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;

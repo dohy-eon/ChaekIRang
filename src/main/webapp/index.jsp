@@ -82,58 +82,62 @@
           </div>
           <div class="part2-popular-list" id="part2-popular-list"></div>
           <script>
-          const data = {
-	          "popularDiscussions": [
-	              {
-	                  "title": "운명과 인간의 선택: 네메시스",
-	                  "thumbnail": "https://via.placeholder.com/50x75",
-                	  "description": "\"네메시스\"는 인간의 운명과 선택에 대한 깊은 질문을 던지는 소설입니다. 이번 독서 토론에서는 이야기 속에서...",
-	               	  "comments": 94
-	              },
-	              {
-	                  "title": "미래 기술과 윤리: AI의 도전",
-	                  "thumbnail": "https://via.placeholder.com/50x75",
-                	  "description": "\"네메시스\"는 인간의 운명과 선택에 대한 깊은 질문을 던지는 소설입니다. 이번 독서 토론에서는 이야기 속에서...",
-	               	  "comments": 66
-	              },
-	              {
-	                  "title": "기후 변화와 우리의 역할",
-	                  "thumbnail": "https://via.placeholder.com/50x75",
-	                  "description": "\"네메시스\"는 인간의 운명과 선택에 대한 깊은 질문을 던지는 소설입니다. 이번 독서 토론에서는 이야기 속에서...",
-	               	  "comments": 54
-	              },
-	              
-	          ]
-          }
-          const popularContainer = document.getElementById("part2-popular-list");
-          data.popularDiscussions.forEach(discussion => {
-              const card = document.createElement("div");
-              card.className = "discussion-card";
 
-              const thumbnail = document.createElement("img");
-              thumbnail.src = discussion.thumbnail;
-              thumbnail.alt = "토론 이미지";
-              thumbnail.className = "discussion-thumbnail";
+          
+          document.addEventListener("DOMContentLoaded", function () {
+        	    // 서블릿을 호출하여 데이터 가져오기
+        	    fetch("/Chaek/dMainListPop") // 서블릿 URL
+        	        .then(response => response.json()) // JSON 형식으로 응답 받기
+        	        .then(data => {
+        	            if (Array.isArray(data)) {
+        	                var container = document.getElementById('part2-popular-list');
+        	                data.forEach(function(discussInfo) {
+        	                    var card = document.createElement('div');
+        	                    card.classList.add('discussion-card'); // 수정된 클래스 이름
 
-              const details = document.createElement("div");
-              details.className = "discussion-details";
+        	                    // 책 커버 이미지
+        	                    var thumbnail = document.createElement('img');
+        	                    thumbnail.alt = '책커버';
+        	                    thumbnail.src = discussInfo.book_image;
+        	                    thumbnail.classList.add('discussion-thumbnail'); // 수정된 클래스 이름
 
-              const title = document.createElement("p");
-              title.className = "discussion-title";
-              title.textContent = discussion.title;
+        	                    // 텍스트 내용
+        	                    var details = document.createElement('div');
+        	                    details.classList.add('discussion-details'); // 수정된 클래스 이름
 
-              const description = document.createElement("p");
-              description.className = "discussion-description";
-              description.textContent = discussion.description;
+        	                    var title = document.createElement('p');
+        	                    title.classList.add('discussion-title'); // 수정된 클래스 이름
+        	                    title.textContent = discussInfo.title;
 
-              const comments = document.createElement("div");
-              comments.className = "engagement-count";
-              comments.textContent = discussion.comments ? "💬 " + discussion.comments : "💬 댓글 없음";
+        	                    var description = document.createElement('p');
+        	                    description.classList.add('discussion-description'); // 수정된 클래스 이름
+        	                    description.textContent = discussInfo.description;
 
-              details.append(title, description, comments);
-              card.append(thumbnail, details);
-              popularContainer.appendChild(card);
-          });
+        	                    var comments = document.createElement('div');
+        	                    comments.classList.add('engagement-count'); // 하트 대신 댓글 관련 클래스
+        	                    comments.textContent = discussInfo.comment
+        	                        ? "💬 " + discussInfo.comment
+        	                        : "💬 댓글 없음";
+
+        	                    details.appendChild(title);
+        	                    details.appendChild(description);
+        	                    details.appendChild(comments);
+
+        	                    // 최종적으로 카드에 추가
+        	                    card.appendChild(thumbnail);
+        	                    card.appendChild(details);
+        	                    container.appendChild(card);
+        	                });
+        	            } else {
+        	                console.error("데이터 형식이 잘못되었습니다.");
+        	            }
+        	        })
+        	        .catch(error => {
+        	            console.error('Error fetching data:', error);
+        	        });
+        	});
+
+          
           </script>
         </div>
       </div>
