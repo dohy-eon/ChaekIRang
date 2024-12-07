@@ -46,7 +46,7 @@
 			</div>
 			<div class="user-nickname">
 				<div class="nickname"><%=nickname%></div>
-				<img class="nickname-pencil" alt="수정" src="../img/profile/pencil.svg">    	
+				<a href="nicknameUpdatePage.jsp"><img class="nickname-pencil" alt="수정" src="../img/profile/pencil.svg"></a>    	
 			</div>
 			<div class="user-joininfo">
 				<div class="user-joininfo-detail">
