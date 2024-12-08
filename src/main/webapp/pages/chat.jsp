@@ -1,6 +1,4 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.List" %>
@@ -31,6 +29,10 @@
 %>
 
     <meta charset="UTF-8">
+    <% 
+        String idSession = (String) session.getAttribute("idSession");
+        String discId = request.getParameter("disc_id");  // URL에서 disc_id 파라미터 가져오기
+    %>
     <title>채팅</title>
     <style>
         #chatWindow {
@@ -43,29 +45,32 @@
         #message {
             width: 80%;
         }
+
         .profile-img {
         width: 50px; /* 원하는 너비 */
         height: 50px; /* 원하는 높이 */
         object-fit: cover; /* 비율 유지하면서 자르기 */
         border-radius: 50%; /* 원형으로 만들기 */
     }
+
     </style>
 </head>
 <body>
-    <h1>JSP 채팅</h1>
+    <h1>JSP 채팅 (토론 ID: <%= discId %>)</h1>
     <div id="chatWindow"></div>
     <form id="chatForm">
         <input type="text" id="message" placeholder="메시지를 입력하세요" />
         <button type="submit">전송</button>
     </form>
-    <script>
-        // WebSocket 연결 설정
-        const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
-		const idKey = "<%=idSession%>";
-		
 
-		
-        // 메시지 수신 시 처리
+    <script>
+        const discId = "<%= discId %>";  
+        const idKey = "<%= idSession %>";  
+        console.log("토론아이디체크: ", discId);  // 디버깅용
+
+        // WebSocket 서버 URL에 discId 포함
+        const ws = new WebSocket('ws://localhost:8082/Chaek/chat/' + discId);
+
         /* ws.onmessage = (event) => {
             const chatWindow = document.getElementById("chatWindow");
             chatWindow.innerHTML += "<div>"+event.data+"</div>";
@@ -103,6 +108,7 @@
 		   // ws.send(JSON.stringify({ id: idKey, message: messageInput.value, profileImgData: profileImg })); // id와 메시지, 프사를 JSON 형식으로 전송
 		    messageInput.value = ""; // 입력창 초기화
 		};
+
         ws.onerror = (error) => {
             console.error("WebSocket 에러 발생:", error);
         };

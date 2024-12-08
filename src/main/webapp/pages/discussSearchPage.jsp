@@ -50,9 +50,7 @@
         </div>
     </div>
 
-    <!-- JavaScript 추가 -->
     <script>
-        // 페이지가 로드된 후에 이벤트 리스너를 추가합니다.
         document.addEventListener("DOMContentLoaded", function() {
             // 모든 토론 항목을 선택
             const discussionItems = document.querySelectorAll('.discussion-item');
@@ -60,10 +58,9 @@
             discussionItems.forEach(function(item) {
                 // 각 항목에 클릭 이벤트 리스너 추가
                 item.addEventListener("click", function() {
-                    const discId = item.getAttribute('data-disc-id');
-                    alert("테스트용: " + discId);
-                    // 예를 들어, 특정 토론에 대한 세부 정보를 다른 페이지에서 로드하거나, 
-                    // 해당 토론의 세부 정보를 화면에 표시하는 추가적인 작업을 할 수 있습니다.
+                    const discId = item.getAttribute("data-disc-id");
+                    // 클릭된 토론 ID를 기반으로 discussChatPage.jsp로 이동 (나중에 수정해야함 일단chat으로 넘김)
+                    window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
                 });
             });
         });
