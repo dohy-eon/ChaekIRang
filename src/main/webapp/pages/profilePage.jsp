@@ -3,7 +3,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="discussion.DiscussInfo" %>
 <%@ page import="com.google.gson.Gson" %>
-
+<%@ page import="userinfo.UserDAO" %>
+<%@ page import="java.util.Base64" %>
     
 
 <!DOCTYPE html>
@@ -17,16 +18,23 @@
 <%
 	String nickname = (String)session.getAttribute("userNickname");
 	String email = (String)session.getAttribute("userEmail");
-	String profile = (String)session.getAttribute("userProfile");
 	String admin = (String)session.getAttribute("userAdmin");
 	String id = (String)session.getAttribute("idSession");
-
-	if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
-		profile = "../img/profile/profilepic.jpg";
-	}
 	
-	// 서블릿에서 전달된 JSON 데이터
- // String json = (String) request.getAttribute("json");
+	
+	String imageSrc;
+
+	
+    UserDAO userDAO = new UserDAO();
+	byte[] profileImgData = userDAO.loadProfileImg(id);
+	
+	 if (profileImgData != null) {
+         imageSrc  = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(profileImgData);
+	 } else {
+		 imageSrc = "../img/profile/profilepic.jpg";
+		 
+	 }
+	 
 	
 	
 %>
@@ -38,12 +46,17 @@
 	  <div class="profile-page">
 	      <div class="user-info">
 			<div class="user-pic">
-				<!-- 프사등록을 안했을 경우에 default로 쓸 사진 설정해야 됨 -->
-				<img alt="프로필사진" src="<%=profile%>">
-				<div class="pic-uploadbtn">
-					<img src="../img/profile/pic-upload-icon.svg">
+				    <!-- 프사등록을 안했을 경우에 default로 쓸 사진 설정해야 됨 -->
+				    <img alt="프로필사진" src="<%=imageSrc%>">
+				    <div class="pic-uploadbtn">
+				        <label for="profilePic">
+				            <img src="../img/profile/pic-upload-icon.svg" alt="업로드 아이콘">
+				        </label>
+				        <form id="uploadForm" action="/Chaek/profileUpload" method="post" enctype="multipart/form-data" style="display: none;">
+				            <input type="file" name="profilePic" id="profilePic" accept="image/*">
+				        </form>
+				    </div>
 				</div>
-			</div>
 			<div class="user-nickname">
 				<div class="nickname"><%=nickname%></div>
 				<a href="nicknameUpdatePage.jsp"><img class="nickname-pencil" alt="수정" src="../img/profile/pencil.svg"></a>    	
@@ -191,6 +204,17 @@
 	        .catch(error => {
 	            console.error('Error fetching data:', error);
 	        });
+	});
+	
+	document.getElementById('profilePic').addEventListener('change', function() {
+	    const file = this.files[0];
+	    if (file) {
+	        if (file.size > 1024 * 1024 * 5) { // 5MB 제한
+	            alert('파일 크기는 5MB를 초과할 수 없습니다.');
+	        } else {
+	            document.getElementById('uploadForm').submit();
+	        }
+	    }
 	});
 
 
