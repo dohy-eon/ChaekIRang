@@ -1,7 +1,33 @@
 <!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="discussion.DiscussInfo" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="userinfo.UserDAO" %>
+<%@ page import="java.util.Base64" %>
 <%
     String idSession = (String)session.getAttribute("idSession");
-    String profile = (String)session.getAttribute("userProfile");
+    String profile;
+    
+    
+    
+    if (idSession != null) {
+        UserDAO userDAO = new UserDAO();
+        byte[] profileImgData = userDAO.loadProfileImg(idSession);
+        
+        if (profileImgData != null) {
+            // Base64 인코딩을 사용하여 이미지 데이터를 문자열로 변환
+            profile = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(profileImgData);
+        } else {
+            profile = "../img/profile/profilepic.jpg"; // 기본 프로필 이미지
+        }
+    } else {
+        profile = "../img/profile/profilepic.jpg"; // 세션이 없는 경우 기본 프로필 이미지 사용
+    }
+    
+    
+    //profile = "../img/profile/profilepic.jpg";
 %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +79,7 @@
     // WebSocket 연결 설정
     const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
 	const idKey = "<%=idSession%>";
-	const profileImg = "<%=profile%>";
+	
 
 	
     // 메시지 수신 시 처리
@@ -64,17 +90,15 @@
     }; */
     ws.onmessage = function(event) {
         const data = JSON.parse(event.data);
-        const profileImg = data.profileImg;
         const sender = data.sender;
         const message = data.message;
-	    console.log("img :"+profileImg+"sender :"+sender+"\n"+"message :"+message+"\n")
         const chatMessage = document.createElement("div");
         chatMessage.className = "chat-message";
         const chatUserInfo = document.createElement("div");
         chatUserInfo.className = "chat-userInfo";
 
         const img = document.createElement("img");
-        img.src = profileImg;
+        img.src = "<%=profile%>";
         img.alt = "profileImg";
         img.className = "profile-img";
         
@@ -114,7 +138,7 @@
 	    e.preventDefault();
 	    const messageInput = document.getElementById("message");
 	    const idKey = "<%= idSession %>";  // JSP에서 idSession 값을 가져옴
-	    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, profileImg: profileImg })); // id와 메시지, 프사를 JSON 형식으로 전송
+	    ws.send(JSON.stringify({ id: idKey, message: messageInput.value })); // id와 메시지를 JSON 형식으로 전송
 	    messageInput.value = ""; // 입력창 초기화
 	};
     ws.onerror = (error) => {
