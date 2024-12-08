@@ -1,4 +1,4 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.List" %>
@@ -6,8 +6,20 @@
 <%@ page import="com.google.gson.Gson" %>
 <%@ page import="userinfo.UserDAO" %>
 <%@ page import="java.util.Base64" %>
-<%
-    String idSession = (String)session.getAttribute("idSession");
+<!DOCTYPE html>
+<html>
+<head>
+ 	<meta charset="UTF-8" />
+ 	<link rel="stylesheet" href="../css/discussChatPage.css" />
+ 	<link rel="stylesheet" href="../css/default.css"/>
+    <title>책이랑-토론</title>
+</head>
+<body>
+  <div class="div-wrapper">
+    <div class="div">
+	  <%@include file="../modules/header.jsp" %>
+	  
+	  <%
     String profile;
     
     if (idSession != null) {
@@ -25,19 +37,6 @@
     }
     
 %>
-<!DOCTYPE html>
-<html>
-<head>
- 	<meta charset="UTF-8" />
- 	<link rel="stylesheet" href="../css/discussChatPage.css" />
- 	<link rel="stylesheet" href="../css/default.css"/>
-    <title>책이랑-토론</title>
-</head>
-<body>
-  <div class="div-wrapper">
-    <div class="div">
-	  <%@include file="../modules/header.jsp" %>
-	  
 	  <div class="discusschat-page">
 	  
 	  	  <!-- 책 및 토론 정보 -->
@@ -95,7 +94,7 @@
 	});
 
     // WebSocket 연결 설정
-    const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
+    const ws = new WebSocket('ws://localhost:8082/Chaek/chat');
 	const idKey = "<%=idSession%>";
 	
 

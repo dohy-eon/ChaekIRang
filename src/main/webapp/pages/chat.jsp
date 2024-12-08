@@ -30,7 +30,6 @@
 
     <meta charset="UTF-8">
     <% 
-        String idSession = (String) session.getAttribute("idSession");
         String discId = request.getParameter("disc_id");  // URL에서 disc_id 파라미터 가져오기
     %>
     <title>채팅</title>
