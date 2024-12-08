@@ -1,177 +1,82 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding-bottom: 80px;
-    background-color: #ffffff;
-}
-
-header, footer {
-    width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    box-sizing: border-box;
-    align-items: center;
-    margin-left: 260px;
-}
-
-.main-content {
-	
-	margin-top: 200px;
-	margin-bottom: 200px;
-    display: flex;
-    justify-content: center;
-    flex: 1;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.form-and-results {
-	margin-top: 132px;
-	margin-bottom: 120px;
-    display: flex;
-    justify-content: in-line;
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-}
-.ffooter {
-	bottom: 0;
-	align-items: "center";
+.discussForm-page {
 	display: flex;
+	flex-direction: row;
+    width: 1440px;
+    height: 620px;
+    margin-top: 250px;
+    margin-bottom: 250px;
+    margin-left: 80px;
+    font-family: "GmarketSansMedium", Helvetica;
+}
+
+/*책 검색*/
+.form-and-results {
+    display: flex;
+	flex-direction: column;
+    gap: 20px;
+    width: 500px;
+    margin-right: 70px;
 }
 #searchInput {
 	height: 40px;
-	width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #f9f9f9;
+	width: 470px;
+    border: 1px solid #D9D9D9;
+    border-radius: 20px;
     font-size: 16px;
     font-family: "GmarketSansLight", Helvetica, sans-serif;
+    padding: 5px 20px;
+    background: #f9f9f9;
+}
+#searchForm {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+#searchForm > button {
+	all: unset;
+	margin-left: 10px;
+	cursor: pointer;
 }
 .search-results {
-    flex: 1;
-    max-width: 40%;
+	width: 500px;
+	height: 559px;
     border: 1px solid #ccc;
+    border-radius: 8px;
     padding: 15px;
     background-color: #f9f9f9;
     box-sizing: border-box;
-    margin-top: 80px;
-    margin-left: -140px;
-    position: "absolute";
+    overflow-y: auto; /*스크롤*/
 }
-
-.discussForm {
-    position: absolute; /* 부모 컨테이너 기준으로 고정 */
-    top: 252px; /* 기존의 margin-top 값으로 조정 */
-    left: 600px; /* 기존의 margin-left 값으로 조정 */
-    flex: 1;
-    max-width: 45%;
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* 다른 요소 위로 올라오게 설정 */
+		/* 스크롤바 크기 */
+		.search-results::-webkit-scrollbar {
+		    width: 8px;
+		    height: 8px;
+		}
+		 /* 스크롤바 색상 */
+		.search-results::-webkit-scrollbar-thumb {
+		    background: #888;
+		    border-radius: 10px;
+		}
+		.search-results::-webkit-scrollbar-thumb:hover {
+		    background: #555;
+		}
+		 /* 스크롤 트랙 배경 */
+		.search-results::-webkit-scrollbar-track {
+		    background: #f0f0f0;
+		    border-radius: 10px;
+		}
+		.search-results::-webkit-scrollbar-track:hover {
+		    background: #e0e0e0;
+		}
+#searchResults > p {
+	font-size: 20px;
 }
-
-
-
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: calc(100vh - header_height - footer_height);  /* Adjust header and footer heights */
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 200px;
+.searchResult-detail {
+	margin-top: 20px;
 }
-
-/* 토론 주제 폼 헤더 스타일 */
-.discussForm h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #222;
-    font-family: "GmarketSansLight", Helvetica, sans-serif;
-}
-
-/* 라벨 스타일 */
-.discussForm label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-}
-
-/* 입력 필드 스타일 */
-.discussForm input[type="text"],
-.discussForm textarea,
-.discussForm select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: #f9f9f9;
-    box-sizing: border-box;
-    font-size: 16px;
-    font-family: "GmarketSansLight", Helvetica, sans-serif;
-}
-
-/* 텍스트영역 스타일 */
-.discussForm textarea {
-    resize: none;
-    height: 100px;    
-    font-size: 16px;
-}
-
-/* 버튼 스타일 */
-.discussForm button {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 1rem;
-    color: #fff;
-    background-color : #3AB8EB;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.discussForm button:hover {
-    background-color: #0056b3;
-}
-
-select#genre {
-    width: 200px; 
-    padding: 10px; 
-    font-size: 16px; 
-    border-radius: 8px; 
-    border: 2px solid #3AB8EB; 
-    transition: all 0.3s ease-in-out;
-    font-family: "GmarketSansLight", Helvetica, sans-serif;
-    margin-bottom: 16px;
-}
-
-select#genre:focus {
-    outline: none; 
-}
-
-option {
-    padding: 8px;
-    color: #333;
-}
-
-option[value=""]:disabled {
-    color: #ccc;
+ul {
+	
 }
 ul li {
     display: flex;
@@ -185,13 +90,11 @@ ul li {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     list-style: none; 
 }
-
 ul li:hover {
     background-color: #f0f8ff; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
     transform: translateY(-2px); 
 }
-
 ul li img {
     width: 60px;
     height: 80px;
@@ -200,27 +103,24 @@ ul li img {
     border-radius: 4px;
     object-fit: cover;
 }
-
 ul li div {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
 ul li div strong {
     font-size: 1rem;
     color: #333;
     margin-bottom: 5px;
     font-weight: bold;
 }
-
 ul li div p {
     font-size: 0.9rem;
     color: #666;
     margin: 0;
 }
 
-/* 검색 결과가 없을 때의 스타일 */
+	/* 검색 결과가 없을 때의 스타일 */
 ul li.empty-result {
     text-align: center;
     font-size: 1rem;
@@ -232,4 +132,86 @@ ul li.empty-result {
 h2 {
 	margin-bottom: 8px;
 	font-family: "GmarketSansLight", Helvetica, sans-serif;
+}
+
+
+
+
+/*토론 주제 작성 폼*/
+.discussForm {
+	width: 600px;
+	height: 620px;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.discussForm h1 {
+    font-size: 24px;
+    text-align: center;
+    color: black;
+    font-family: "GmarketSansMedium", Helvetica;
+    margin-bottom: 30px;
+}
+.discussForm label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+	/* 입력 필드 스타일 */
+.discussForm input[type="text"],
+.discussForm textarea,
+.discussForm select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: "GmarketSansLight", Helvetica;
+}
+.discussForm textarea,
+.discussForm input[type="text"] {
+	margin-bottom: 30px;
+}
+
+select#genre {
+    width: 200px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border-radius: 8px; 
+    border: 2px solid #3AB8EB; 
+    transition: all 0.3s ease-in-out;
+    font-family: "GmarketSansLight", Helvetica, sans-serif;
+    margin-bottom: 30px;
+}
+select#genre:focus {
+    outline: none; 
+}
+option {
+    padding: 8px;
+    color: #333;
+}
+option[value=""]:disabled {
+    color: #ccc;
+}
+
+.discussForm button {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 20px;
+    color: #fff;
+    background-color : #3AB8EB;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "GmarketSansMedium", Helvetica;;
+}
+.discussForm button:hover {
+    background-color: #0056b3;
 }

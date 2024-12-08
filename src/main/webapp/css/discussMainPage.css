@@ -1,17 +1,5 @@
-/* 전체 레이아웃 */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: "GmarketSansMedium", Helvetica, sans-serif;
-    box-sizing: border-box;
-}
-
 .div-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0 auto; /* 중앙 정렬 */
+    font-family: "GmarketSansMedium", Helvetica, sans-serif;
 }
 
 /* 검색 바 스타일 */
@@ -67,75 +55,6 @@ html, body {
     margin-left: 60px;
 }
 
-.popular-discussions {
-	margin-top: -80px;
-    flex: 1;
-    background: #f9f9f9;
-    border: 1px dashed #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 200px;
-    left: 0px;
-    margin-right: 160px;
-}
-
-.discussion-container {
-	text-align: center;
-	align-items: center;
-}
-
-.popular-discussions h2 {
-    font-size: 18px;
-    font-family: "GmarketSansMedium", Helvetica, sans-serif;
-    margin-bottom: 20px;
-}
-
-.popular-discussions ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.popular-discussions li {
-    display: flex; /* 수평 정렬: 이미지와 텍스트 */
-    align-items: center; /* 이미지와 텍스트 세로 정렬 */
-    gap: 10px; /* 이미지와 텍스트 간 간격 */
-    font-size: 14px;
-}
-.popular-discussions li .text-container {
-    display: flex; /* 수직 정렬 */
-    flex-direction: column;
-    gap: 5px; /* 타이틀과 소개글 간 간격 */
-}
-
-.popular-discussions li .title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-}
-
-.popular-discussions li .description {
-    font-size: 14px;
-    color: #666;
-    margin: 0;
-}
-
-.create-discussion-btn {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    align-items: center;
-    background: black;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-}
 
 /* 최신 토론 카드 */
 .discussion-card {
@@ -164,6 +83,7 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 10px 0;
 }
 
 .discussion-title {
@@ -171,36 +91,103 @@ html, body {
     font-weight: 500;
     color: #333;
     margin: 0;
+    /* 텍스트를 한 줄로 유지 */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .discussion-description {
     font-size: 14px;
     color: #666;
-    line-height: 1.5;
+    line-height: 1.2;
     margin: 0;
+    /*3줄 넘어가면 생략*/
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-@media (max-width: 768px) {
-    .discussion-section {
-        flex-direction: column;
-    }
 
-    .discussion-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
 
-    .discussion-thumbnail {
-        width: 80px;
-        height: 120px;
-    }
 
-    .discussion-title {
-        font-size: 16px;
-    }
+/* 인기 토론 */
+.popular-discussions {
+	margin-top: -80px;
+	height: 714px;
+    background: #f9f9f9;
+    border: 1px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 200px;
+    left: 0px;
+    margin-right: 160px;
+}
+.popular-discussion-container {
+	text-align: center;
+	align-items: center;
+}
+.no-discussion-text {
+	margin-top: 20px;
+	font-size: 20px;
+}
+.create-discussion-btn {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+    align-items: center;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
 
-    .discussion-description {
-        font-size: 12px;
-    }
+.popular-discussions h2 /*인기토론 글자*/ {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.popular-discussions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.popular-discussions li {
+    display: flex; /* 수평 정렬: 이미지와 텍스트 */
+    gap: 10px; /* 이미지와 텍스트 간 간격 */
+    font-size: 14px;
+}
+.popular-discussions li .text-container {
+    display: flex; 
+    flex-direction: column;
+    gap: 10px; /* 타이틀과 소개글 간 간격 */
+    padding: 10px 0;
+}
+.popular-discussions li .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: black;
+    margin: 0;
+    /* 텍스트를 한 줄로 유지 */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.popular-discussions li .description {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    /*4줄 넘어가면 생략*/
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

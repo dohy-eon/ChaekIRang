@@ -1,5 +1,7 @@
 package userinfo;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -35,7 +37,7 @@ public class UserDAO {
             pstmt.setString(2, mDTO.getUser_pw());
             pstmt.setString(3, mDTO.getEmail());
             pstmt.setString(4, mDTO.getNickname());
-            pstmt.setString(5, "0");
+            pstmt.setString(5, null);
             pstmt.setString(6, "0");
 
             int count = pstmt.executeUpdate();
@@ -78,6 +80,12 @@ public class UserDAO {
 	            System.out.println("사용자 폴더 생성 실패");
 	        }
 	    }
+		/*
+		 * // 사용자 폴더 내 profile 폴더 생성 File profileFolder = new File(userFolder.getPath()
+		 * + "\\profile"); if (!profileFolder.exists()) { if (profileFolder.mkdir()) {
+		 * System.out.println("프로필 폴더 생성 성공: " + profileFolder.getPath()); } else {
+		 * System.out.println("프로필 폴더 생성 실패"); } }
+		 */
 	}
 	public boolean checkId(String id) { // 아이디 중복검사
 		Connection conn = null;
@@ -157,6 +165,30 @@ public class UserDAO {
         	JDBCUtil.close(rs, pstmt, conn);
         }
     }
+	public void nickUpdate(String id, String newNickname) {
+    	Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        
+        try {
+			conn = JDBCUtil.getConnection();
+            String strQuery = "update user set nickname = ? where user_id = ?";
+            
+            pstmt = conn.prepareStatement(strQuery);
+            pstmt.setString(1, newNickname);
+            pstmt.setString(2, id);
+            pstmt.executeUpdate();
+            
+
+
+        } catch (Exception ex) {
+            System.out.println("Exception" + ex);
+        } finally {
+        	JDBCUtil.close(rs, pstmt, conn);
+        }
+    }
+	
 	public UserDTO getUserInfo(String id) {
 	    Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -408,7 +440,58 @@ public class UserDAO {
 
 	    return discussionDetails; // DiscussInfo 리스트 반환
 	}
+	public boolean updateProfilePicture(String userId, InputStream profilePicture) {
+	    String query = "UPDATE user SET profile_img = ? WHERE user_id = ?";
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
 
+	        pstmt.setBlob(1, profilePicture);
+	        pstmt.setString(2, userId);
+
+	        int rowsUpdated = pstmt.executeUpdate();
+	        return rowsUpdated > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	public InputStream getProfilePicture(String userId) {
+	    String query = "SELECT profile_img FROM user WHERE user_id = ?";
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	        pstmt.setString(1, userId);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            return rs.getBinaryStream("profile_img");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	public byte[] loadProfileImg(String userId) {
+        String query = "SELECT profile_img FROM user WHERE user_id = ?";
+        try (Connection conn = JDBCUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                InputStream profileImgStream = rs.getBinaryStream("profile_img");
+                if (profileImgStream != null) {
+                    byte[] imgData = profileImgStream.readAllBytes(); // InputStream을 바이트 배열로 변환
+                    return imgData;
+                }
+            }
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        return null; // 이미지 로드 실패 시 null 반환
+    }
 
 
 		

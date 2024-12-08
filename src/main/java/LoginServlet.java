@@ -44,11 +44,11 @@ public class LoginServlet extends HttpServlet {
 				DAO.alertAndGo(response, "Admin 로그인 성공.", "/Chaek/pages/adminPage.jsp");
 			} else if (userInfo.getIs_admin().equals("0")){
 			
-            DAO.alertAndGo(response, "로그인 성공.", "index.jsp");
-        } else {
-        	DAO.alertAndBack(response, "아이디 또는 비밀번호가 올바르지 않습니다.");
-        }
-	}
+				DAO.alertAndGo(response, "로그인 성공.", "index.jsp");
+	        } 
+	} else {
+    	DAO.alertAndBack(response, "아이디 또는 비밀번호가 올바르지 않습니다.");
+    }
 
 	}
 }
