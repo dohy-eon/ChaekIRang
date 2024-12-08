@@ -215,92 +215,124 @@
 		}
 
 </style>
-<script>
-	document.addEventListener("DOMContentLoaded", () => {
-	    const alarmIcon = document.querySelector(".header-alarm-icon");
-	    const alarmModal = document.getElementById("alarm-modal");
-	
-	    alarmIcon.addEventListener("click", () => {
-	      alarmModal.classList.toggle("show");
-	    });
-	
-	    // 알림아이콘 다시 클릭하거나 모달 바깥 영역 클릭 시 모달 닫기
-	    window.addEventListener("click", (event) => {
-	      if (!alarmModal.contains(event.target) && !alarmIcon.contains(event.target)) {
-	        alarmModal.classList.remove("show");
-	      }
-	    });
-	});
-	
-	//더미데이타
-	const notifications = [
-	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
-	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
-	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
-	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
-	  { title: "새 채팅", description: "운명과 인간의 선택: 네메시스" },
-	];
-	
-	document.addEventListener("DOMContentLoaded", () => {
-	  const alarmModalContent = document.querySelector(".alarm-modal-content");
 
-	  notifications.forEach((notification) => {
-	    const detailDiv = document.createElement("div");
-	      detailDiv.className = "alarm-modal-detail";
-	      
-	      const titleP = document.createElement("p");
-	      titleP.textContent = notification.title;
-	      titleP.className = "alarm-modal-detail-title"
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const alarmIcon = document.querySelector(".header-alarm-icon");
+            const alarmModal = document.getElementById("alarm-modal");
+            const alarmModalContent = alarmModal.querySelector(".alarm-modal-content");
 
-  	      const descriptionP = document.createElement("p");
-	      descriptionP.textContent = notification.description;
+            // 알림 아이콘 클릭 시 알림 모달 열기/닫기
+            alarmIcon.addEventListener("click", () => {
+                alarmModal.classList.toggle("show");
+                fetchNotifications();  // 알림 데이터 가져오기
+            });
 
-	      detailDiv.appendChild(titleP);
-	      detailDiv.appendChild(descriptionP);
-	      alarmModalContent.appendChild(detailDiv);
-	  });
-	});
-</script>
+            // 알림 모달 외부 클릭 시 모달 닫기
+            window.addEventListener("click", (event) => {
+                if (!alarmModal.contains(event.target) && !alarmIcon.contains(event.target)) {
+                    alarmModal.classList.remove("show");
+                }
+            });
+
+            // 서버에서 알림 데이터를 가져오는 함수
+            function fetchNotifications() {
+    fetch('/Chaek/NotificationServlet')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(notifications => {
+            console.log('알람:', notifications);
+            displayNotifications(notifications);
+        })
+        .catch(error => {
+            console.error('Error fetching notifications:', error);
+        });
+}
+
+
+         // 알림 모달에 알림 데이터 표시
+            function displayNotifications(notifications) {
+                alarmModalContent.innerHTML = '';
+
+                if (notifications.length === 0) {
+                    const noNotifications = document.createElement('p');
+                    noNotifications.textContent = '새로운 알림이 없습니다.';
+                    alarmModalContent.appendChild(noNotifications);
+                } else {
+                    notifications.forEach(notification => {
+                        const notificationElement = document.createElement('div');
+                        notificationElement.classList.add('alarm-modal-detail');
+
+                        // 제목 부분
+                        const titleElement = document.createElement('div');
+                        titleElement.classList.add('alarm-modal-detail-title');
+                        titleElement.textContent = notification.title;
+
+                        // 설명 부분
+                        const descriptionElement = document.createElement('div');
+                        descriptionElement.textContent = notification.description;
+
+                        // 요소들 추가
+                        notificationElement.appendChild(titleElement);
+                        notificationElement.appendChild(descriptionElement);
+
+                        alarmModalContent.appendChild(notificationElement);
+                    });
+                }
+            }
+
+
+        });
+    </script>
 </head>
 
-<%
-	String idSession = (String)session.getAttribute("idSession");
-	String isGuest;
-	
-	if(idSession == null) isGuest = "/Chaek/pages/loginSignupPage.jsp";
-	else if(idSession.equals("admin")) isGuest = "/Chaek/pages/adminPage.jsp";
-	else isGuest = "/Chaek/pages/profilePage.jsp";
-	
+<% 
+    // idSession 처리 부분은 서블릿에서 처리되므로 JSP에서는 제거
+    String isGuest;
+    String idSession = (String) session.getAttribute("idSession");
+
+    if (idSession == null) {
+        isGuest = "/Chaek/pages/loginSignupPage.jsp";
+    } else if (idSession.equals("admin")) {
+        isGuest = "/Chaek/pages/adminPage.jsp";
+    } else {
+        isGuest = "/Chaek/pages/profilePage.jsp";
+    }
 %>
+
 <body>
-	<header>
-      <div class="logo-text">
-        <div class="logo-text-wrapper">
-          <div class="logo-text-Chaek">책</div>
-          <div class="logo-text-I">이</div>
-          <div class="logo-text-Rang">랑</div>
+    <header>
+        <div class="logo-text">
+            <div class="logo-text-wrapper">
+                <div class="logo-text-Chaek">책</div>
+                <div class="logo-text-I">이</div>
+                <div class="logo-text-Rang">랑</div>
+            </div>
         </div>
-      </div>
-      
-      <img class="header-logo-img" src="/Chaek/img/book-open.svg" />
-      <img class="header-line1" src="/Chaek/img/line-1.svg" />
-      <div class="header-text-main"><a class="header-a-tag" href="/Chaek">메인</a></div>
-      <div class="header-text-discussion"><a class="header-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
-      <div class="header-text-search"><a class="header-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
-      
-      <a class="header-a-tag" href="<%=isGuest%>"><img class="header-profile-icon" src="/Chaek/img/headerProfile.svg" /></a>
-      <img class="header-alarm-icon" src="/Chaek/img/headerAlarm.svg" />
-      <img class="header-line2" src="/Chaek/img/line-1.svg" />
-      
-      <!-- 알림 모달 -->
-	  <div id="alarm-modal" class="alarm-modal">
-	    <div class="alarm-modal-header">
-	      <p>알림</p>
-	    </div>
-	    <div class="alarm-modal-content">
-	    <!-- 여기에 추가됨 -->
-	    </div>
-	  </div>
+        
+        <img class="header-logo-img" src="/Chaek/img/book-open.svg" />
+        <img class="header-line1" src="/Chaek/img/line-1.svg" />
+        <div class="header-text-main"><a class="header-a-tag" href="/Chaek">메인</a></div>
+        <div class="header-text-discussion"><a class="header-a-tag" href="/Chaek/pages/discussMainPage.jsp">토론</a></div>
+        <div class="header-text-search"><a class="header-a-tag" href="/Chaek/pages/searchPage.jsp">검색</a></div>
+        
+        <a class="header-a-tag" href="<%= isGuest %>"><img class="header-profile-icon" src="/Chaek/img/headerProfile.svg" /></a>
+        <img class="header-alarm-icon" src="/Chaek/img/headerAlarm.svg" />
+        <img class="header-line2" src="/Chaek/img/line-1.svg" />
+        
+        <!-- 알림 모달 -->
+        <div id="alarm-modal" class="alarm-modal">
+            <div class="alarm-modal-header">
+                <p>알림</p>
+            </div>
+            <div class="alarm-modal-content">
+                <!-- 서버에서 동적으로 추가되는 알림이 여기에 들어감 -->
+            </div>
+        </div>
     </header>
 </body>
 </html>
