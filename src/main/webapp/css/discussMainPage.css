@@ -68,6 +68,7 @@
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .discussion-thumbnail {
@@ -124,6 +125,9 @@
     margin-bottom: 200px;
     left: 0px;
     margin-right: 160px;
+}
+.discussion-list > li {
+	cursor: pointer;
 }
 .popular-discussion-container {
 	text-align: center;
