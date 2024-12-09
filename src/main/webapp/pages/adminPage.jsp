@@ -16,6 +16,9 @@
     	<div class="title admin-only">관리자 전용</div>
     	<div class="title discussion-management"><a href="discussionManagement.jsp">토론 관리</a></div>
     	<div class="title member-management"><a href="userManagement.jsp">회원 관리</a></div>
+    	<div><form method="post" action="<%= request.getContextPath() %>/logout">
+			<button class="user-logout" type="submit">로그아웃</button>
+			</form></div>
       </div>
       
 	  <%@ include file="../modules/footer.jsp" %>
