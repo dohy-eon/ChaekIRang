@@ -449,6 +449,7 @@ public class UserDAO {
 	        pstmt.setString(2, userId);
 
 	        int rowsUpdated = pstmt.executeUpdate();
+	        
 	        return rowsUpdated > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -493,6 +494,24 @@ public class UserDAO {
         return null; // 이미지 로드 실패 시 null 반환
     }
 
+	public boolean delFavo(String userId, String discId) {
+		String query = "delete from favoD where user_id = ? and disc_id = ?";
+		try (Connection conn = JDBCUtil.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	            pstmt.setString(1, userId);
+	            pstmt.setString(2, discId);
+	            int delState = pstmt.executeUpdate();
+		        
+		        return delState > 0;
+	            
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+		
+	}
 
 		
 	

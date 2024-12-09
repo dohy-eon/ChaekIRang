@@ -20,7 +20,7 @@ public class DList extends HttpServlet {
         // DAO 인스턴스 생성
         UserDAO DAO = new UserDAO();
 
-        // 요청 인코딩 설정
+        // 요청 인코딩 설정x
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
 
@@ -48,6 +48,8 @@ public class DList extends HttpServlet {
             jsonObject.addProperty("genre", discussInfo.getGenre());
             jsonObject.addProperty("time_created", discussInfo.getTime_created());
             jsonObject.addProperty("comment", discussInfo.getComment());
+            jsonObject.addProperty("disc_id", discussInfo.getDisc_id());
+            
 
             jsonArray.add(jsonObject); // JSON 배열에 추가
         }
