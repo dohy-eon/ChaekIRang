@@ -94,7 +94,7 @@
 	});
 
     // WebSocket 연결 설정
-    const ws = new WebSocket('ws://localhost:8082/Chaek/chat');
+    const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
 	const idKey = "<%=idSession%>";
 	
 
