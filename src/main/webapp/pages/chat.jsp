@@ -1,16 +1,37 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
-
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="discussion.DiscussInfo" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="userinfo.UserDAO" %>
+<%@ page import="java.util.Base64" %>
+ 
 <%
-//String nickname = (String)session.getAttribute("userNickname");
-String idSession = (String)session.getAttribute("idSession");
-String profile = (String)session.getAttribute("userProfile");
-if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
-	profile = "../img/profile/profilepic.jpg";
-}
+    String idSession = (String)session.getAttribute("idSession");
+    String profileImg = (String)session.getAttribute("userProfile");
+    
+    if (idSession != null) {
+        UserDAO userDAO = new UserDAO();
+        byte[] profileImgData = userDAO.loadProfileImg(idSession);
+        
+        if (profileImgData != null) {
+            // Base64 인코딩을 사용하여 이미지 데이터를 문자열로 변환
+            profileImg = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(profileImgData);
+        } else {
+            profileImg = "../img/profile/profilepic.jpg"; // 기본 프로필 이미지
+        }
+    } else {
+        profileImg = "../img/profile/profilepic.jpg"; // 세션이 없는 경우 기본 프로필 이미지 사용
+    }
+    
+  //  profileImg = "../img/profile/profilepic.jpg";
 %>
+
     <meta charset="UTF-8">
+    <% 
+        String discId = request.getParameter("disc_id");  // URL에서 disc_id 파라미터 가져오기
+    %>
     <title>채팅</title>
     <style>
         #chatWindow {
@@ -23,29 +44,32 @@ if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
         #message {
             width: 80%;
         }
+
         .profile-img {
         width: 50px; /* 원하는 너비 */
         height: 50px; /* 원하는 높이 */
         object-fit: cover; /* 비율 유지하면서 자르기 */
         border-radius: 50%; /* 원형으로 만들기 */
     }
+
     </style>
 </head>
 <body>
-    <h1>JSP 채팅</h1>
+    <h1>JSP 채팅 (토론 ID: <%= discId %>)</h1>
     <div id="chatWindow"></div>
     <form id="chatForm">
         <input type="text" id="message" placeholder="메시지를 입력하세요" />
         <button type="submit">전송</button>
     </form>
-    <script>
-        // WebSocket 연결 설정
-        const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
-		const idKey = "<%=idSession%>";
-		const profileImg = "<%=profile%>";
 
-		
-        // 메시지 수신 시 처리
+    <script>
+        const discId = "<%= discId %>";  
+        const idKey = "<%= idSession %>";  
+        console.log("토론아이디체크: ", discId);  // 디버깅용
+
+        // WebSocket 서버 URL에 discId 포함
+        const ws = new WebSocket('ws://localhost:8082/Chaek/chat/' + discId);
+
         /* ws.onmessage = (event) => {
             const chatWindow = document.getElementById("chatWindow");
             chatWindow.innerHTML += "<div>"+event.data+"</div>";
@@ -53,15 +77,15 @@ if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
         }; */
         ws.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            const profileImg = data.profileImg;
+            //const profileImgData = data.profileImgData;
             const sender = data.sender;
             const message = data.message;
-			console.log("img :"+profileImg+"\n"+"sender :"+sender+"\n"+"message :"+message+"\n")
+			//console.log("img :"+profileImgData+"\n"+"sender :"+sender+"\n"+"message :"+message+"\n")
             const chatMessage = document.createElement("div");
             chatMessage.className = "chat-message";
 
             const img = document.createElement("img");
-            img.src = profileImg;
+            img.src = "<%=profileImg%>";
             img.alt = "프로필 이미지";
             img.className = "profile-img";
 
@@ -79,9 +103,11 @@ if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
 		    e.preventDefault();
 		    const messageInput = document.getElementById("message");
 		    const idKey = "<%= idSession %>";  // JSP에서 idSession 값을 가져옴
-		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, profileImg: profileImg })); // id와 메시지, 프사를 JSON 형식으로 전송
+		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value }));
+		   // ws.send(JSON.stringify({ id: idKey, message: messageInput.value, profileImgData: profileImg })); // id와 메시지, 프사를 JSON 형식으로 전송
 		    messageInput.value = ""; // 입력창 초기화
 		};
+
         ws.onerror = (error) => {
             console.error("WebSocket 에러 발생:", error);
         };

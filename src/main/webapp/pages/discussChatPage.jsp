@@ -1,10 +1,11 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
-<%
-    String profile = (String)session.getAttribute("userProfile");
-	if(profile.equals("0")) { // 프로필 사진 설정 안했을 경우
-		profile = "../img/profile/profilepic.jpg";
-	}
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="java.io.*" %>
+<%@ page import="java.util.List" %>
+<%@ page import="discussion.DiscussInfo" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="userinfo.UserDAO" %>
+<%@ page import="java.util.Base64" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,24 @@
     <div class="div">
 	  <%@include file="../modules/header.jsp" %>
 	  
+	  <%
+    String profile;
+    
+    if (idSession != null) {
+        UserDAO userDAO = new UserDAO();
+        byte[] profileImgData = userDAO.loadProfileImg(idSession);
+        
+        if (profileImgData != null) {
+            // Base64 인코딩을 사용하여 이미지 데이터를 문자열로 변환
+            profile = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(profileImgData);
+        } else {
+            profile = "../img/profile/profilepic.jpg"; // 기본 프로필 이미지
+        }
+    } else {
+        profile = "../img/profile/profilepic.jpg"; // 세션이 없는 경우 기본 프로필 이미지 사용
+    }
+    
+%>
 	  <div class="discusschat-page">
 	  
 	  	  <!-- 책 및 토론 정보 -->
@@ -39,14 +58,15 @@
 
 '네메시스'가 운명으로서 나타나는 순간들과 그에 대한 인물들의 
 대응이 우리 현실과 어떻게 닮았는지, 그리고 이들이 던지는 철학적 질문이 우리에게 어떤 의미를 가지는지 함께 논의해봅니다.
-				  
+
 '네메시스'가 운명으로서 나타나는 순간들과 그에 대한 인물들의 
 대응이 우리 현실과 어떻게 닮았는지, 그리고 이들이 던지는 철학적 질문이 우리에게 어떤 의미를 가지는지 함께 논의해봅니다.
-				  
+
 '네메시스'가 운명으로서 나타나는 순간들과 그에 대한 인물들의 
 대응이 우리 현실과 어떻게 닮았는지, 그리고 이들이 던지는 철학적 질문이 우리에게 어떤 의미를 가지는지 함께 논의해봅니다.
 				  </pre>
 			  </div>
+		      </div>
 	      </div>
 	      
 	      <!-- 채팅 -->
@@ -72,12 +92,11 @@
 	    const chatWindow = document.getElementById("chatWindow");
 	    chatWindow.scrollTop = 0; // 채팅창 맨 위로 감 채팅 처음부터 읽기용
 	});
-  
-  
+
     // WebSocket 연결 설정
-    const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
+    const ws = new WebSocket('ws://localhost:8082/Chaek/chat');
 	const idKey = "<%=idSession%>";
-	const profileImg = "<%=profile%>";
+	
 
 	
     // 메시지 수신 시 처리
@@ -88,17 +107,15 @@
     }; */
     ws.onmessage = function(event) {
         const data = JSON.parse(event.data);
-        const profileImg = data.profileImg;
         const sender = data.sender;
         const message = data.message;
-	    console.log("img :"+profileImg+"sender :"+sender+"\n"+"message :"+message+"\n")
         const chatMessage = document.createElement("div");
         chatMessage.className = "chat-message";
         const chatUserInfo = document.createElement("div");
         chatUserInfo.className = "chat-userInfo";
 
         const img = document.createElement("img");
-        img.src = profileImg;
+        img.src = "<%=profile%>";
         img.alt = "profileImg";
         img.className = "profile-img";
         
@@ -164,7 +181,6 @@
             messageInput.value = ""; // 입력창 초기화
         }
     };
-
    </script>
 </body>
 </html>
