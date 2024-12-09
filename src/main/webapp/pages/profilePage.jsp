@@ -182,7 +182,9 @@
 
 	                    chatroomTextDiv.appendChild(titleDiv);
 	                    chatroomTextDiv.appendChild(detailDiv);
-
+						
+	                    
+	                    console.log(discussInfo.disc_id)
 	                    // 하트 버튼
 	                    var heartButtonDiv = document.createElement('div');
 	                    heartButtonDiv.classList.add('heart-button');
@@ -190,6 +192,37 @@
 	                    heartImg.alt = '하트';
 	                    heartImg.src = "../img/profile/heart-colored-icon.svg";
 	                    heartButtonDiv.appendChild(heartImg);
+	                    
+	                    heartButtonDiv.addEventListener('click', function () {
+	                        const data = {
+	                            userId: "<%=id%>",  // 사용자 ID
+	                            discId: discussInfo.disc_id   // 게시물 ID
+	                        };
+
+	                        fetch('/Chaek/disableFavo', {
+	                            method: 'POST',
+	                            headers: {
+	                                'Content-Type': 'application/json' // JSON 데이터 전송
+	                            },
+	                            body: JSON.stringify(data) // 데이터를 JSON 형식으로 전송
+	                        })
+	                        .then(response => response.json()) // JSON 응답 처리
+	                        .then(result => {
+	                            if (result.success) {
+	                                console.log("요청 성공:", result.message);
+	                                // UI 업데이트
+	                                const chatroomDiv = heartButtonDiv.closest('.user-chatroom');
+            						if (chatroomDiv) {
+						                chatroomDiv.remove(); // DOM에서 해당 요소 삭제
+						            }
+	                            } else {
+	                                console.error("요청 실패:", result.message);
+	                            }
+	                        })
+	                        .catch(error => {
+	                            console.error("에러 발생:", error);
+	                        });
+	                    });
 
 	                    // 최종적으로 .user-datalist에 추가
 	                    chatroomDiv.appendChild(bookcoverDiv);
