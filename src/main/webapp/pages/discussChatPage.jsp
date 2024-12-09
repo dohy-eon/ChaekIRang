@@ -66,7 +66,6 @@
 대응이 우리 현실과 어떻게 닮았는지, 그리고 이들이 던지는 철학적 질문이 우리에게 어떤 의미를 가지는지 함께 논의해봅니다.
 				  </pre>
 			  </div>
-		      </div>
 	      </div>
 	      
 	      <!-- 채팅 -->
@@ -94,7 +93,7 @@
 	});
 
     // WebSocket 연결 설정
-    const ws = new WebSocket('ws://localhost:8082/Chaek/chat');
+    const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
 	const idKey = "<%=idSession%>";
 	
 
