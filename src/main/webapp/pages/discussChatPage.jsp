@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="discussion.DiscussInfo" %>
@@ -18,9 +17,17 @@
   <div class="div-wrapper">
     <div class="div">
 	  <%@include file="../modules/header.jsp" %>
+	  <%
+String nickName = "";
+if (idSession != null) {
+    UserDAO userDAO = new UserDAO();
+    nickName = userDAO.getNickNameById(idSession);
+}
+%>
 	  
 	  <%
     String profile;
+	String discId = request.getParameter("disc_id");
     
     if (idSession != null) {
         UserDAO userDAO = new UserDAO();
@@ -66,21 +73,23 @@
 대응이 우리 현실과 어떻게 닮았는지, 그리고 이들이 던지는 철학적 질문이 우리에게 어떤 의미를 가지는지 함께 논의해봅니다.
 				  </pre>
 			  </div>
-		      </div>
 	      </div>
 	      
-	      <!-- 채팅 -->
+	      <!-- 채팅블록 -->
 	      <div class="chat-room">
-	      	<div id="chatWindow"></div>
+	      	<div id="chatWindow">
+	      	<!-- 여기에 채팅 -->
+	      	</div>
+	      	
 	      	<form id="chatForm">
 		        <textarea id="message" placeholder="메시지를 입력하세요"></textarea>
 		        <div class="chat-buttons">
-		        	<button id="scrollToTop">맨 위로</button>
+		        	<button id="scrollToTop" type="button">맨 위로</button>
 		        	<button class="chat-submitbtn" type="submit">전송</button>
 		        </div>
 		    </form>
+		    
 	      </div>
-	      
       </div>
       
 	  <%@ include file="../modules/footer.jsp" %>
@@ -93,62 +102,76 @@
 	    chatWindow.scrollTop = 0; // 채팅창 맨 위로 감 채팅 처음부터 읽기용
 	});
 
+  	const nickName = "<%= nickName %>";
+    const discId = "<%= discId %>";  
+    const idKey = "<%= idSession %>";  
+	const profileImg = "<%=profile%>";
+    console.log("토론아이디체크: ", discId);  // 디버깅용
     // WebSocket 연결 설정
-    const ws = new WebSocket('ws://localhost:8082/Chaek/chat');
-	const idKey = "<%=idSession%>";
-	
+    const ws = new WebSocket('ws://localhost:8082/Chaek/chat/' + discId);
 
+ws.onopen = function() {
+    console.log('WebSocket 연결이 성공적으로 열렸습니다.');
+};
+
+ws.onerror = function(error) {
+    console.log('WebSocket 오류: ', error);
+};
+
+ws.onclose = function() {
+    console.log('WebSocket 연결이 종료되었습니다.');
+};
 	
     // 메시지 수신 시 처리
-    /* ws.onmessage = (event) => {
-        const chatWindow = document.getElementById("chatWindow");
-        chatWindow.innerHTML += "<div>"+event.data+"</div>";
-        chatWindow.scrollTop = chatWindow.scrollHeight; // 스크롤 자동으로 내려가기
-    }; */
-    ws.onmessage = function(event) {
-        const data = JSON.parse(event.data);
-        const sender = data.sender;
-        const message = data.message;
-        const chatMessage = document.createElement("div");
-        chatMessage.className = "chat-message";
-        const chatUserInfo = document.createElement("div");
-        chatUserInfo.className = "chat-userInfo";
+ws.onMessage = function(event) {
+    console.log("수신된 데이터: ", event.data); // 디버깅용
+    const data = JSON.parse(event.data);
+    console.log("파싱된 데이터: ", data); // 디버깅용
 
-        const img = document.createElement("img");
-        img.src = "<%=profile%>";
-        img.alt = "profileImg";
-        img.className = "profile-img";
-        
-        const sendUser = document.createElement("p");
-        sendUser.className = "chat-user";
-        sendUser.textContent = sender;
-        
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = (now.getMonth() + 1).toString().padStart(2, '0');
-        const date = now.getDate().toString().padStart(2, '0');
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-        
-        const sendTime = document.createElement("p");
-        sendTime.className = "chat-time";
-        sendTime.textContent = year + ":" + month + ":" + date + " " + hours + ":" + minutes + ":" + seconds;
+    const profileImg = data.profileImg;
+    const sender = data.sender;
+    const message = data.message;
+    console.log("img :"+profileImg+"sender :"+sender+"\n"+"message :"+message+"\n");
 
-        const text = document.createElement("pre");
-        text.className = "chat-text";
-        text.innerHTML = message.replace(/\n/g, "<br>");
+    const chatMessage = document.createElement("div");
+    chatMessage.className = "chat-message";
+    const chatUserInfo = document.createElement("div");
+    chatUserInfo.className = "chat-userInfo";
 
-        
-        chatUserInfo.appendChild(img);
-        chatUserInfo.appendChild(sendUser);
-        chatUserInfo.appendChild(sendTime);
-        chatMessage.appendChild(chatUserInfo);
-        chatMessage.appendChild(text);
-        document.getElementById("chatWindow").appendChild(chatMessage);
-        
-        chatWindow.scrollTop = chatWindow.scrollHeight;
-    };
+    const img = document.createElement("img");
+    img.src = "<%=profile%>";
+    img.alt = "profileImg";
+    img.className = "profile-img";
+    sendUser.className = "chat-user";
+    sendUser.textContent = sender;  // sendUser를 sender로 대체, 필요 없는 경우 삭제 가능
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const date = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+
+    const sendTime = document.createElement("p");
+    sendTime.className = "chat-time";
+    sendTime.textContent = year + ":" + month + ":" + date + " " + hours + ":" + minutes + ":" + seconds;
+
+    const text = document.createElement("pre");
+    text.className = "chat-text";
+    text.innerHTML = message.replace(/\n/g, "<br>");
+    text.textContent = message;
+
+    chatUserInfo.appendChild(img);
+    chatUserInfo.appendChild(sendUser);  // sendUser를 채팅 정보로 남기고 싶다면 추가, 필요 없으면 삭제
+    chatUserInfo.appendChild(sendTime);
+    chatMessage.appendChild(chatUserInfo);
+    chatMessage.appendChild(text);
+    document.getElementById("chatWindow").appendChild(chatMessage);
+
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+};
+
 
     document.getElementById("message").addEventListener("keydown", (event) => {
         const messageInput = event.target;
@@ -169,18 +192,18 @@
     document.getElementById("chatForm").onsubmit = (e) => {
         e.preventDefault();
         const messageInput = document.getElementById("message");
-        const idKey = "<%= idSession %>";  // JSP에서 idSession 값을 가져옴
+        const idKey = "<%= idSession %>"; 
         const profileImg = "<%= profile %>";
-        
-        if (messageInput.value.trim() !== "") {
-            ws.send(JSON.stringify({ 
-                id: idKey, 
-                message: messageInput.value, 
-                profileImg: profileImg 
-            })); // 메시지 전송
-            messageInput.value = ""; // 입력창 초기화
-        }
+
+        ws.send(JSON.stringify({
+            id: idKey,
+            message: messageInput.value,
+            profileImg: profileImg,
+            nickName: nickName
+        }));
+        messageInput.value = ""; // 입력창 초기화
     };
+
    </script>
 </body>
 </html>

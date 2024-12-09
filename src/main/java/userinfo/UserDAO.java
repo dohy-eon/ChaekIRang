@@ -492,11 +492,47 @@ public class UserDAO {
         }
         return null; // 이미지 로드 실패 시 null 반환
     }
-
-
-		
+	public String getNickNameById(String userId) {
+	    String nickName = "";
+	    String query = "SELECT nickname FROM user WHERE user_id = ?";
+	    
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setString(1, userId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                nickName = rs.getString("nickname");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return nickName;
+	}
 	
+	public UserDTO getChatUserInfo(String userId) {
+	    UserDTO user = null;
+	    String query = "SELECT nickname, profile_img FROM users WHERE user_id = ?";
 
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setString(1, userId);
+	        
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                user = new UserDTO();
+	                user.setNickname(rs.getString("nickname"));
+	                user.setProfile_img(rs.getString("profile_img"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return user;
+	}
 
 
 }
