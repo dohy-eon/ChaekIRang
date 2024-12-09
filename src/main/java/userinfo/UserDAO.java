@@ -449,6 +449,7 @@ public class UserDAO {
 	        pstmt.setString(2, userId);
 
 	        int rowsUpdated = pstmt.executeUpdate();
+	        
 	        return rowsUpdated > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();

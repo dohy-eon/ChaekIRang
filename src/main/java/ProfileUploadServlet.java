@@ -34,9 +34,13 @@ public class ProfileUploadServlet extends HttpServlet {
 	            boolean success = userDAO.updateProfilePicture(userId, inputStream);
 
 	            if (success) {
-	                response.getWriter().println("프로필 사진이 업로드되었습니다.");
+	            
+	                userDAO.alertAndGo(response, "프로필 사진이 변경되었습니다.", "/Chaek/index.jsp");
+	                
+	                
+	                
 	            } else {
-	                response.getWriter().println("업로드 실패.");
+	                userDAO.alertAndBack(response, "업로드 실패했습니다 유효한 파일을 선택해주세요.");
 	            }
 	        }
 	    } else {
