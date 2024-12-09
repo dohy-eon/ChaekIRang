@@ -89,20 +89,19 @@
 	      		<p>이런 토론 주제는 어떠세요?</p>
 	      		<!-- 1위에만 북커버랑 책제목 들어가고 2위 3위에는 토론 제목만 들어가면 됩니다. -->
 	      		<div class="recommend-first">
-	      			<div>
+	      			<div class="pop-first">
 		      			<img class="rank-image" src="/Chaek/img/goldCrown.svg" alt="3." />
-		      			<p>운명과 인간의 선택: 네메시스의 메타포</p>
+	      				<!-- firstTitleContainer -->
 	      			</div>
-	      			<img src="" alt="책커버">
-	      			<p>네메시스</p>
+	      			<!-- firstBookContainer -->
 	      		</div>
-	      		<div class="recommends">
+	      		<div class="recommends" id="pop-second">
 	      			<img class="rank-image" src="/Chaek/img/silverCrown.svg" alt="3." />
-	      			<p>운명과 인간의 선택: 네메시스의 메타포</p>
+	      			<!-- second	BookContainer -->
 	      		</div>
-	      		<div class="recommends">
+	      		<div class="recommends" id="pop-third">
 	      			<img class="rank-image" src="/Chaek/img/bronzeCrown.svg" alt="3." />
-	      			<p>운명과 인간의 선택: 네메시스의 메타포</p>
+	   				<!-- thirdBookContainer -->
 	      		</div>
 	      	</div>
 	      </div>
@@ -156,5 +155,60 @@
 	  <%@ include file="../modules/footer.jsp" %>
 	</div>
   </div>
+  
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+	    // 서버에서 인기 토론 데이터를 가져오기
+	  fetch("/Chaek/dMainListPop")  // 서버에서 인기 토론 데이터를 가져오는 URL
+	    .then(response => response.json())  // JSON 형태로 응답받기
+	    .then(data => {
+	        const firstTitleContainer = document.querySelector(".pop-first");
+			const firstBookContainer = document.querySelector(".recommend-first");
+	        const secondBookContainer = document.getElementById("pop-second");
+	        const thirdBookContainer = document.getElementById("pop-third");
+	        
+	        if (Array.isArray(data) && data.length > 0) {
+	            data.slice(0, 1).forEach(discussion => {
+	                const first_thumbnail = document.createElement("img");
+	                first_thumbnail.src = discussion.book_image || "https://via.placeholder.com/100x150"; // 기본 이미지
+	                first_thumbnail.alt = "book cover";
+	                first_thumbnail.className = "rank-image";
+	                
+	                const first_title = document.createElement("p");
+	                first_title.className = "popfirst-title";
+	                first_title.textContent = discussion.title;
+	                
+                    const first_bookname = document.createElement("p");
+                    first_bookname.textContent = discussion.book_name;
+                    
+                    firstTitleContainer.appendChild(first_title);
+                    firstBookContainer.appendChild(first_thumbnail);
+                    firstBookContainer.appendChild(first_bookname);
+	            });
+	            data.slice(1, 2).forEach(discussion => {
+	            	const title = document.createElement("p");
+	                title.className = "pop-title";
+	                title.textContent = discussion.title;
+	                
+	                secondBookContainer.appendChild(title);
+	            });
+	            data.slice(2, 3).forEach(discussion => {
+	            	const title = document.createElement("p");
+	                title.className = "pop-title";
+	                title.textContent = discussion.title;
+	                
+	                thirdBookContainer.appendChild(title);
+	            });
+	        } else {
+	        	firstTitleContainer.innerHTML = "<p>인기 토론 주제가 없습니다.</p>";
+	        }
+	    })
+	    .catch(error => {
+	        console.error('데이터를 가져오는 중 오류 발생:', error);
+	    });
+	
+	});
+  </script>
 </body>
 </html>
