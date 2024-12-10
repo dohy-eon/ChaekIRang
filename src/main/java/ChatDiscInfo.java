@@ -27,11 +27,9 @@ public class ChatDiscInfo extends HttpServlet {
 	    List<DiscussInfo> discussionDetails=null;
 	    
 	    String discId = request.getParameter("disc_id");
-	
-	    if (discId != null && !discId.isEmpty()) {
-	        // discId로 필터링
-	        discussionDetails = DAO.getDiscById(discId);
-	    }
+	    
+	    // DAO에서 필터링
+	    discussionDetails = DAO.getDiscById(discId);
 	
 	    // JSON 배열 생성
 	    JsonArray jsonArray = new JsonArray();
