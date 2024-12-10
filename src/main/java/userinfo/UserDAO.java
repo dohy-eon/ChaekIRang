@@ -440,6 +440,41 @@ public class UserDAO {
 
 	    return discussionDetails; // DiscussInfo 리스트 반환
 	}
+	
+	// chat.jsp로 보내는 토론정보
+	public List<DiscussInfo> getDiscById(String discId) {
+	    List<DiscussInfo> discussionDetails = new ArrayList<>();
+	    String query = "SELECT disc_id, title, book_name, book_image, description, genre, time_created, comment " +
+	                   "FROM discussions WHERE disc_id = ?";
+
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	        pstmt.setString(1, discId);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                DiscussInfo discussInfo = new DiscussInfo(
+	                    rs.getString("disc_id"),
+	                    rs.getString("title"),
+	                    rs.getString("book_name"),
+	                    rs.getString("book_image"),
+	                    rs.getString("description"),
+	                    rs.getString("genre"),
+	                    rs.getString("time_created"),
+	                    rs.getInt("comment")
+	                );
+	                discussionDetails.add(discussInfo);
+	            }
+	        }
+	    } catch (Exception ex) {
+	        System.out.println("예외 발생: " + ex.getMessage());
+	        ex.printStackTrace();
+	    }
+
+	    return discussionDetails;
+	}
+	
+	
 	public boolean updateProfilePicture(String userId, InputStream profilePicture) {
 	    String query = "UPDATE user SET profile_img = ? WHERE user_id = ?";
 	    try (Connection conn = JDBCUtil.getConnection();
