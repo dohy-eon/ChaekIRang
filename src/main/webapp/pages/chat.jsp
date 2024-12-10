@@ -72,7 +72,7 @@
         console.log("토론아이디체크: ", discId);  // 디버깅용
 
         // WebSocket 서버 URL에 discId 포함
-        const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
+        const ws = new WebSocket('ws://localhost:8082/Chaek/chat/' + discId);
 
         ws.onmessage = function(event) {
             const data = JSON.parse(event.data);
