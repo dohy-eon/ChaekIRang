@@ -1,3 +1,4 @@
+<%@page import="org.apache.catalina.filters.ExpiresFilter.XServletOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <%@ page import="java.io.*" %>
@@ -10,6 +11,7 @@
 <%
     String idSession = (String)session.getAttribute("idSession");
     String profileImg = (String)session.getAttribute("userProfile");
+    String nickname = (String)session.getAttribute("userNickname");
     
     if (idSession != null) {
         UserDAO userDAO = new UserDAO();
@@ -26,6 +28,7 @@
     }
     
   //  profileImg = "../img/profile/profilepic.jpg";
+  System.out.println(profileImg);
 %>
 
     <meta charset="UTF-8">
@@ -56,45 +59,46 @@
 </head>
 <body>
     <h1>JSP 채팅 (토론 ID: <%= discId %>)</h1>
-    <div id="chatWindow"></div>
+    <div id="chatWindow"><!-- 여기에 채팅 --></div>
     <form id="chatForm">
         <input type="text" id="message" placeholder="메시지를 입력하세요" />
         <button type="submit">전송</button>
     </form>
 
     <script>
-        const discId = "<%= discId %>";  
-        const idKey = "<%= idSession %>";  
+        const discId = "<%= discId %>";
+        const idKey = "<%= idSession %>";
+        const nickname = "<%= nickname %>";
         console.log("토론아이디체크: ", discId);  // 디버깅용
 
         // WebSocket 서버 URL에 discId 포함
         const ws = new WebSocket('ws://localhost:8081/Chaek/chat');
 
-        /* ws.onmessage = (event) => {
-            const chatWindow = document.getElementById("chatWindow");
-            chatWindow.innerHTML += "<div>"+event.data+"</div>";
-            chatWindow.scrollTop = chatWindow.scrollHeight; // 스크롤 자동으로 내려가기
-        }; */
         ws.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            //const profileImgData = data.profileImgData;
-            const sender = data.sender;
+            console.log(data);
             const message = data.message;
-			//console.log("img :"+profileImgData+"\n"+"sender :"+sender+"\n"+"message :"+message+"\n")
+            const createdAt = data.createdAt;
             const chatMessage = document.createElement("div");
             chatMessage.className = "chat-message";
 
             const img = document.createElement("img");
-            img.src = "<%=profileImg%>";
+            console.log(data.profileImg); //프로필이미지 체크용
+            img.src = data.profileImg;
             img.alt = "프로필 이미지";
             img.className = "profile-img";
 
             const text = document.createElement("p");
             text.className = "chat-text";
-            text.textContent = sender+":"+ message;
+            text.textContent = data.nickname+":"+ message;
 
+            const timestamp = document.createElement("span"); // 타임스탬프 출력
+            timestamp.className = "timestamp";
+            timestamp.textContent = "시간: " + createdAt;
+            
             chatMessage.appendChild(img);
             chatMessage.appendChild(text);
+            chatMessage.appendChild(timestamp);
             document.getElementById("chatWindow").appendChild(chatMessage);
         };
 
@@ -102,9 +106,9 @@
 		document.getElementById("chatForm").onsubmit = (e) => {
 		    e.preventDefault();
 		    const messageInput = document.getElementById("message");
-		    const idKey = "<%= idSession %>";  // JSP에서 idSession 값을 가져옴
-		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value }));
-		   // ws.send(JSON.stringify({ id: idKey, message: messageInput.value, profileImgData: profileImg })); // id와 메시지, 프사를 JSON 형식으로 전송
+		    const idKey = "<%= idSession %>";
+		    console.log(idKey);
+		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, nickname: nickname }));
 		    messageInput.value = ""; // 입력창 초기화
 		};
 

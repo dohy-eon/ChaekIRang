@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
-@ServerEndpoint("/chat")
+@ServerEndpoint("/chattingggggg")
 public class ChatServlet {
     private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
     private static Map<String, Integer> userDiscMap = new HashMap<>();  // 사용자와 채팅방 ID 매핑
