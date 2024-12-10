@@ -98,6 +98,11 @@
 	                    details.append(title, description, comments);
 	                    card.append(thumbnail, details);
 	                    latestContainer.appendChild(card);
+	                
+	                    const discId = discussion.disc_id;
+		                card.addEventListener("click", function() {
+	                        window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
+	                    });
 	                });
 	            } else {
 	                // 데이터가 없을 경우 처리
@@ -145,6 +150,11 @@
 
 	                // 리스트 컨테이너에 추가
 	                popularContainer.appendChild(listItem);
+	            
+	                const discId = discussion.disc_id;
+	                listItem.addEventListener("click", function() {
+                        window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
+                    });
 	            });
 	        } else {
 	            popularContainer.innerHTML = "<p>인기 토론 주제가 없습니다.</p>";

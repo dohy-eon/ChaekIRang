@@ -80,14 +80,14 @@
 	      	<div class="user-datalistbox">
 	      		<p>나의 eBook 목록</p>
 	      		<div class="user-datalist">
-	      			
+	      			<!-- user-datalist -->
 	      			
 	      		</div>
 	      	</div>
 	      	<div class="user-datalistbox">
 	      		<p>나의 관심 토론</p>
 	      		<div class="user-datalist2">
-	      			<!-- 여기도 map -->
+	      			<!-- user-datalist2 -->
 	    			
 	      		</div>
 	      	</div>
@@ -99,7 +99,9 @@
   </div>
   
   <script>
-	function toggleHeart(button) { // 나중에 토글이 아니라 빨간하트 눌러서 관심토론에서 제외되면 리스트에서 삭제되도록
+  
+	// 관심 토론 하트 토글 - 이제 토글할 필요 없어서 테스트 후 지워도 됨
+	function toggleHeart(button) {
 	    var img = button.querySelector('img');
 	    if (img.src.includes('heart-icon.svg')) {
 	        img.src = '../img/profile/heart-colored-icon.svg'; // 클릭 시 하트 색상 변경
@@ -108,7 +110,7 @@
 	    }
 	}
 	
-	
+	// 나의 eBook 목록
 	document.addEventListener("DOMContentLoaded", function () {
 	    fetch("/Chaek/fileList")
 	        .then(response => response.json())
@@ -149,6 +151,9 @@
 	        })
 	        .catch(error => console.error("Error loading files:", error));
 	});
+	
+	
+	//나의 관심 토론
 	document.addEventListener("DOMContentLoaded", function () {
 	    // 서블릿을 호출하여 데이터 가져오기
 	    fetch("/Chaek/dList")  // 서블릿 URL
@@ -239,6 +244,8 @@
 	        });
 	});
 	
+	
+	// 프로필 사진 업로드
 	document.getElementById('profilePic').addEventListener('change', function() {
 	    const file = this.files[0];
 	    if (file) {
