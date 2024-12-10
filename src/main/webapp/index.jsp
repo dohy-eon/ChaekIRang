@@ -82,8 +82,6 @@
           </div>
           <div class="part2-popular-list" id="part2-popular-list"></div>
           <script>
-
-          
           document.addEventListener("DOMContentLoaded", function () {
         	    // 서블릿을 호출하여 데이터 가져오기
         	    fetch("/Chaek/dMainListPop") // 서블릿 URL
@@ -127,6 +125,11 @@
         	                    card.appendChild(thumbnail);
         	                    card.appendChild(details);
         	                    container.appendChild(card);
+        	                    
+        	                    const discId = discussInfo.disc_id;
+        		                card.addEventListener("click", function() {
+        	                        window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
+        	                    });
         	                });
         	            } else {
         	                console.error("데이터 형식이 잘못되었습니다.");
@@ -136,8 +139,6 @@
         	            console.error('Error fetching data:', error);
         	        });
         	});
-
-          
           </script>
         </div>
       </div>

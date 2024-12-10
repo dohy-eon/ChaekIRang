@@ -440,6 +440,41 @@ public class UserDAO {
 
 	    return discussionDetails; // DiscussInfo 리스트 반환
 	}
+	
+	// chat.jsp로 보내는 토론정보
+	public List<DiscussInfo> getDiscById(String discId) {
+	    List<DiscussInfo> discussionDetails = new ArrayList<>();
+	    String query = "SELECT disc_id, title, book_name, book_image, description, genre, time_created, comment " +
+	                   "FROM discussions WHERE disc_id = ?";
+
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	        pstmt.setString(1, discId);
+	        try (ResultSet rs = pstmt.executeQuery()) {
+	            while (rs.next()) {
+	                DiscussInfo discussInfo = new DiscussInfo(
+	                    rs.getString("disc_id"),
+	                    rs.getString("title"),
+	                    rs.getString("book_name"),
+	                    rs.getString("book_image"),
+	                    rs.getString("description"),
+	                    rs.getString("genre"),
+	                    rs.getString("time_created"),
+	                    rs.getInt("comment")
+	                );
+	                discussionDetails.add(discussInfo);
+	            }
+	        }
+	    } catch (Exception ex) {
+	        System.out.println("예외 발생: " + ex.getMessage());
+	        ex.printStackTrace();
+	    }
+
+	    return discussionDetails;
+	}
+	
+	
 	public boolean updateProfilePicture(String userId, InputStream profilePicture) {
 	    String query = "UPDATE user SET profile_img = ? WHERE user_id = ?";
 	    try (Connection conn = JDBCUtil.getConnection();
@@ -449,6 +484,7 @@ public class UserDAO {
 	        pstmt.setString(2, userId);
 
 	        int rowsUpdated = pstmt.executeUpdate();
+	        
 	        return rowsUpdated > 0;
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -492,11 +528,65 @@ public class UserDAO {
         }
         return null; // 이미지 로드 실패 시 null 반환
     }
+	public String getNickNameById(String userId) {
+	    String nickName = "";
+	    String query = "SELECT nickname FROM user WHERE user_id = ?";
+	    
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setString(1, userId);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                nickName = rs.getString("nickname");
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return nickName;
+	}
+	public boolean delFavo(String userId, String discId) {
+		String query = "delete from favoD where user_id = ? and disc_id = ?";
+		try (Connection conn = JDBCUtil.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-
+	            pstmt.setString(1, userId);
+	            pstmt.setString(2, discId);
+	            int delState = pstmt.executeUpdate();
+		        
+		        return delState > 0;
+	            
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
 		
+	}
 	
+	public UserDTO getChatUserInfo(String userId) {
+	    UserDTO user = null;
+	    String query = "SELECT nickname, profile_img FROM users WHERE user_id = ?";
 
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setString(1, userId);
+	        
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                user = new UserDTO();
+	                user.setNickname(rs.getString("nickname"));
+	                user.setProfile_img(rs.getString("profile_img"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return user;
+	}
 
 
 }
