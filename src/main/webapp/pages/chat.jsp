@@ -118,8 +118,9 @@
 	            chatUserInfo.className = "chat-userInfo";
 	
 	         	// 닉넴 클릭하면 otherProfile 연결해야됨..
-	            const sendUser = document.createElement("p");
+	            const sendUser = document.createElement("a");
 	            sendUser.className = "chat-user";
+	            sendUser.href = "/Chaek/pages/otherProfilePage.jsp?userId="+data.user_id;
 	            sendUser.textContent = data.nickname
 	            
 	            const text = document.createElement("pre");

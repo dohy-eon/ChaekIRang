@@ -6,6 +6,10 @@
  	<link rel="stylesheet" href="../css/otherProfilePage.css" />
  	<link rel="stylesheet" href="../css/default.css"/>
     <title>책이랑</title>
+    <%
+	    String userId = request.getParameter("userId"); // 전달받은 userId
+	    // userId로 데이터베이스에서 해당 사용자 정보를 가져옵니다.
+	%>
 </head>
 <body>
 	<div class="div-wrapper">
@@ -18,7 +22,7 @@
 					<img alt="프로필사진" src="../img/profile/profilepic.jpg">
 				</div>
 				<div class="user-nickname">
-					<div class="nickname">낙지탕탕이</div>
+					<div class="nickname"><%= userId %></div>
 				</div>
 			</div>
 			
