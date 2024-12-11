@@ -37,10 +37,12 @@ public class ChatServlet {
     public void onMessage(Session session, String message) {
         String userId = session.getId();
         Integer discId = userDiscMap.get(userId);
-
+        
         if (discId != null) {
             // 메시지를 comments 테이블에 저장
+        	 System.out.println("message : " +message);
             addComment(discId, userId, message);
+           
 
             // 알림 생성
             String notificationMessage = "새로운 메시지가 도착했습니다.";
