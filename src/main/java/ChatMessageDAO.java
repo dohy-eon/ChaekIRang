@@ -15,7 +15,7 @@ public class ChatMessageDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        String query = "SELECT nickname, comment_text, created_at FROM comments WHERE disc_id = ? ORDER BY created_at ASC";
+        String query = "SELECT user_id, nickname, comment_text, created_at FROM comments WHERE disc_id = ? ORDER BY created_at ASC";
 
         try {
             conn = JDBCUtil.getConnection();
@@ -25,6 +25,7 @@ public class ChatMessageDAO {
 
             while (rs.next()) {
             	ChatMessageDTO message = new ChatMessageDTO();
+            	message.setUserId(rs.getString("user_id"));
                 message.setNickname(rs.getString("nickname"));
                 message.setCommentText(rs.getString("comment_text"));
                 message.setCreatedAt(rs.getTimestamp("created_at").toString());

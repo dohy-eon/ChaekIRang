@@ -52,19 +52,21 @@ public class ChatWebSocket {
         String userIdFromMessage = jsonMessage.get("id").getAsString();
         String commentText = jsonMessage.get("message").getAsString();
 
-        // 사용자의 nickname과 profileImg를 DB에서 불러오기
+        // 사용자의 nickname과 profileImg, user_id를 DB에서 불러오기
         UserDAO userDAO = new UserDAO();
         UserDTO user = userDAO.getUserInfo(userIdFromMessage);  // userIdFromMessage에 해당하는 user 정보 가져오기
-
-        // nickname과 profileImg 가져오기
+        
+        // nickname과 profileImg, user_id 가져오기
         String nickname = user.getNickname();
         String profileImg = user.getProfile_img() != null ? user.getProfile_img() : "../img/profile/profilepic.jpg";  // 기본 이미지 설정
-
+        String userId = user.getUser_id();
+        
         // 현재 시간 구하기 (created_at)
         Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 
-        // 메시지에 nickname, profileImg, createdAt 추가
+        // 메시지에 user_id, nickname, profileImg, createdAt 추가
         JsonObject responseMessage = new JsonObject();
+        responseMessage.addProperty("user_id", userId);
         responseMessage.addProperty("nickname", nickname);
         responseMessage.addProperty("profileImg", profileImg);
         responseMessage.addProperty("message", commentText);

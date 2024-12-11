@@ -165,6 +165,11 @@
 	                data.forEach(function(discussInfo) {  // 'discussionDetails' 대신 'data'
 	                    var chatroomDiv = document.createElement('div');
 	                    chatroomDiv.classList.add('user-chatroom');
+	                    
+	                    const discId = discussInfo.disc_id;
+	                    chatroomDiv.addEventListener("click", function() {
+	                        window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
+	                    });
 
 	                    // 책 커버 이미지
 	                    var bookcoverDiv = document.createElement('div');

@@ -36,6 +36,11 @@
             // 로딩바 표시
             document.getElementById("loadingSpinner").style.display = "block";
 
+            // 10초 후 로딩바 숨기기
+            setTimeout(() => {
+                hideLoadingSpinner();
+            }, 10000);
+            
             // 파일 업로드 및 변환 요청을 보낼 form을 제출
             document.getElementById("uploadForm").submit();
         }
