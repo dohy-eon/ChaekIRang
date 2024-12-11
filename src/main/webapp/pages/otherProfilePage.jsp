@@ -20,7 +20,6 @@
 		       imageSrc  = "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(profileImgData);
 		} else {
 		 imageSrc = "../img/profile/profilepic.jpg";
-		 
 		}
 	%>
 </head>
@@ -54,16 +53,21 @@
     <script>
     	const userId = "<%= userId %>";
     	
-    	//유저 닉네임 가져오기
+    	//유저 정보 가져오기
 	    fetch("/Chaek/getUserInfo?user_id="+userId)
 	    .then(response => response.json())
 	    .then(data => {	
             console.log(data);
             document.querySelector(".nickname").textContent = data.nickname;
+          	//유저 프로필 값이 0일 경우 디폴트 사진으로 변경
+          	if (data.profile_img == "0") {
+          		document.querySelector(".user-profilepic").src = "../img/profile/profilepic.jpg";
+          	}
 	    })
 	    .catch(error => {
 	        console.error("토론 정보 로드 중 오류:", error);
 	    });
+    	
 	    
 	    //유저 관심토론 가져오기
 	    fetch("/Chaek/dListOther?user_id=" + userId)
