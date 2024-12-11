@@ -587,6 +587,40 @@ public class UserDAO {
 
 	    return user;
 	}
+	public boolean checkFavoState(String userId, String discId) {
+	    String query = "SELECT COUNT(*) FROM favoD WHERE user_id = ? AND disc_id = ?";
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	        pstmt.setString(1, userId);
+	        pstmt.setString(2, discId);
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            return rs.getInt(1) > 0;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
+	public boolean addFavo(String userId, String discId) {
+	       String query = "INSERT INTO favoD (user_id, disc_id) VALUES (?, ?)";
+	       try (Connection conn = JDBCUtil.getConnection();
+	            PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	           pstmt.setString(1, userId);
+	           pstmt.setString(2, discId);
+	           int insertState = pstmt.executeUpdate();
+
+	           return insertState > 0;
+
+	       } catch (SQLException e) {
+	           e.printStackTrace();
+	           return false;
+	       }
+	   }
 
 
 }
