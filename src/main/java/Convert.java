@@ -41,7 +41,9 @@ public class Convert extends HttpServlet {
         }
         
         // ConvertAPI 설정
-        Config.setDefaultApiCredentials("secret_9lf6WApGNeaqr5MK");
+
+        Config.setDefaultApiCredentials("secret_r8O4nRyjlCetWiB1");
+
 
         // 업로드된 파일을 가져오기
         Part filePart = request.getPart("file");
