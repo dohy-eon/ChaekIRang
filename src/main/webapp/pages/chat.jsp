@@ -103,71 +103,117 @@
 		        console.error("토론 정보 로드 중 오류:", error);
 		    });
 	
-	        // WebSocket 서버 URL에 discId 포함
-	        const ws = new WebSocket('ws://localhost:8081/Chaek/chat/' + discId);
-	
-	        ws.onmessage = function(event) {
-	            const data = JSON.parse(event.data);
-	            //console.log(data);
-	            const message = data.message;
-	            const createdAt = data.createdAt;
-	            const prettyCreatedAt = createdAt.split('.')[0]; // 초단위 소숫점 제거
-	            const chatMessage = document.createElement("div");
-	            chatMessage.className = "chat-message";
-	            const chatUserInfo = document.createElement("div");
-	            chatUserInfo.className = "chat-userInfo";
-	
-	         	// 닉넴 클릭하면 otherProfile 연결해야됨..
-	            const sendUser = document.createElement("p");
-	            sendUser.className = "chat-user";
-	            sendUser.textContent = data.nickname
-	            
-	            const text = document.createElement("pre");
-	            text.className = "chat-text";
-	            text.innerHTML = message.replace(/\n/g, "<br>");
-	
-	            const timestamp = document.createElement("p"); // 타임스탬프 출력
-	            timestamp.className = "chat-time";
-	            timestamp.textContent = prettyCreatedAt;
-	            
-	            chatUserInfo.appendChild(sendUser);
-	            chatUserInfo.appendChild(timestamp);
-	            chatMessage.appendChild(chatUserInfo);
-	            chatMessage.appendChild(text);
-	            document.getElementById("chatWindow").appendChild(chatMessage);
-	        
-	            chatWindow.scrollTop = chatWindow.scrollHeight; // 메세지 전송 시 그... 최신 메세지 보이도록 자동스크롤
-	        };
-	
-	        // 메시지 전송
-			document.getElementById("chatForm").onsubmit = (e) => {
-			    e.preventDefault();
-			    const messageInput = document.getElementById("message");
-			    const idKey = "<%= idSession %>";
-			    console.log(idKey);
-			    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, nickname: nickname }));
-			    messageInput.value = ""; // 입력창 초기화
-			};
-	
-	        ws.onerror = (error) => {
-	            console.error("WebSocket 에러 발생:", error);
-	        };
-	        
-	        // keydown event 추가
-	        document.getElementById("message").addEventListener("keydown", (event) => {
-	            const messageInput = event.target;
-	            
-	            // Shift + Enter로 줄바꿈
-	            if (event.key === "Enter" && event.shiftKey) {
-	                return;
-	            }
+	        document.addEventListener("DOMContentLoaded", () => {
+	            const chatWindow = document.getElementById("chatWindow");
 
-	            // Enter로 메시지 전송
-	            if (event.key === "Enter" && !event.shiftKey) {
-	                event.preventDefault();
-	                document.getElementById("chatForm").dispatchEvent(new Event("submit")); // Form submit 이벤트 호출
-	            }
+	            // 기존 채팅 데이터 가져오기
+	            fetch("/Chaek/chatHistory?disc_id="+discId)
+	                .then((response) => response.json())
+	                .then((data) => {
+	                	console.log("서버 응답 데이터:", data); // 디버깅용
+	                    if (Array.isArray(data)) {
+	                        data.forEach((message) => {
+	                            const chatMessage = document.createElement("div");
+	                            chatMessage.className = "chat-message";
 
+	                            const chatUserInfo = document.createElement("div");
+	                            chatUserInfo.className = "chat-userInfo";
+
+	                            const sendUser = document.createElement("p");
+	                            sendUser.className = "chat-user";
+	                            sendUser.textContent = message.nickname;
+
+	                            const text = document.createElement("pre");
+	                            text.className = "chat-text";
+	                            if (message.CommentText) {
+	                                text.textContent = message.CommentText.replace(/\n/g, "<br>");
+	                              }
+
+	                            const timestamp = document.createElement("p");
+	                            timestamp.className = "chat-time";
+	                            timestamp.textContent = message.createdAt.split('.')[0]; // 초단위 소숫점 제거
+
+	                            chatUserInfo.appendChild(sendUser);
+	                            chatUserInfo.appendChild(timestamp);
+	                            chatMessage.appendChild(chatUserInfo);
+	                            chatMessage.appendChild(text);
+
+	                            chatWindow.appendChild(chatMessage);
+	                        });
+
+	                        // 채팅창을 가장 아래로 스크롤
+	                        chatWindow.scrollTop = chatWindow.scrollHeight;
+	                    } else {
+	                        console.warn("데이터포맷다름");
+	                    }
+	                })
+	                .catch((error) => {
+	                    console.error("불러오는중오류:", error);
+	                });
+
+	            // WebSocket 서버 URL에 discId 포함
+	            const ws = new WebSocket('ws://localhost:8081/Chaek/chat/' + discId);
+
+	            ws.onmessage = function(event) {
+	                const data = JSON.parse(event.data);
+	                const message = data.commentText;
+	                const createdAt = data.createdAt;
+	                const prettyCreatedAt = createdAt.split('.')[0]; // 초단위 소숫점 제거
+	                const chatMessage = document.createElement("div");
+	                chatMessage.className = "chat-message";
+
+	                const chatUserInfo = document.createElement("div");
+	                chatUserInfo.className = "chat-userInfo";
+
+	                const sendUser = document.createElement("p");
+	                sendUser.className = "chat-user";
+	                sendUser.textContent = data.nickname;
+
+	                const text = document.createElement("pre");
+	                text.className = "chat-text";
+	                text.innerHTML = message.replace(/\n/g, "<br>");
+
+	                const timestamp = document.createElement("p");
+	                timestamp.className = "chat-time";
+	                timestamp.textContent = prettyCreatedAt;
+
+	                chatUserInfo.appendChild(sendUser);
+	                chatUserInfo.appendChild(timestamp);
+	                chatMessage.appendChild(chatUserInfo);
+	                chatMessage.appendChild(text);
+	                chatWindow.appendChild(chatMessage);
+
+	                chatWindow.scrollTop = chatWindow.scrollHeight; // 메세지 전송 시 최신 메세지 보이도록 자동스크롤
+	            };
+
+	            // 메시지 전송
+	            document.getElementById("chatForm").onsubmit = (e) => {
+	                e.preventDefault();
+	                const messageInput = document.getElementById("message");
+	                ws.send(JSON.stringify({ id: idKey, message: messageInput.value, nickname: nickname }));
+	                messageInput.value = ""; // 입력창 초기화
+	                location.reload(); //새로고침 해야지 새 텍스트 보이길래 채팅 보내면 바로 새로고침하게 만듦
+	            };
+
+	            ws.onerror = (error) => {
+	                console.error("WebSocket 에러 발생:", error);
+	            };
+
+	            // keydown event 추가
+	            document.getElementById("message").addEventListener("keydown", (event) => {
+	                const messageInput = event.target;
+
+	                // Shift + Enter로 줄바꿈
+	                if (event.key === "Enter" && event.shiftKey) {
+	                    return;
+	                }
+
+	                // Enter로 메시지 전송
+	                if (event.key === "Enter" && !event.shiftKey) {
+	                    event.preventDefault();
+	                    document.getElementById("chatForm").dispatchEvent(new Event("submit")); // Form submit 이벤트 호출
+	                }
+	            });
 	        });
 	    </script>
 </body>
