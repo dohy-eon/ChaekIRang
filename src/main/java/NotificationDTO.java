@@ -8,6 +8,19 @@ public class NotificationDTO {
     private Timestamp alarmCreated;
     private boolean status;
 
+    // 기본 생성자 추가
+    public NotificationDTO() {
+    }
+
+    // 생성자
+    public NotificationDTO(String userId, int discId, String message, Timestamp alarmCreated) {
+        this.userId = userId;
+        this.discId = discId;
+        this.message = message;
+        this.alarmCreated = alarmCreated;
+    }
+
+    // getter, setter
     public int getAlarmId() {
         return alarmId;
     }
