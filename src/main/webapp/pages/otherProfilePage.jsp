@@ -69,49 +69,41 @@
 	    fetch("/Chaek/dListOther?user_id=" + userId)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-
-            // 관심 토론 데이터가 들어갈 컨테이너 선택
             const userDatalist = document.querySelector(".user-datalist");
-
-            // JSON 데이터를 기반으로 HTML 요소 생성 및 삽입
             data.forEach(item => {
                 const chatroom = document.createElement("div");
                 chatroom.className = "user-chatroom";
+                
+                const discId = item.disc_id;
+                chatroom.addEventListener("click", function() {
+                    window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
+                });
 
-                // 책 커버를 담을 div 생성
                 const bookCoverDiv = document.createElement("div");
                 bookCoverDiv.classList.add("user-bookcover");
 
-                // 책 커버 이미지 추가
                 const bookCoverImg = document.createElement("img");
                 bookCoverImg.setAttribute("alt", "책 커버");
                 bookCoverImg.setAttribute("src", item.book_image);
                 bookCoverDiv.appendChild(bookCoverImg);
 
-                // 채팅방 텍스트를 담을 div 생성
                 const chatroomTextDiv = document.createElement("div");
                 chatroomTextDiv.classList.add("user-chatroom-text");
 
-                // 채팅방 제목 추가
                 const chatroomTitle = document.createElement("div");
                 chatroomTitle.classList.add("user-chatroom-title");
                 chatroomTitle.textContent = item.title;
                 chatroomTextDiv.appendChild(chatroomTitle);
 
-                // 채팅방 설명 추가
                 const chatroomDetail = document.createElement("div");
                 chatroomDetail.classList.add("user-chatroom-detail");
                 chatroomDetail.textContent = item.description;
                 chatroomTextDiv.appendChild(chatroomDetail);
 
-                // 부모 div에 자식 요소 추가
                 chatroom.appendChild(bookCoverDiv);
                 chatroom.appendChild(chatroomTextDiv);
 
-                // 필요한 위치에 chatroom 추가
                 document.querySelector(".user-datalist").appendChild(chatroom);
-                
                 userDatalist.appendChild(chatroom);
             });
         })
