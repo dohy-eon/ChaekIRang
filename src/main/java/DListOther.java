@@ -24,7 +24,7 @@ public class DListOther extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // 리퀘스트에서 user_id 가져오기
-        String userId = (String) request.getAttribute("user_id");
+        String userId = (String) request.getParameter("user_id");
 
         // DAO를 통해 토론 데이터 가져오기
         List<DiscussInfo> discussionDetails = DAO.getFavoDetails(userId);
