@@ -12,8 +12,8 @@ import userinfo.UserDAO;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-@WebServlet("/disableFavo")
-public class DisableFavo extends HttpServlet {
+@WebServlet("/enableFavo")
+public class EnableFavo extends HttpServlet {
 
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       UserDAO DAO = new UserDAO();
@@ -35,12 +35,12 @@ public class DisableFavo extends HttpServlet {
       String userId = jsonObject.get("userId").getAsString();
       String discId = jsonObject.get("discId").getAsString();
       
-      boolean isDeleted = DAO.delFavo(userId, discId);
+      boolean isSuccess = DAO.addFavo(userId, discId);
       
       // JSON 응답 작성
       JsonObject jsonResponse = new JsonObject();
-      jsonResponse.addProperty("success", isDeleted);
-      jsonResponse.addProperty("message", isDeleted ? "삭제 성공" : "삭제 실패");
+      jsonResponse.addProperty("success", isSuccess);
+      jsonResponse.addProperty("message", isSuccess ? "추가 성공" : "추가 실패");
 
       response.setContentType("application/json");
       response.setCharacterEncoding("UTF-8");
