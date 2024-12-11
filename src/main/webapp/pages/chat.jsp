@@ -113,9 +113,10 @@
 	                            const chatUserInfo = document.createElement("div");
 	                            chatUserInfo.className = "chat-userInfo";
 
-	                            const sendUser = document.createElement("p");
+	                            const sendUser = document.createElement("a");
 	                            sendUser.className = "chat-user";
 	                            sendUser.textContent = message.nickname;
+	                            sendUser.href = "/Chaek/pages/otherProfilePage.jsp?userId="+message.userId;
 
 	                            const text = document.createElement("pre");
 	                            text.className = "chat-text";
@@ -228,7 +229,7 @@
 	            const chatUserInfo = document.createElement("div");
 	            chatUserInfo.className = "chat-userInfo";
 	
-	         	// 닉넴 클릭하면 otherProfile 연결해야됨..
+	         	// 닉넴 클릭하면 otherProfile 연결
 	            const sendUser = document.createElement("a");
 	            sendUser.className = "chat-user";
 	            sendUser.href = "/Chaek/pages/otherProfilePage.jsp?userId="+data.user_id;
