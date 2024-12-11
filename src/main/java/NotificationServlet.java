@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.List;
 import com.google.gson.Gson;
 
-
 @WebServlet("/NotificationServlet")
 public class NotificationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -19,11 +18,11 @@ public class NotificationServlet extends HttpServlet {
             List<NotificationDTO> notifications = notificationDAO.getNotificationsByUserId(idSession);
 
             Gson gson = new Gson();
-            String jsonResponse = gson.toJson(notifications);
+            String jsonResponse = gson.toJson(notifications);  // 알림 데이터를 JSON 배열로 변환
 
-            response.getWriter().print(jsonResponse);
+            response.getWriter().print(jsonResponse);  // JSON 데이터를 클라이언트에 반환
         } else {
-            // 세션이 없을 경우 빈 JSON 배열 반환
+            // 세션이 없으면 빈 JSON 배열 반환
             response.getWriter().print("[]");
         }
     }
