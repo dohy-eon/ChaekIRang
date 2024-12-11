@@ -68,16 +68,127 @@
 	        const idKey = "<%= idSession %>";
 	        const nickname = "<%= nickname %>";
 	        console.log("토론아이디체크: ", discId);  // 디버깅용
-	        
+	        document.addEventListener("DOMContentLoaded", function () {
+	        	const chatWindow = document.getElementById("chatWindow");
+	            const data = {
+	            	userId: "<%= idSession %>",  
+					discId: "<%= discId %>"
+	            };
+
+	            fetch('/Chaek/favoState', {
+	                method: 'POST',
+	                headers: {
+	                    'Content-Type': 'application/json'
+	                },
+	                body: JSON.stringify(data)
+	            })
+	            .then(response => {
+	                if (!response.ok) {
+	                    throw new Error('서버 요청 실패');
+	                }
+	                return response.json();
+	            })
+	            .then(state => {
+	                const heartButton = document.querySelector('.heart-btn'); // 버튼 셀렉터
+	                const img = heartButton.querySelector('img');
+
+	                // 서버에서 받은 상태를 기반으로 하트 아이콘 업데이트
+	                if (state.isFavorited) {
+	                    img.src = '../img/profile/heart-colored-icon.svg'; // 즐겨찾기 상태
+	                } else {
+	                    img.src = '../img/profile/heart-icon.svg'; // 비활성화 상태
+	                }
+	            })
+	            .catch(error => console.error('에러:', error));
+	         // 기존 채팅 데이터 가져오기
+	            fetch("/Chaek/chatHistory?disc_id="+discId)
+	                .then((response) => response.json())
+	                .then((data) => {
+	                	console.log("서버 응답 데이터:", data); // 디버깅용
+	                    if (Array.isArray(data)) {
+	                        data.forEach((message) => {
+	                            const chatMessage = document.createElement("div");
+	                            chatMessage.className = "chat-message";
+
+	                            const chatUserInfo = document.createElement("div");
+	                            chatUserInfo.className = "chat-userInfo";
+
+	                            const sendUser = document.createElement("p");
+	                            sendUser.className = "chat-user";
+	                            sendUser.textContent = message.nickname;
+
+	                            const text = document.createElement("pre");
+	                            text.className = "chat-text";
+	                            if (message.CommentText) {
+	                                text.textContent = message.CommentText.replace(/\n/g, "<br>");
+	                              }
+
+	                            const timestamp = document.createElement("p");
+	                            timestamp.className = "chat-time";
+	                            timestamp.textContent = message.createdAt.split('.')[0]; // 초단위 소숫점 제거
+
+	                            chatUserInfo.appendChild(sendUser);
+	                            chatUserInfo.appendChild(timestamp);
+	                            chatMessage.appendChild(chatUserInfo);
+	                            chatMessage.appendChild(text);
+
+	                            chatWindow.appendChild(chatMessage);
+	                        });
+
+	                        // 채팅창을 가장 아래로 스크롤
+	                        chatWindow.scrollTop = chatWindow.scrollHeight;
+	                    } else {
+	                        console.warn("데이터포맷다름");
+	                    }
+	                })
+	                .catch((error) => {
+	                    console.error("불러오는중오류:", error);
+	                });
+	        });
+
 	        // 하트 토글
 			function toggleHeart(button) {
+	        	const data = {
+	        			userId: "<%= idSession %>",  
+                        discId: "<%= discId %>"   
+	        	};
 			    var img = button.querySelector('img');
 			    if (img.src.includes('heart-icon.svg')) {
 			        img.src = '../img/profile/heart-colored-icon.svg'; // 클릭 시 하트 색상 변경
+			        fetch('/Chaek/enableFavo', {
+			            method: 'POST',
+			            headers: {
+			                'Content-Type': 'application/json'
+			            },
+			            body: JSON.stringify(data)
+			        })
+			        .then(response => {
+			            if (!response.ok) {
+			                throw new Error('서버 요청 실패');
+			            }
+			            console.log('즐겨찾기 활성화 완료');
+			        })
+			        .catch(error => console.error('에러:', error));
 			    } else {
 			        img.src = '../img/profile/heart-icon.svg'; // 다시 기본 하트로 변경
+			        fetch('/Chaek/disableFavo', {
+			            method: 'POST',
+			            headers: {
+			                'Content-Type': 'application/json'
+			            },
+			            body: JSON.stringify(data)
+			        })
+			        .then(response => {
+			            if (!response.ok) {
+			                throw new Error('서버 요청 실패');
+			            }
+			            console.log('즐겨찾기 비활성화 완료');
+			        })
+			        .catch(error => console.error('에러:', error));
 			    }
 			}
+	        
+	        
 	        
 	        // 맨 위로 버튼
 	        document.getElementById("scrollToTop").addEventListener("click", () => {
@@ -168,54 +279,6 @@
 	                document.getElementById("chatForm").dispatchEvent(new Event("submit")); // Form submit 이벤트 호출
 	            }
 
-<<<<<<< HEAD
-        // WebSocket 서버 URL에 discId 포함
-        const ws = new WebSocket('ws://localhost:8081/Chaek/chat/' + discId);
-
-        ws.onmessage = function(event) {
-            const data = JSON.parse(event.data);
-            console.log(data);
-            const message = data.message;
-            const createdAt = data.createdAt;
-            const chatMessage = document.createElement("div");
-            chatMessage.className = "chat-message";
-
-            const img = document.createElement("img");
-            console.log(data.profileImg); //프로필이미지 체크용
-            img.src = data.profileImg;
-            img.alt = "프로필 이미지";
-            img.className = "profile-img";
-
-            const text = document.createElement("p");
-            text.className = "chat-text";
-            text.textContent = data.nickname+":"+ message;
-
-            const timestamp = document.createElement("span"); // 타임스탬프 출력
-            timestamp.className = "timestamp";
-            timestamp.textContent = "시간: " + createdAt;
-            
-            chatMessage.appendChild(img);
-            chatMessage.appendChild(text);
-            chatMessage.appendChild(timestamp);
-            document.getElementById("chatWindow").appendChild(chatMessage);
-        };
-
-        // 메시지 전송
-		document.getElementById("chatForm").onsubmit = (e) => {
-		    e.preventDefault();
-		    const messageInput = document.getElementById("message");
-		    const idKey = "<%= idSession %>";
-		    console.log(idKey);
-		    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, nickname: nickname }));
-		    messageInput.value = ""; // 입력창 초기화
-		};
-
-        ws.onerror = (error) => {
-            console.error("WebSocket 에러 발생:", error);
-        };
-    </script>
-=======
 	        });
 	    </script>
->>>>>>> 7239df0c0b395c6bc8dc86a41dca434c7ba202c9
 </body>
