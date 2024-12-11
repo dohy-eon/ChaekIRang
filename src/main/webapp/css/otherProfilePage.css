@@ -89,13 +89,13 @@
 .user-datalist {
     max-height: 380px;
     overflow-y: auto; /* 세로 스크롤 추가 */
-    padding: 0 10px;
+    padding: 0 5px;
     width: 500px;
 }
 .user-chatroom {
 	display: flex;
 	flex-direction: row;
-	width: 500px;
+	width: 480px;
 	height: 160px;
 	border: solid 1px #D9D9D9;
 	border-radius: 15px;
