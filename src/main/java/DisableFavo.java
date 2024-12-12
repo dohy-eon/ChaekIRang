@@ -18,7 +18,7 @@ public class DisableFavo extends HttpServlet {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       UserDAO DAO = new UserDAO();
       HttpSession session = request.getSession();
-		
+      
       request.setCharacterEncoding("UTF-8");
       
       StringBuilder sb = new StringBuilder();

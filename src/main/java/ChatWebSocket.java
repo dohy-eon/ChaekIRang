@@ -45,32 +45,6 @@ public class ChatWebSocket {
         System.out.println("Connection closed: " + session.getId() + " from chat room: " + discId);
     }
 
-//    // 채팅방을 떠난 사용자에게만 알림 전송하는 메서드
-//    private void sendNotificationToLeavingUser(String discId, String leavingUserId, String notificationMessage) {
-//        // 떠난 사용자에게만 알림 전송
-//        NotificationDTO notificationDTO = new NotificationDTO();
-//        notificationDTO.setUserId(leavingUserId);
-//        notificationDTO.setDiscId(Integer.parseInt(discId));
-//        notificationDTO.setMessage(notificationMessage);
-//        notificationDTO.setAlarmCreated(new Timestamp(System.currentTimeMillis()));
-//        notificationDTO.setStatus(false);  // 아직 읽지 않은 상태
-//
-//        // 알림을 DB에 추가
-//        notificationDAO.addNotification(notificationDTO);
-//
-//        // 떠난 사용자에게 알림을 보내기
-//        try {
-//            // 채팅방을 떠난 사용자에게만 알림 메시지를 전송
-//            for (Session client : chatRooms.get(discId)) {
-//                if (client.getId().equals(leavingUserId)) {
-//                    client.getBasicRemote().sendText("알림: " + notificationMessage);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     @OnMessage
     public void onMessage(Session session, String message, @PathParam("discId") String discId) {
         // 채팅 메시지에서 사용자 정보를 파싱
@@ -78,19 +52,21 @@ public class ChatWebSocket {
         String userIdFromMessage = jsonMessage.get("id").getAsString();
         String commentText = jsonMessage.get("message").getAsString();
 
-        // 사용자의 nickname과 profileImg를 DB에서 불러오기
+        // 사용자의 nickname과 profileImg, user_id를 DB에서 불러오기
         UserDAO userDAO = new UserDAO();
         UserDTO user = userDAO.getUserInfo(userIdFromMessage);  // userIdFromMessage에 해당하는 user 정보 가져오기
-
-        // nickname과 profileImg 가져오기
+        
+        // nickname과 profileImg, user_id 가져오기
         String nickname = user.getNickname();
         String profileImg = user.getProfile_img() != null ? user.getProfile_img() : "../img/profile/profilepic.jpg";  // 기본 이미지 설정
-
+        String userId = user.getUser_id();
+        
         // 현재 시간 구하기 (created_at)
         Timestamp createdAt = new Timestamp(System.currentTimeMillis());
 
-        // 메시지에 nickname, profileImg, createdAt 추가
+        // 메시지에 user_id, nickname, profileImg, createdAt 추가
         JsonObject responseMessage = new JsonObject();
+        responseMessage.addProperty("user_id", userId);
         responseMessage.addProperty("nickname", nickname);
         responseMessage.addProperty("profileImg", profileImg);
         responseMessage.addProperty("message", commentText);
@@ -141,7 +117,7 @@ public class ChatWebSocket {
 
 
 
-    // 알림 전송 메서드
+    // 알림 전송 메서드 이거아님
 //    private void sendNotificationToUser(String userId, String notificationMessage, int discId) {
 //        NotificationDTO notificationDTO = new NotificationDTO();
 //        notificationDTO.setUserId(userId);

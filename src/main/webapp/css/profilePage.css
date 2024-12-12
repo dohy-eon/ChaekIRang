@@ -125,29 +125,35 @@
 	font-size: 24px;
 	margin-bottom: 40px;
 }
-.user-datalist {
+.user-datalist,
+.user-datalist2 {
     max-height: 220px;
     overflow-y: auto; /* 세로 스크롤 추가 */
 }
 		/* 스크롤바 크기 */
-		.user-datalist::-webkit-scrollbar {
+		.user-datalist::-webkit-scrollbar,
+		.user-datalist2::-webkit-scrollbar {
 		    width: 8px;
 		    height: 8px;
 		}
 		 /* 스크롤바 색상 */
-		.user-datalist::-webkit-scrollbar-thumb {
+		.user-datalist::-webkit-scrollbar-thumb,
+		.user-datalist2::-webkit-scrollbar-thumb {
 		    background: #888;
 		    border-radius: 10px;
 		}
-		.user-datalist::-webkit-scrollbar-thumb:hover {
+		.user-datalist::-webkit-scrollbar-thumb:hover,
+		.user-datalist2::-webkit-scrollbar-thumb:hover {
 		    background: #555;
 		}
 		 /* 스크롤 트랙 배경 */
-		.user-datalist::-webkit-scrollbar-track {
+		.user-datalist::-webkit-scrollbar-track,
+		.user-datalist2::-webkit-scrollbar-track {
 		    background: #f0f0f0;
 		    border-radius: 10px;
 		}
-		.user-datalist::-webkit-scrollbar-track:hover {
+		.user-datalist::-webkit-scrollbar-track:hover,
+		.user-datalist2::-webkit-scrollbar-track:hover {
 		    background: #e0e0e0;
 		}
 

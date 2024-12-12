@@ -2,6 +2,7 @@ public class ChatMessageDTO {
     private String nickname;
     private String CommentText;
     private String createdAt;
+    private String userId;
 
     // Getter와 Setter 메서드
     public String getNickname() {
@@ -26,5 +27,13 @@ public class ChatMessageDTO {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

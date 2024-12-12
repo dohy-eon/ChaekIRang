@@ -603,7 +603,7 @@ public class UserDAO {
 	        e.printStackTrace();
 	    }
 	    return false;
-	}
+  }
 	public boolean addFavo(String userId, String discId) {
 	    String query = "INSERT INTO favoD (user_id, disc_id) VALUES (?, ?)";
 	    try (Connection conn = JDBCUtil.getConnection();
@@ -646,6 +646,5 @@ public class UserDAO {
 	    }
 	    return 0; // 실패시.
 	}
-
 
 }
