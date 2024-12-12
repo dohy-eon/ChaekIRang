@@ -1,9 +1,9 @@
 <!--<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>-->
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="discussion.DiscussInfo" %>
+<%@ page import="DTO.DiscussInfo" %>
 <%@ page import="com.google.gson.Gson" %>
-<%@ page import="userinfo.UserDAO" %>
+<%@ page import="DAO.UserDAO" %>
 <%@ page import="java.util.Base64" %>
     
 
@@ -165,6 +165,11 @@
 	                data.forEach(function(discussInfo) {  // 'discussionDetails' 대신 'data'
 	                    var chatroomDiv = document.createElement('div');
 	                    chatroomDiv.classList.add('user-chatroom');
+	                    
+	                    const discId = discussInfo.disc_id;
+	                    chatroomDiv.addEventListener("click", function() {
+	                        window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
+	                    });
 
 	                    // 책 커버 이미지
 	                    var bookcoverDiv = document.createElement('div');
