@@ -320,6 +320,12 @@
     color: #666;
     line-height: 1.5;
     margin: 0;
+    /*4줄 넘어가면 생략*/
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .part2-discuss-head {
 	display: flex;
