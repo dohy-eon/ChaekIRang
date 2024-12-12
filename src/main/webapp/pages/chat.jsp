@@ -3,9 +3,9 @@
 <head>
 <%@ page import="java.io.*" %>
 <%@ page import="java.util.List" %>
-<%@ page import="discussion.DiscussInfo" %>
+<%@ page import="DTO.DiscussInfo" %>
 <%@ page import="com.google.gson.Gson" %>
-<%@ page import="userinfo.UserDAO" %>
+<%@ page import="DAO.UserDAO" %>
 <%@ page import="java.util.Base64" %>
  
 <%
