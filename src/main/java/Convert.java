@@ -55,9 +55,6 @@ public class Convert extends HttpServlet {
         
         // 파일 저장 경로 설정
         File uploadFile = new File(UPLOAD_DIR + fileName);
-        if (!uploadFile.exists()) {
-        	uploadFile.mkdirs();
-        }
         
         // 파일 저장
         filePart.write(uploadFile.getAbsolutePath());
