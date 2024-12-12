@@ -621,7 +621,7 @@ public class UserDAO {
 	    }
 	}
 	public int getComment(String discId) {
-	    String query = "SELECT COUNT(*) FROM comments c JOIN discussions d ON c.disc_id = ?";
+	    String query = "SELECT COUNT(*) FROM comments c JOIN discussions d ON c.disc_id = d.disc_id where d.disc_id = ?";
 	    try (Connection conn = JDBCUtil.getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(query)) {
 	        pstmt.setString(1, discId); // discId
