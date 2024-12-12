@@ -60,6 +60,7 @@
 	font-size: 24px;
 }
 .discuss-detail {
+	height: 640px;
 	margin-top: 40px;
 	font-size: 16px;
 	font-family: "GmarketSansLight", Helvetica;
@@ -112,37 +113,7 @@
 	    border-radius: 5px;
 	    background-color: rgb(245, 245, 245);
 	}
-    	/* 스크롤바 크기 */
-		#chatWindow::-webkit-scrollbar,
-		#message::-webkit-scrollbar,
-		.discuss-detail::-webkit-scrollbar {
-		    width: 8px;
-		    height: 8px;
-		}
-		 /* 스크롤바 색상 */
-		#chatWindow::-webkit-scrollbar-thumb,
-		#message::-webkit-scrollbar-thumb,
-		.discuss-detail::-webkit-scrollbar-thumb {
-		    background: #888;
-		    border-radius: 10px;
-		}
-		#chatWindow::-webkit-scrollbar-thumb:hover,
-		#message::-webkit-scrollbar-thumb:hover,
-		.discuss-detail::-webkit-scrollbar-thumb:hover {
-		    background: #555;
-		}
-		 /* 스크롤 트랙 배경 */
-		#chatWindow::-webkit-scrollbar-track,
-		#message::-webkit-scrollbar-track,
-		.discuss-detail::-webkit-scrollbar-track {
-		    background: #f0f0f0;
-		    border-radius: 10px;
-		}
-		#chatWindow::-webkit-scrollbar-track:hover,
-		#message::-webkit-scrollbar-track:hover,
-		.discuss-detail::-webkit-scrollbar-track:hover {
-		    background: #e0e0e0;
-		}
+    	
     #message /*텍스트박스*/{
         min-width: 490px;
         height: 80px;
@@ -209,3 +180,36 @@
 		margin-top: 20px;
 	}
 	
+	
+	
+/* 스크롤바 크기 */
+#chatWindow::-webkit-scrollbar,
+#message::-webkit-scrollbar,
+.discuss-detail::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+ /* 스크롤바 색상 */
+#chatWindow::-webkit-scrollbar-thumb,
+#message::-webkit-scrollbar-thumb,
+.discuss-detail::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+#chatWindow::-webkit-scrollbar-thumb:hover,
+#message::-webkit-scrollbar-thumb:hover,
+.discuss-detail::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+ /* 스크롤 트랙 배경 */
+#chatWindow::-webkit-scrollbar-track,
+#message::-webkit-scrollbar-track,
+.discuss-detail::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+#chatWindow::-webkit-scrollbar-track:hover,
+#message::-webkit-scrollbar-track:hover,
+.discuss-detail::-webkit-scrollbar-track:hover {
+    background: #e0e0e0;
+}

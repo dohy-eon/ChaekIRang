@@ -173,8 +173,9 @@
     flex-direction: column;
     gap: 10px; /* 타이틀과 소개글 간 간격 */
     padding: 10px 0;
+    width: 300px;
 }
-.popular-discussions li .title {
+.popular-discussions li .discussion-title {
     font-size: 16px;
     font-weight: bold;
     color: black;
@@ -184,13 +185,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.popular-discussions li .description {
+.popular-discussions li .discussion-description {
     font-size: 14px;
     color: #666;
     margin: 0;
-    /*4줄 넘어가면 생략*/
+    /*6줄 넘어가면 생략*/
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical; 
     overflow: hidden;
     text-overflow: ellipsis;
