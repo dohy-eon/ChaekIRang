@@ -5,6 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="css/index.css" />
+    <title>책이랑</title>
   </head>
   <body>
     <div class="div-wrapper">

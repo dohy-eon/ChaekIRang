@@ -24,7 +24,6 @@
             <th>아이디</th>
             <th>닉네임</th>
             <th>이메일</th>
-            <th>프로필 이미지</th>
             <th>관리</th>
         </tr>
     </thead>
@@ -67,15 +66,6 @@
                         const emailCell = document.createElement('td');
                         emailCell.textContent = member.email;
                         row.appendChild(emailCell);
-
-                        // 프로필 이미지 셀
-                        const profileCell = document.createElement('td');
-                        const profileImg = document.createElement('img');
-                        profileImg.src = member.profile_img !== "0" ? '/images/' + member.profile_img : '/img/profile/profilepic.jpg';
-                        profileImg.alt = "프로필";
-                        profileImg.width = 50;
-                        profileCell.appendChild(profileImg);
-                        row.appendChild(profileCell);
 
                         // 관리 버튼 셀
                         const actionCell = document.createElement('td');
