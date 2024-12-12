@@ -604,6 +604,48 @@ public class UserDAO {
 	    }
 	    return false;
 	}
+	public boolean addFavo(String userId, String discId) {
+	    String query = "INSERT INTO favoD (user_id, disc_id) VALUES (?, ?)";
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+	        pstmt.setString(1, userId);
+	        pstmt.setString(2, discId);
+	        int insertState = pstmt.executeUpdate();
+
+	        return insertState > 0;
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	public int getComment(String discId) {
+	    String query = "SELECT COUNT(*) FROM comments c JOIN discussions d ON c.disc_id = ?";
+	    try (Connection conn = JDBCUtil.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(query)) {
+	        pstmt.setString(1, discId); // discId
+	        ResultSet rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            int count = rs.getInt(1);
+	            System.out.println("조인된 레코드 갯수: " + count); // 디버깅
+	            
+	            String updateQuery = "UPDATE discussions SET comment = ? WHERE disc_id = ?";
+	            PreparedStatement updatePstmt = conn.prepareStatement(updateQuery);
+	            updatePstmt.setInt(1, count);
+	            updatePstmt.setString(2, discId);
+	            updatePstmt.executeUpdate();
+	            return count;
+	        } else {
+	            
+	            System.out.println("댓글이 존재하지 않는 discId 입니다 : " + discId);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return 0; // 실패시.
+	}
 
 
 }

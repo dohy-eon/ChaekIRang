@@ -47,7 +47,7 @@ public class DList extends HttpServlet {
             jsonObject.addProperty("description", discussInfo.getDescription());
             jsonObject.addProperty("genre", discussInfo.getGenre());
             jsonObject.addProperty("time_created", discussInfo.getTime_created());
-            jsonObject.addProperty("comment", discussInfo.getComment());
+            jsonObject.addProperty("comment", DAO.getComment(discussInfo.getDisc_id()));
             jsonObject.addProperty("disc_id", discussInfo.getDisc_id());
             
 
