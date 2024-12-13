@@ -8,6 +8,7 @@ public class NotificationDTO {
     private String message;
     private Timestamp alarmCreated;
     private boolean status;
+    private String title;
 
     // 기본 생성자 추가
     public NotificationDTO() {
@@ -69,4 +70,12 @@ public class NotificationDTO {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public String getTitle() {
+    	return title;
+    }
+	public void setTitle(String title) {
+		this.title = title;// TODO Auto-generated method stub
+		
+	}
 }

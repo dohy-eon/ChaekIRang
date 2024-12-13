@@ -29,5 +29,8 @@ public class NotificationServlet extends HttpServlet {
             // 세션이 없으면 빈 JSON 배열 반환
             response.getWriter().print("[]");
         }
+        
+        
+        
     }
 }

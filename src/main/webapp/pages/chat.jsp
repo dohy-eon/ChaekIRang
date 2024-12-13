@@ -10,9 +10,10 @@
  
 <%
     //String idSession = (String)session.getAttribute("idSession"); 헤더에서 이미 선언했음
-    String nickname = (String)session.getAttribute("userNickname");
+   String nickname = (String)session.getAttribute("userNickname");
      
    String discId = request.getParameter("disc_id");  // URL에서 disc_id 파라미터 가져오기
+   
 %>
 
     <meta charset="UTF-8">
@@ -72,7 +73,7 @@
               const chatWindow = document.getElementById("chatWindow");
                const data = {
                   userId: "<%= idSession %>",  
-               discId: "<%= discId %>"
+               	  discId: "<%= discId %>"
                };
 
                fetch('/Chaek/favoState', {
@@ -100,6 +101,59 @@
                    }
                })
                .catch(error => console.error('에러:', error));
+               fetch("/Chaek/delAlarm", {
+           	    method: 'POST',
+           	    headers: {
+           	        'Content-Type': 'application/json'
+           	    },
+           	    body: JSON.stringify(data)
+           	})
+           	.then(response => {
+           	    if (!response.ok) {
+           	        throw new Error('서버 요청 실패');
+           	    }
+           	    return response.json();
+           	})
+           	.then(result => {
+           	    if (result.isSuccess) {
+           	        console.log("알람 정보가 성공적으로 업데이트되었습니다.");
+           	        // 필요한 경우 성공 메시지 표시
+           	    } else {
+           	        console.log("알람 정보 업데이트 중 오류 발생.");
+           	        // 실패 메시지 표시
+           	    }
+           	})
+           	.catch(error => {
+           	    console.log("요청 중 오류 발생:", error);
+           	    // 사용자에게 오류 알림 표시
+           	});
+               fetch("/Chaek/updateLog", {
+            	    method: 'POST',
+            	    headers: {
+            	        'Content-Type': 'application/json'
+            	    },
+            	    body: JSON.stringify(data)
+            	})
+            	.then(response => {
+            	    if (!response.ok) {
+            	        throw new Error('서버 요청 실패');
+            	    }
+            	    return response.json();
+            	})
+            	.then(result => {
+            	    if (result.isSuccess) {
+            	        console.log("접속 로그가 성공적으로 업데이트되었습니다.");
+            	        // 필요한 경우 성공 메시지 표시
+            	    } else {
+            	        console.log("접속 로그 업데이트 중 오류 발생.");
+            	        // 실패 메시지 표시
+            	    }
+            	})
+            	.catch(error => {
+            	    console.log("요청 중 오류 발생:", error);
+            	    // 사용자에게 오류 알림 표시
+            	});
+               		
             // 기존 채팅 데이터 가져오기
                fetch("/Chaek/chatHistory?disc_id="+discId)
                    .then((response) => response.json())
@@ -145,6 +199,7 @@
                    .catch((error) => {
                        console.error("불러오는중오류:", error);
                    });
+            
            });
 
            // 하트 토글
@@ -216,7 +271,7 @@
 		    });
 	
 	        // WebSocket 서버 URL에 discId 포함
-	        const ws = new WebSocket('ws://localhost:8081/Chaek/chat/' + discId);
+	        const ws = new WebSocket('ws://localhost:8081/Chaek/chat/' + discId+'/'+idKey);
 	
 	        ws.onmessage = function(event) {
 	            const data = JSON.parse(event.data);
@@ -256,8 +311,7 @@
 			document.getElementById("chatForm").onsubmit = (e) => {
 			    e.preventDefault();
 			    const messageInput = document.getElementById("message");
-			    const idKey = "<%= idSession %>";
-			    console.log(idKey);
+			    //const idKey = "<%= idSession %>";
 			    ws.send(JSON.stringify({ id: idKey, message: messageInput.value, nickname: nickname }));
 			    messageInput.value = ""; // 입력창 초기화
 			};
