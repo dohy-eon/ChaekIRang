@@ -240,7 +240,7 @@
     fetch('/Chaek/NotificationServlet')
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error('서버 요청 실패');
             }
             return response.json();
         })
@@ -274,7 +274,7 @@
 
                         // 설명 부분
                         const descriptionElement = document.createElement('div');
-                        descriptionElement.textContent = notification.description;
+                        descriptionElement.textContent = notification.message;
 
                         // 요소들 추가
                         notificationElement.appendChild(titleElement);

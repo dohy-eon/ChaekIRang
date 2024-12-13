@@ -13,29 +13,41 @@ import DAO.NotificationDAO;
 import DAO.UserDAO;
 import DTO.UserDTO;
 
-@ServerEndpoint("/chat/{discId}")
+@ServerEndpoint("/chat/{discId}/{idKey}")
 public class ChatWebSocket {
     private static Map<String, Set<Session>> chatRooms = new HashMap<>();  // discId별 채팅방 관리
-    private static NotificationDAO notificationDAO = new NotificationDAO(); // NotificationDAO 추가
+    private static NotificationDAO NDAO = new NotificationDAO(); // NotificationDAO 추가
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("discId") String discId) {
+    public void onOpen(Session session, @PathParam("discId") String discId, @PathParam("idKey") String userId) {
         // 해당 disc_id에 채팅방이 없으면 새로 생성
         chatRooms.putIfAbsent(discId, new HashSet<>());
         
         // 해당 채팅방에 새 세션 추가
         chatRooms.get(discId).add(session);
+        
 
-        System.out.println("New connection: " + session.getId() + " to chat room: " + discId);
+        System.out.println("New connection: " + session.getId() + " to chat room: " + discId + " with user ID: " + userId);
     }
 
     @OnClose
-    public void onClose(Session session, @PathParam("discId") String discId) {
-        // 채팅방에서 해당 세션 제거
+    public void onClose(Session session, @PathParam("discId") String discId, @PathParam("idKey") String userId) {
+    	
+    	// 채팅방에서 해당 세션 제거
         chatRooms.get(discId).remove(session);
         
         // 채팅방을 떠난 사용자 ID
-        String leavingUserId = session.getId();
+        int discIdInt = Integer.parseInt(discId);
+        boolean isSuccess = NDAO.updateExitTime(userId, discIdInt);
+        if (isSuccess) {
+        	System.out.println("떠난 사용자 아이디 :" + userId);
+        	System.out.println("떠난 시간 기록 성공");
+        } else {
+        	System.out.println("에러발생");
+        }
+        
+        
+        
 
         // 해당 채팅방에서 떠난 사용자에게 알림 전송
 //        sendNotificationToLeavingUser(discId, leavingUserId, leavingUserId + "님이 채팅방을 떠났습니다.");
@@ -49,7 +61,7 @@ public class ChatWebSocket {
     }
 
     @OnMessage
-    public void onMessage(Session session, String message, @PathParam("discId") String discId) {
+    public void onMessage(Session session, String message, @PathParam("discId") String discId, @PathParam("idKey") String userId) {
         // 채팅 메시지에서 사용자 정보를 파싱
         JsonObject jsonMessage = JsonParser.parseString(message).getAsJsonObject();
         String userIdFromMessage = jsonMessage.get("id").getAsString();
@@ -62,7 +74,7 @@ public class ChatWebSocket {
         // nickname과 profileImg, user_id 가져오기
         String nickname = user.getNickname();
         String profileImg = user.getProfile_img() != null ? user.getProfile_img() : "../img/profile/profilepic.jpg";  // 기본 이미지 설정
-        String userId = user.getUser_id();
+        //String userId = user.getUser_id();
         
         // 현재 시간 구하기 (created_at)
         Timestamp createdAt = new Timestamp(System.currentTimeMillis());
@@ -115,6 +127,10 @@ public class ChatWebSocket {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        NotificationDAO NDAO = new NotificationDAO();
+        NDAO.updateAccess(userIdFromMessage, Integer.parseInt(discId));
+        NDAO.sendNotificationToFavoUsers(Integer.parseInt(discId), commentText, userIdFromMessage);
+        
     }
 
 
