@@ -12,8 +12,8 @@
         #loadingSpinner {
             width: 50px;
             height: 50px;
-            border: 5px solid #3AB8EB;
-            border-top: 5px solid black; /* 상단 테두리 색상 */
+            border: 5px solid #3E3E3E;
+            border-top: 5px solid #D9D9D9; /* 상단 테두리 색상 */
             border-radius: 50%; /* 원형으로 만들기 */
             margin: 30px auto;
             animation: spin 1s linear infinite;

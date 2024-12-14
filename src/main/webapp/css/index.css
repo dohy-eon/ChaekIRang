@@ -335,13 +335,16 @@
 }
 .part2-morebtn {
 	border-radius: 15px;
-	background-color: black;
+	background-color: #3E3E3E;
 	color: white;
 	padding: 10px 0px;
 	width: 150px;
 	text-align: center;
 	font-family: "GmarketSansLight", Helvetica;
 	cursor: pointer;
+}
+.part2-morebtn:hover {
+	background-color: black;
 }
 .part2-morebtn > a {
 	text-decoration: none;
@@ -455,10 +458,10 @@
 }
 @keyframes colorChange {
     0% {
-        color: #3AB8EB
+        color: #D9D9D9;
     }
     50% {
-        color: #0056b3;
+        color: #3E3E3E;
     }
     100% {
         color: black;
