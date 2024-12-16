@@ -173,8 +173,9 @@
   padding: 10px 16px;
 }
 .alarm-modal-detail {
+  text-decoration: none;
   margin: 10px 0;
-  padding: 5px 15px;
+  padding: 10px 15px;
   border: solid 1px #D9D9D9;
   border-radius: 5px;
   box-shadow: 1px 1px 2px #D9D9D9;
@@ -186,6 +187,19 @@
 }
 .alarm-modal-detail-title {
   font-weight: bold;
+  /* 텍스트를 한 줄로 유지 */
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+.alarm-modal-detail-description {
+  /*4줄 넘어가면 생략*/
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .alarm-modal.show {
   opacity: 1;
@@ -267,6 +281,11 @@
                         const notificationElement = document.createElement('div');
                         notificationElement.classList.add('alarm-modal-detail');
 
+                     	// 클릭 시 링크로 이동
+                        notificationElement.addEventListener('click', () => {
+                            window.location.href = "/Chaek/pages/chat.jsp?disc_id="+notification.discId;
+                        });
+                     
                         // 제목 부분
                         const titleElement = document.createElement('div');
                         titleElement.classList.add('alarm-modal-detail-title');
@@ -274,7 +293,8 @@
 
                         // 설명 부분
                         const descriptionElement = document.createElement('div');
-                        descriptionElement.textContent = notification.message;
+                        descriptionElement.className = "alarm-modal-detail-description";
+                        descriptionElement.textContent = "새 메세지: "+notification.message;
 
                         // 요소들 추가
                         notificationElement.appendChild(titleElement);

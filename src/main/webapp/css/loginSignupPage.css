@@ -78,7 +78,7 @@ form h2 {
 
 
 .submitbtn {
-	background: #3AB8EB;
+	background: #3E3E3E;
     color: #fff;
     padding: 10px;
     border: none;
@@ -91,7 +91,7 @@ form h2 {
 }
 
 form button:hover {
-    background: #0056b3;
+    background: black;
 }
 
 .letsjoin {
@@ -105,10 +105,10 @@ form button:hover {
 }
 @keyframes colorChange {
     0% {
-        color: #3AB8EB
+        color: #D9D9D9
     }
     50% {
-        color: #0056b3;
+        color: #3E3E3E;
     }
     100% {
         color: black;
