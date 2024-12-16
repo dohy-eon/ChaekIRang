@@ -59,7 +59,6 @@
                 // 각 항목에 클릭 이벤트 리스너 추가
                 item.addEventListener("click", function() {
                     const discId = item.getAttribute("data-disc-id");
-                    // 클릭된 토론 ID를 기반으로 discussChatPage.jsp로 이동 (나중에 수정해야함 일단chat으로 넘김)
                     window.location.href = "/Chaek/pages/chat.jsp?disc_id=" + discId;
                 });
             });

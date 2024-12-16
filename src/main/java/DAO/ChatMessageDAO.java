@@ -51,8 +51,6 @@ public class ChatMessageDAO {
 
 	        if (rs.next()) {
 	            int count = rs.getInt(1);
-	            System.out.println("조인된 레코드 갯수: " + count); // 디버깅
-	            
 	            String updateQuery = "UPDATE discussions SET comment = ? WHERE disc_id = ?";
 	            PreparedStatement updatePstmt = conn.prepareStatement(updateQuery);
 	            updatePstmt.setInt(1, count);
