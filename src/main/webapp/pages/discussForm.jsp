@@ -106,7 +106,6 @@
         </div>
     </div>
 
-<!-- AJAX 처리 스크립트 -->
 <script>
     document.getElementById("searchForm").addEventListener("submit", function (e) {
         e.preventDefault(); // 폼 제출 기본 동작 방지
