@@ -183,7 +183,7 @@ select#genre {
     padding: 10px; 
     font-size: 16px; 
     border-radius: 8px; 
-    border: 2px solid #3AB8EB; 
+    border: 2px solid #3e3e3e; 
     transition: all 0.3s ease-in-out;
     font-family: "GmarketSansLight", Helvetica, sans-serif;
     margin-bottom: 30px;
@@ -205,7 +205,7 @@ option[value=""]:disabled {
     padding: 10px 0;
     font-size: 20px;
     color: #fff;
-    background-color : #3AB8EB;
+    background-color : #3e3e3e;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -213,5 +213,5 @@ option[value=""]:disabled {
     font-family: "GmarketSansMedium", Helvetica;;
 }
 .discussForm button:hover {
-    background-color: #0056b3;
+    background-color: #000000;
 }
