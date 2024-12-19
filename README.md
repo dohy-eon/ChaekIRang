@@ -1,7 +1,6 @@
-# ChaekIRang
+# 책이랑
 
-### 기획배경  
-***
+## 기획배경  
 
 <b>책이랑은 독서의 가치를 나누는 독서 커뮤니티 플랫폼입니다.</b>
 
@@ -11,19 +10,27 @@
 '책'에서만 느낄 수 있는 가치를 많은 사람들이 조금 더 편하게 접근하고, 서로 나눌 수 있게 하고싶다. 라는 생각에서 이 웹 사이트를 기획하게 되었습니다.
 
 
-### 기능구조 (IA)
-***
+## 기능구조 (IA)
 ![IA](https://github.com/user-attachments/assets/6db95636-1407-47da-96c1-8bd8589d018e)
 
 
-### ERD
-***
+## ERD
 ![image](https://github.com/user-attachments/assets/b5138dee-f826-4527-89c5-d80e82ebeeab)
 
-### 실행 스크린샷
-***
+## 실행 스크린샷
 ![image](https://github.com/user-attachments/assets/340da202-61fd-490c-8885-036fb3354217)
 ![image](https://github.com/user-attachments/assets/ac85db81-8dae-4945-a160-e22e9b6ab2e7)
 ![image](https://github.com/user-attachments/assets/b4b14991-2dce-4bd1-ad91-88eb5fe85845)
 ![image](https://github.com/user-attachments/assets/b9815fe9-0e85-4c7b-a49c-94a520029dea)
 ![image](https://github.com/user-attachments/assets/a660d665-ab65-458d-996f-969f22125a40)
+
+## 팀원 소개
+<table>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/titeotty"><img src="https://avatars.githubusercontent.com/u/74049556?v=4" width="100px;" alt=""/><br /><sub><b> 최도현 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/sooh329"><img src="https://avatars.githubusercontent.com/u/134276531?v=4" width="100px;" alt=""/><br /><sub><b> 김수현 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/Vloeiolzlr"><img src="https://avatars.githubusercontent.com/u/68054919?v=4" width="100px;" alt=""/><br /><sub><b> 김동민 </b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
