@@ -17,12 +17,13 @@
 ## ERD
 ![image](https://github.com/user-attachments/assets/b5138dee-f826-4527-89c5-d80e82ebeeab)
 
-## 실행 스크린샷
-![image](https://github.com/user-attachments/assets/340da202-61fd-490c-8885-036fb3354217)
-![image](https://github.com/user-attachments/assets/ac85db81-8dae-4945-a160-e22e9b6ab2e7)
-![image](https://github.com/user-attachments/assets/b4b14991-2dce-4bd1-ad91-88eb5fe85845)
-![image](https://github.com/user-attachments/assets/b9815fe9-0e85-4c7b-a49c-94a520029dea)
-![image](https://github.com/user-attachments/assets/a660d665-ab65-458d-996f-969f22125a40)
+## 시연 영상
+<a href="https://youtu.be/_1pr1QRG7AQ" target="_blank">
+  <img src="https://img.youtube.com/vi/_1pr1QRG7AQ/0.jpg" width="1080" height="720" />
+</a>
+
+[![책이랑](https://img.youtube.com/vi/_1pr1QRG7AQ/0.jpg)](https://youtu.be/_1pr1QRG7AQ)
+
 
 ## 팀원 소개
 <table>
