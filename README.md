@@ -18,12 +18,7 @@
 ![image](https://github.com/user-attachments/assets/b5138dee-f826-4527-89c5-d80e82ebeeab)
 
 ## 시연 영상
-<a href="https://youtu.be/_1pr1QRG7AQ" target="_blank">
-  <img src="https://img.youtube.com/vi/_1pr1QRG7AQ/0.jpg" width="1080" height="720" />
-</a>
-
-[![책이랑](https://img.youtube.com/vi/_1pr1QRG7AQ/0.jpg)](https://youtu.be/_1pr1QRG7AQ)
-
+[![시연](https://img.youtube.com/vi/_1pr1QRG7AQ/0.jpg)](https://youtu.be/_1pr1QRG7AQ)
 
 ## 팀원 소개
 <table>
