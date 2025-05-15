@@ -24,7 +24,7 @@
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/titeotty"><img src="https://avatars.githubusercontent.com/u/74049556?v=4" width="100px;" alt=""/><br /><sub><b> 최도현 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/dohy-eon"><img src="https://avatars.githubusercontent.com/u/74049556?v=4" width="100px;" alt=""/><br /><sub><b> 최도현 </b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/sooh329"><img src="https://avatars.githubusercontent.com/u/134276531?v=4" width="100px;" alt=""/><br /><sub><b> 김수현 </b></sub></a><br /></td>
       <td align="center"><a href="https://github.com/Vloeiolzlr"><img src="https://avatars.githubusercontent.com/u/68054919?v=4" width="100px;" alt=""/><br /><sub><b> 김동민 </b></sub></a><br /></td>
     </tr>
